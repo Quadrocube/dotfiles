@@ -335,8 +335,8 @@
        {:des "domains (chrome)"
           :rules [:c-mode
                   [:i [:app "Google Chrome" "Vladislav"]]
-                  [:u [:app "Google Chrome" "grail"]]
                   [:j [:km "grail: open console"]]
+                  [:u [:app "Google Chrome" "Vlad"]]
                   ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=) 
                   ; [:!Sequal_sign [:send_to_desktop 16]]
 
