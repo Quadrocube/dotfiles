@@ -22,9 +22,10 @@ alias moenc="gocryptfs ~/Syncthing/encrypted/gocryptfs /enc"
 
 # Aliases.k8s
 alias s='stern --kubeconfig=kubeconfig'
-alias k='cloudkey msk/dev kubectl '
-alias km='cloudkey grail-prod-mrd/admin kubectl '
-alias kp='cloudkey msk/dev kubectl -n pgopal'
+alias ck='cloudkey clinical/dev kubectl '
+alias rk='cloudkey msk/dev kubectl '
+alias gk='cloudkey grail-prod-galleri/admin kubectl '
+alias mk='cloudkey grail-prod-mrd/admin kubectl '
 alias kk='kubectl config use-context '
 
 # Completions
