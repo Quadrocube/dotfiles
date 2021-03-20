@@ -47,7 +47,6 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 
 (package! spacemacs-theme)
-(package! org-gcal)
 (package! cl-lib)
 (package! nova-theme)
 (package! org-pomodoro)

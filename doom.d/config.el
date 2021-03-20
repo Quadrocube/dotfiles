@@ -8,6 +8,7 @@
 ;;; https://gitlab.com/dwt1/dotfiles/-/tree/master/.doom.d
 ;;; https://github.com/fuxialexander/doom-emacs-private-xfu
 ;;; https://hugocisneros.com/org-config/
+;;; https://www.soitflows.xyz/posts/my-doom-emacs-configuration/
 
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -1198,7 +1199,7 @@
     (add-to-list 'org-gcal-fetch-event-filters 'cce/filter-gcal-event-declined)
     (defun spolakh/org-gcal-sync ()
       (interactive)
-      (org-gcal-sync t))
+      (org-gcal-sync t t))
     (defun spolakh/wipe-work-gcal-and-refetch ()
       (interactive)
       ;(with-current-buffer
@@ -1206,7 +1207,8 @@
       ;  (erase-buffer)
       ;  (save-buffer))
       (call-interactively #'spolakh/org-gcal-sync)
-      (message "org-gcal-fetch finished"))
+      ;(message "org-gcal-fetch finished")
+      )
     (run-with-idle-timer 60 t 'spolakh/wipe-work-gcal-and-refetch)
 )
 
@@ -1281,7 +1283,7 @@
            "**** %?"
            ;:immediate-finish t
            :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-           :head "#+TITLE: %<%Y-%m-%d>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n\n* What's on your mind?\n* [[roam:§ Shi-Ne Meditation Journal]]\n")
+           :head "#+TITLE: %<%Y-%m-%d>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n\n[[roam:§ Shi-Ne Meditation Journal]]\n\n* What's on your mind?\n")
         ))
   (map! :map org-roam-mode-map
         :leader

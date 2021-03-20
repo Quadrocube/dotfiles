@@ -27,15 +27,15 @@
 
 ;;; Code:
 
-(defcustom auto-dark-emacs/dark-theme 'doom-gruvbox
+(defcustom auto-dark-emacs/dark-theme 'wombat
   "The theme to enable when dark-mode is active"
   :group 'auto-dark-emacs)
 
-(defcustom auto-dark-emacs/light-theme 'modus-operandi
+(defcustom auto-dark-emacs/light-theme 'leuven
   "The theme to enable when dark-mode is inactive"
   :group 'auto-dark-emacs)
 
-(defcustom auto-dark-emacs/polling-interval-seconds 3
+(defcustom auto-dark-emacs/polling-interval-seconds 5
   "The number of seconds between which to poll for dark mode state. Emacs must be restarted for this value to take effect"
   :group 'auto-dark-emacs
   :type 'integer)
@@ -91,4 +91,3 @@ end tell")))
 (run-with-timer 0 auto-dark-emacs/polling-interval-seconds 'auto-dark-emacs/check-and-set-dark-mode)
 
 (provide 'auto-dark-emacs)
-
