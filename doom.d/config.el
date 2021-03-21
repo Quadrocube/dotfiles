@@ -307,7 +307,9 @@
         spolakh/org-dailies-directory "~/Dropbox/org/notes/private/dailies/"
         spolakh/org-phone-directory "~/Dropbox/org/notes/private/phone/"
         spolakh/org-gcal-directory "~/Dropbox/org/cal/"
-        spolakh/org-directory "~/Dropbox/org/")
+        spolakh/org-directory "~/Dropbox/org/"
+        spolakh/org-roam-directory (file-truename (concat spolakh/org-directory "/notes/"))
+        )
 
   (set-face-attribute 'org-document-title nil :inherit 'org-level-8 :height 2.074 :weight 'normal)
 
@@ -415,11 +417,12 @@
                             ;(:endgrouptag)
                             )))
   (setq org-fast-tag-selection-single-key nil)
-  (setq org-refile-targets `((,(concat spolakh/org-agenda-directory "later.org.gpg") :maxlevel . 1)
-                              (,(concat spolakh/org-agenda-directory "repeaters.org.gpg") :level . 0)
-                              (,(concat spolakh/org-agenda-directory "inbox.org.gpg") :level . 0)
-                              (,(concat spolakh/org-agenda-directory "projects.org.gpg") :maxlevel . 1)
-                              (nil :maxlevel . 3)))
+  (setq org-refile-targets `((,(concat spolakh/org-agenda-directory "later.org.gpg") . (:maxlevel . 1))
+                              (,(concat spolakh/org-agenda-directory "repeaters.org.gpg") . (:level . 0))
+                              (,(concat spolakh/org-agenda-directory "inbox.org.gpg") . (:level . 0))
+                              (,(concat spolakh/org-roam-directory "index.org.gpg") . (:level . 3))
+                              (,(concat spolakh/org-agenda-directory "projects.org.gpg") . (:maxlevel . 1))
+                              (nil . (:maxlevel . 3))))
   (defun spolakh/shift-dwim-at-point ()
     (interactive)
     (let ((org-link-frame-setup (quote
@@ -1241,6 +1244,8 @@
   "prefix to use for the filenames of daily notes")
 
 (use-package! org-roam
+  :after
+  org
   :hook
   (after-init . org-roam-mode)
   :init
@@ -1251,7 +1256,7 @@
   (add-hook 'after-init-hook 'org-roam-mode)
   ;; (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal :underline "#ffffff")
   (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal)
-  (setq org-roam-directory (file-truename (concat spolakh/org-directory "/notes/")))
+  (setq org-roam-directory spolakh/org-roam-directory)
   (setq org-roam-link-file-path-type 'absolute)
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-encrypt-files t)
