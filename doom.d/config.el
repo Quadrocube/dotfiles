@@ -61,6 +61,8 @@
     "Filenames of org files that won't get variable-font and scaled org headers")
   (defun spolakh/is-this-a-task-file ()
     (if buffer-file-name (seq-some (lambda (x) (string-match-p x buffer-file-name)) spolakh/task-files)))
+  (defun spolakh/is-this-an-org-roam-index-file ()
+    (string-match-p "index.org.gpg$" buffer-file-name))
   (defun spolakh/maybe-turn-on-mixed-pitch-mode ()
     (if (not (spolakh/is-this-a-task-file)) (mixed-pitch-mode)))
 
@@ -75,7 +77,7 @@
       )
     )
   (defun spolakh/maybe-scale-org-headers ()
-    (if (not (spolakh/is-this-a-task-file)) (spolakh/scale-org-headers-in-current-buffer)))
+    (if (and (not (spolakh/is-this-an-org-roam-index-file)) (not (spolakh/is-this-a-task-file))) (spolakh/scale-org-headers-in-current-buffer)))
   (add-hook 'org-mode-hook 'spolakh/maybe-scale-org-headers)
 
   :hook (org-mode . spolakh/maybe-turn-on-mixed-pitch-mode)
@@ -288,8 +290,15 @@
 ; ORG-MODE:
 
 (use-package! org
-  :config
+  :init
 
+  (setq org-num-max-level 1)
+  (defun spolakh/maybe-enum-org-headers ()
+    (if (spolakh/is-this-an-org-roam-index-file) (org-num-mode)))
+
+  (add-hook 'org-mode-hook 'spolakh/maybe-enum-org-headers)
+
+  :config
   (map!
    (:map evil-normal-state-map
     "<s-return>" nil)
