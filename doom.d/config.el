@@ -62,7 +62,7 @@
   (defun spolakh/is-this-a-task-file ()
     (if buffer-file-name (seq-some (lambda (x) (string-match-p x buffer-file-name)) spolakh/task-files)))
   (defun spolakh/is-this-an-org-roam-index-file ()
-    (string-match-p "index.org.gpg$" buffer-file-name))
+    (if buffer-file-name (string-match-p "index.org.gpg$" buffer-file-name)))
   (defun spolakh/maybe-turn-on-mixed-pitch-mode ()
     (if (not (spolakh/is-this-a-task-file)) (mixed-pitch-mode)))
 
@@ -429,7 +429,7 @@
   (setq org-refile-targets `((,(concat spolakh/org-agenda-directory "later.org.gpg") . (:maxlevel . 1))
                               (,(concat spolakh/org-agenda-directory "repeaters.org.gpg") . (:level . 0))
                               (,(concat spolakh/org-agenda-directory "inbox.org.gpg") . (:level . 0))
-                              (,(concat spolakh/org-roam-directory "index.org.gpg") . (:level . 3))
+                              ;(,(concat spolakh/org-roam-directory "index.org.gpg") . (:level . 1))
                               (,(concat spolakh/org-agenda-directory "projects.org.gpg") . (:maxlevel . 1))
                               (nil . (:maxlevel . 3))))
   (defun spolakh/shift-dwim-at-point ()
