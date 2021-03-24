@@ -1291,7 +1291,18 @@
            :file-name "private/${slug}"
            :head "#+TITLE: PRIVATE/${title}\n#+CREATED: [%<%Y-%m-%d %a %H:%M>]\n\n"
            :unnarrowed t)
-          ))
+          ("b" "book" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "nibbles/books/${slug}"
+           :head "#+TITLE: NIBBLE/${title}\n#+CREATED: [%<%Y-%m-%d %a %H:%M>]\n\n"
+           :unnarrowed t)
+          ("a" "article" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "nibbles/articles/${slug}"
+           :head "#+TITLE: NIBBLE/${title}\n#+CREATED: [%<%Y-%m-%d %a %H:%M>]\n\n"
+           :unnarrowed t)
+          )
+        )
   (setq org-roam-dailies-capture-templates
         `(("d" "daily" entry (function org-roam-capture--get-point)
            "**** %?"
