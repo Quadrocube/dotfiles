@@ -57,12 +57,12 @@
 (use-package! mixed-pitch
   :init
   (defvar spolakh/task-files
-    '("projects.org.gpg" "inbox.org.gpg" "later.org.gpg" "repeaters.org.gpg" "phone.org" "phone-work.org")
+    '("projects.org.gpg" "inbox.org.gpg" "later.org.gpg" "repeaters.org.gpg" "phone.org" "phone-work.org" "entrypoint.org.gpg")
     "Filenames of org files that won't get variable-font and scaled org headers")
   (defun spolakh/is-this-a-task-file ()
     (if buffer-file-name (seq-some (lambda (x) (string-match-p x buffer-file-name)) spolakh/task-files)))
   (defun spolakh/is-this-an-org-roam-index-file ()
-    (if buffer-file-name (string-match-p "index.org.gpg$" buffer-file-name)))
+    (if buffer-file-name (string-match-p "entrypoint.org.gpg$" buffer-file-name)))
   (defun spolakh/maybe-turn-on-mixed-pitch-mode ()
     (if (not (spolakh/is-this-a-task-file)) (mixed-pitch-mode)))
 
@@ -77,7 +77,7 @@
       )
     )
   (defun spolakh/maybe-scale-org-headers ()
-    (if (and (not (spolakh/is-this-an-org-roam-index-file)) (not (spolakh/is-this-a-task-file))) (spolakh/scale-org-headers-in-current-buffer)))
+    (if (not (spolakh/is-this-a-task-file)) (spolakh/scale-org-headers-in-current-buffer)))
   (add-hook 'org-mode-hook 'spolakh/maybe-scale-org-headers)
 
   :hook (org-mode . spolakh/maybe-turn-on-mixed-pitch-mode)
@@ -385,19 +385,22 @@
             :immediate-finish t)))
   (setq
    org-use-fast-todo-selection 'auto
-   org-log-note-clock-out t
+   org-log-note-clock-out nil
    org-startup-with-inline-images t
    org-image-actual-width 400
    org-log-done 'time
    org-todo-keywords '(
     (sequence "TODO(t)" "|" "DONE(d)")
     (sequence "SPRINT(s)" "WAITING(w@/!)" "|" "DONE")
+    (sequence "PRJ(p)" "|" "DONE")
     (sequence "Fleeting(f)" "Evergreen")
     (sequence "Open(O!)" "In Progress(I!)" "Going Well(G!)" "Resolved(R!)") ; Board items
     (sequence "TODIGEST" "|" "DIGESTED") ; Nibbles(Articles / Books / Videos / ...) for quotations
     )
    org-todo-keyword-faces
        '(
+         ; Projects
+         ("PRJ" . (:foreground "SteelBlue" :weight bold))
          ; Sprint
          ("SPRINT" . (:foreground "orange"))
          ("WAITING" . (:background "firebrick" :weight bold :foreground "gold"))
@@ -426,12 +429,11 @@
                             ;(:endgrouptag)
                             )))
   (setq org-fast-tag-selection-single-key nil)
-  (setq org-refile-targets `((,(concat spolakh/org-agenda-directory "later.org.gpg") . (:maxlevel . 1))
+  (setq org-refile-targets `(
                               (,(concat spolakh/org-agenda-directory "repeaters.org.gpg") . (:level . 0))
-                              (,(concat spolakh/org-agenda-directory "inbox.org.gpg") . (:level . 0))
-                              ;(,(concat spolakh/org-roam-directory "index.org.gpg") . (:level . 1))
-                              (,(concat spolakh/org-agenda-directory "projects.org.gpg") . (:maxlevel . 1))
-                              (nil . (:maxlevel . 3))))
+                              (,(concat spolakh/org-roam-directory "entrypoint.org.gpg") . (:maxlevel . 3))
+                              (nil . (:maxlevel . 3))
+                              ))
   (defun spolakh/shift-dwim-at-point ()
     (interactive)
     (let ((org-link-frame-setup (quote
@@ -1273,7 +1275,7 @@
   (setq org-roam-completion-ignore-case t)
   (setq org-roam-dailies-directory "private/dailies/")
   (setq epa-file-encrypt-to "onlyusefororg@example.com")
-  (setq org-roam-index-file "~/Dropbox/org/notes/index.org.gpg")
+  (setq org-roam-index-file "~/Dropbox/org/notes/entrypoint.org.gpg")
   (setq org-roam-db-location "~/org-roam-new.db")
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
