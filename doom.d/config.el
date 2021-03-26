@@ -907,7 +907,16 @@
     (org-agenda nil "?")
     )
   (map! :map org-mode-map :leader
-        (:prefix ("n" . "Notes") "a" nil)
+        (:prefix ("n" . "Notes")
+         "a" nil
+         (:prefix ("g" . "Goto")
+          "r" #'org-refile-goto-last-stored
+          "i" #'org-clock-goto
+          "c" #'org-capture-goto-last-stored
+          "g" #'counsel-org-goto
+          "G" #'counsel-org-goto-all
+          )
+         )
         (:prefix ("a" . "Agenda")
          :desc "Fleetings" "i" #'spolakh/switch-to-ideas-agenda
          :desc "Kanban" "k" #'spolakh/switch-to-kanban-agenda
