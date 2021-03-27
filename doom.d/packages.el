@@ -58,6 +58,7 @@
 (package! mixed-pitch)
 (package! org-superstar)
 (package! ov)
+(package! theme-magic)
 
 ;(package! org-fc
 ;  :recipe (:type git :repo "https://git.sr.ht/~l3kn/org-fc" :files (:defaults "awk" "demo.org")))

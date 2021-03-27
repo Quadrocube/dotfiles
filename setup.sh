@@ -17,6 +17,7 @@ ln -s ${DIR}/vlad_skhdrc_3 ~/.skhdrc_3
 ln -s ${DIR}/vlad_skhdrc_1 ~/.skhdrc_1
 rm ~/.config/kitty/kitty.conf
 ln -s ${DIR}/vlad_kitty.conf ~/.config/kitty/kitty.conf
+ln -s ${DIR}/macos-launch-services-cmdline ~/.config/kitty/macos-launch-services-cmdline
 
 # configure gpg-agent to not ask for password for 4 days
 mkdir -p ~/.gnupg
@@ -41,3 +42,7 @@ echo "Now run :BundleInstall inside vim\n"
 echo "And then run '~/.vim/bundle/YouCompleteMe/install.py --clang-completer'\n"
 echo "And then add `auth sufficient pam_tid.so` to the top of /private/etc/pam.d/sudo for touch-id-based sudo auth"
 
+# for emacs'es theme-magic
+mkdir ~/libs && cd ~/libs
+git clone https://github.com/dylanaraps/pywal && cd pywal
+pip3 install --user .
