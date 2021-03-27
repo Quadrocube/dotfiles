@@ -53,7 +53,10 @@
 (set-face-attribute 'link nil :weight 'normal)
 
 ;; for this to work on Mac, install pywal from git (pip version is way behind)
-(use-package! theme-magic)
+(use-package! theme-magic
+  :init
+  (theme-magic-export-theme-mode)
+)
 
 ;; TODO ns-use-thin-smoothing
 
