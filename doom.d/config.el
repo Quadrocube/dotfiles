@@ -318,11 +318,11 @@
     )
    )
   (require 'find-lisp)
-  (setq spolakh/org-agenda-directory "~/Dropbox/org/notes/private/gtd/"
-        spolakh/org-dailies-directory "~/Dropbox/org/notes/private/dailies/"
-        spolakh/org-phone-directory "~/Dropbox/org/notes/private/phone/"
-        spolakh/org-gcal-directory "~/Dropbox/org/cal/"
-        spolakh/org-directory "~/Dropbox/org/"
+  (setq spolakh/org-agenda-directory "~/Syncthing/default/org/notes/private/gtd/"
+        spolakh/org-dailies-directory "~/Syncthing/default/org/notes/private/dailies/"
+        spolakh/org-phone-directory "~/Syncthing/phone-org/"
+        spolakh/org-gcal-directory "~/Syncthing/default/org/cal/"
+        spolakh/org-directory "~/Syncthing/default/org/"
         spolakh/org-roam-directory (file-truename (concat spolakh/org-directory "/notes/"))
         )
 
@@ -377,9 +377,9 @@
           ("T" "@work SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
            "* SPRINT %? :@work:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"\"))")
 
-          ("p" "Project @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "projects.org.gpg"))
+          ("p" "Project @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
            "* TODO [%^{Project title}] :@mine:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
-          ("P" "Project @work TODO" entry (file ,(concat spolakh/org-agenda-directory "projects.org.gpg"))
+          ("P" "Project @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
            "* TODO [%^{Project title}] :@work:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
 
           ("c" "add note to Clocked item" plain (clock)
@@ -700,6 +700,7 @@
                               (find-lisp-find-files spolakh/org-gcal-directory "\.org.gpg$")
                               (find-lisp-find-files spolakh/org-agenda-directory "\.org.gpg$")
                              '(
+                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
                                ,(concat spolakh/org-phone-directory "phone.org")
                                ,(concat spolakh/org-phone-directory "phone-work.org")
                                )
@@ -733,15 +734,15 @@
                                            ))
                ))
 
-        (tags-todo "LEVEL=2+TODO=\"TODO\""
+        (tags-todo "active+LEVEL=4+TODO=\"TODO\""
                    ((org-agenda-overriding-header "🗃 TODOs from active projects. Maybe take into Sprint >")
                     (org-agenda-prefix-format '((tags . " [%-4e] %?-8b")))
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
-                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "projects.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "entrypoint.org.gpg")))))
 
-        (todo "TODO|WAITING"
+        (todo "maybe+TODO|WAITING"
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
-               (org-agenda-files '(,(concat spolakh/org-agenda-directory "later.org.gpg")))
+               (org-agenda-files '(,(concat spolakh/org-agenda-directory "entrypoint.org.gpg")))
                (org-agenda-skip-function '(or
                                            (org-agenda-skip-if-scheduled-for-later-with-day-granularity)
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
@@ -751,7 +752,7 @@
               ((org-agenda-overriding-header "🔖 Fleetings. Create new Note \\ Add to existing one >")
                (org-agenda-files ,all-files)))
 
-        (todo "TODO"
+        (todo "TODO|SPRINT"
               ((org-agenda-overriding-header "📤 Inboxes. Drop(a) \\ Process(p) \\ Mark as Fleeting(s-RET f) >")
                (org-agenda-files (append
                                   '(
@@ -768,6 +769,7 @@
   (defun spolakh/done-for-filter (filter ndays)
       (let ((all-files `(append
                              '(
+                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
                                ,(concat spolakh/org-agenda-directory "projects.org.gpg")
                                ,(concat spolakh/org-agenda-directory "repeaters.org.gpg")
                                ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
@@ -798,6 +800,7 @@
                              '(
                                ,(concat spolakh/org-phone-directory "phone.org")
                                ,(concat spolakh/org-phone-directory "phone-work.org")
+                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
                                )
                              )))
       `((agenda ""
@@ -1290,7 +1293,7 @@
   (setq org-roam-completion-ignore-case t)
   (setq org-roam-dailies-directory "private/dailies/")
   (setq epa-file-encrypt-to "onlyusefororg@example.com")
-  (setq org-roam-index-file "~/Dropbox/org/notes/entrypoint.org.gpg")
+  (setq org-roam-index-file "~/Syncthing/default/org/notes/entrypoint.org.gpg")
   (setq org-roam-db-location "~/org-roam-new.db")
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
