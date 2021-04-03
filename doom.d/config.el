@@ -587,8 +587,8 @@
   (defun org-agenda-skip-if-scheduled-for-later-with-day-granularity ()
     (ignore-errors
       (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-        (>= (org-time-stamp-to-now (org-entry-get nil "SCHEDULED")) 0)
-             subtree-end)))
+        (if (> (org-time-stamp-to-now (org-entry-get nil "SCHEDULED")) 0)
+             subtree-end))))
 
   (defun org-agenda-skip-if-scheduled-for-later-with-clock-granularity ()
     (ignore-errors
@@ -734,9 +734,7 @@
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
 
-        ; xcxc2 what do re things that have only :maybe:\:active: tag but no :@mine:\:@work:
-        ; xcxc still doesn't work -_-
-        (todo "maybe+TODO=\"TODO\""
+        (tags-todo "maybe"
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
                (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
                (org-agenda-skip-function '(or
@@ -822,7 +820,7 @@
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-todo-keyword-faces '(("In Progress" . (:foreground "DarkSalmon" :weight bold))))
                     (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
-        ;
+
         ; xcxc add inboxes
         ;; ,(concat spolakh/org-phone-directory "phone.org")
         ;; ,(concat spolakh/org-phone-directory "phone-work.org")
