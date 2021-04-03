@@ -675,6 +675,29 @@
 
   :config
 
+  (defun spolakh/widen-to-len (s len)
+    (if s
+        (if (string= "" s)
+            s
+
+          (let* (
+                 (news (substring s 0 (min (length s) len)))
+                 (ls (length news))
+                 (nspaces (- len ls))
+                 (addspaces (make-string (if (> nspaces 0) nspaces 0) ?\s))
+                 )
+            (concat news addspaces))
+
+          )
+      "")
+    )
+  (defun spolakh/format-outline (outline len)
+    (if outline
+      (spolakh/widen-to-len (car (last outline)) len)
+      "")
+    )
+
+
   (defun spolakh/project-agenda-section-for-filter (filter prefix directions)
     `(tags-todo ,(concat "LEVEL=3+TODO=\"PRJ\"" filter)
                 ((org-agenda-overriding-header ,(concat prefix "Projects (" filter "): " directions " >"))
@@ -721,7 +744,6 @@
               ((org-agenda-overriding-header "🗂 Sprint. Drop(a) \\ Defer(p) >")
                (org-agenda-files ,all-files)
                (org-agenda-hide-tags-regexp "")
-               (org-agenda-prefix-format '((todo . " - %?-8b")))
                (org-agenda-skip-function '(or
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
                                            (org-agenda-skip-if-scheduled-for-later-with-day-granularity)
@@ -730,7 +752,6 @@
 
         (tags-todo "active+LEVEL>2+TODO=\"TODO\""
                    ((org-agenda-overriding-header "🗃 TODOs from active projects \ oneoffs. Maybe take into Sprint >")
-                    (org-agenda-prefix-format '((tags . " [%-4e] %?-8b")))
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
 
@@ -780,7 +801,6 @@
                     (org-agenda-sorting-strategy '(user-defined-up))
                     (org-agenda-files ,all-files)
                     (org-agenda-skip-archived-trees nil)
-                    (org-agenda-prefix-format '((tags . "[%-4e] %?-8b")))
                     (org-agenda-skip-function '(or
                                                 (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter nil)
                                                 ))
@@ -806,7 +826,6 @@
                  (org-agenda-skip-archived-trees t)
                  (org-agenda-files ,all-files)
                  (org-deadline-warning-days 3)
-                 (org-agenda-prefix-format '((agenda . " %i %?-16t% s%b")))
                  (org-agenda-log-mode-items '(closed clock state))
                  (org-agenda-skip-function '(or
                                              (spolakh/skip-if-waiting)
@@ -830,7 +849,6 @@
               ((org-agenda-overriding-header "🗂 Sprint >")
                (org-agenda-files ,all-files)
                (org-agenda-hide-tags-regexp "")
-               (org-agenda-prefix-format '((todo . "[%-4e] %?-8b")))
                (org-agenda-skip-function '(or
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
                                            (org-agenda-skip-entry-if 'scheduled)
@@ -840,7 +858,6 @@
         (todo "WAITING"
               ((org-agenda-overriding-header "🌒 Waiting >")
                (org-agenda-files ,all-files)
-               (org-agenda-prefix-format '((todo . "[%-4e] %?-8b")))
                (org-agenda-skip-function '(or
                                            (org-agenda-skip-if-scheduled-for-later-with-day-granularity)
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
@@ -852,10 +869,11 @@
         )))
 
   (setq org-agenda-prefix-format
-        '((agenda . " %i %-12:c%?-12t% s%b")
-          (todo . "[%-4e] %?-17b")
-          (tags . "[%-4e] %-17(org-format-outline-path (org-get-outline-path))")
-          (search . "[%-4e] %?-17b")))
+        '((agenda . "  %?-12t% s%(spolakh/format-outline (org-get-outline-path) 18) ")
+          (todo . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
+          (tags . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
+          (search . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
+          ))
   (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
   (add-to-list 'org-global-properties
          '("Effort_ALL". "100:00 0:15 0:30 1:00 2:00 4:00 12:00"))
