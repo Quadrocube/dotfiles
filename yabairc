@@ -29,7 +29,7 @@ yabai -m config right_padding                12
 yabai -m config window_gap                   06
 
 # specific apps
-yabai -m rule --add app!="^(Google Chrome|Spotify|Emacs|Slack|Skype|Telegram|Discord|kitty|GoLand|MySQLWorkbench|League of Legends|SnippetsLab|Finder|Messenger|Todoist|Dash|zoom.us)$" space=1
+yabai -m rule --add app!="^(Google Chrome|Spotify|Emacs|Slack|Skype|Telegram|Discord|kitty|GoLand|MySQLWorkbench|League of Legends|SnippetsLab|Finder|Messenger|Todoist|Dash|zoom.us|Firefox)$" space=1
 
 yabai -m rule --add app=Emacs manage=on
 yabai -m rule --add app="^Alfred$" sticky=on

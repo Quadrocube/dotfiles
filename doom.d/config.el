@@ -681,17 +681,16 @@
   :config
 
   (defun spolakh/project-agenda-section-for-filter (filter prefix directions)
-    `(tags-todo ,(concat "TODO=\"TODO\"" filter)
+    `(tags-todo ,(concat "LEVEL=3+TODO=\"PRJ\"" filter)
                 ((org-agenda-overriding-header ,(concat prefix "Projects (" filter "): " directions " >"))
                  (org-agenda-hide-tags-regexp "")
                  (org-agenda-todo-keyword-format "")
                  (org-agenda-dim-blocked-tasks nil)
                  (org-agenda-prefix-format
                   '((tags . " -")))
-                 (org-agenda-skip-function #'spolakh/org-agenda-leave-first-level-only)
                  (org-agenda-files
                   '(
-                    ,(concat spolakh/org-agenda-directory "projects.org.gpg")
+                    ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
                     ))))
     )
 
@@ -734,15 +733,15 @@
                                            ))
                ))
 
-        (tags-todo "active+LEVEL=4+TODO=\"TODO\""
-                   ((org-agenda-overriding-header "🗃 TODOs from active projects. Maybe take into Sprint >")
+        (tags-todo "active+LEVEL>2+TODO=\"TODO\""
+                   ((org-agenda-overriding-header "🗃 TODOs from active projects \ oneoffs. Maybe take into Sprint >")
                     (org-agenda-prefix-format '((tags . " [%-4e] %?-8b")))
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
-                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "entrypoint.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
 
         (todo "maybe+TODO|WAITING"
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
-               (org-agenda-files '(,(concat spolakh/org-agenda-directory "entrypoint.org.gpg")))
+               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
                (org-agenda-skip-function '(or
                                            (org-agenda-skip-if-scheduled-for-later-with-day-granularity)
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
