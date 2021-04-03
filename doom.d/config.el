@@ -586,15 +586,9 @@
 
   (defun org-agenda-skip-if-scheduled-for-later-with-day-granularity ()
     (ignore-errors
-      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-            (scheduled-day
-             (time-to-days
-              (org-time-string-to-time
-               (org-entry-get nil "SCHEDULED"))))
-            (now (time-to-days (current-time))))
-        (and scheduled-day
-             (> (org-time-stamp-to-now (org-entry-get nil "SCHEDULED")) 0)
-             subtree-end))))
+      (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+        (>= (org-time-stamp-to-now (org-entry-get nil "SCHEDULED")) 0)
+             subtree-end)))
 
   (defun org-agenda-skip-if-scheduled-for-later-with-clock-granularity ()
     (ignore-errors
@@ -621,9 +615,10 @@
     )
 
   (defun spolakh/skip-subtree-if-later ()
-    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (tags (org-get-tags)))
       (if
-          (string= (org-get-category) "later.org")
+          (or (string= (org-get-category) "later.org") (member "maybe" tags))
           subtree-end
         nil)))
 
@@ -739,7 +734,9 @@
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
 
-        (todo "maybe+TODO|WAITING"
+        ; xcxc2 what do re things that have only :maybe:\:active: tag but no :@mine:\:@work:
+        ; xcxc still doesn't work -_-
+        (todo "maybe+TODO=\"TODO\""
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
                (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
                (org-agenda-skip-function '(or
@@ -795,10 +792,11 @@
   (defun spolakh/kanban-for-filter (filter)
     (let ((all-files `(append
                               (find-lisp-find-files spolakh/org-gcal-directory "\.org.gpg$")
-                              (find-lisp-find-files spolakh/org-agenda-directory "\.org.gpg$")
                              '(
-                               ,(concat spolakh/org-phone-directory "phone.org")
-                               ,(concat spolakh/org-phone-directory "phone-work.org")
+                               ,(concat spolakh/org-agenda-directory "birthdays.org.gpg")
+                               ,(concat spolakh/org-agenda-directory "repeaters.org.gpg")
+                               ,(concat spolakh/org-agenda-directory "projects.org.gpg")
+                               ,(concat spolakh/org-agenda-directory "later.org.gpg")
                                ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
                                )
                              )))
@@ -824,6 +822,11 @@
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-todo-keyword-faces '(("In Progress" . (:foreground "DarkSalmon" :weight bold))))
                     (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
+        ;
+        ; xcxc add inboxes
+        ;; ,(concat spolakh/org-phone-directory "phone.org")
+        ;; ,(concat spolakh/org-phone-directory "phone-work.org")
+        ;; ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
 
         (todo "SPRINT"
               ((org-agenda-overriding-header "🗂 Sprint >")
