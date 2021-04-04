@@ -759,6 +759,8 @@
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
 
+        ,(spolakh/inboxes-for-filter filter)
+
         (tags-todo "maybe"
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
                (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
@@ -770,20 +772,22 @@
         (todo "Fleeting"
               ((org-agenda-overriding-header "🔖 Fleetings. Create new Note \\ Add to existing one >")
                (org-agenda-files ,all-files)))
-
-        (todo "TODO|SPRINT"
-              ((org-agenda-overriding-header "📤 Inboxes. Drop(a) \\ Process(p) \\ Mark as Fleeting(s-RET f) >")
-               (org-agenda-files (append
-                                  '(
-                                    ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
-                                    ,(concat spolakh/org-phone-directory "phone.org")
-                                    ,(concat spolakh/org-phone-directory "phone-work.org")
-                                    )
-                                  ))
-               (org-agenda-skip-function '(or
-                                           (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
-                                           ))))
     )))
+
+  (defun spolakh/inboxes-for-filter (filter)
+    `(todo "SPRINT|TODO|PRJ"
+          ((org-agenda-overriding-header "📤 Inboxes. Drop(a) \\ Process(p) \\ Mark as Fleeting(s-RET f) >")
+           (org-agenda-files (append
+                              '(
+                                ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
+                                ,(concat spolakh/org-phone-directory "phone.org")
+                                ,(concat spolakh/org-phone-directory "phone-work.org")
+                                )
+                              ))
+           (org-agenda-skip-function '(or
+                                       (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
+                                       ))))
+    )
 
   (defun spolakh/done-for-filter (filter ndays)
       (let ((all-files `(append
@@ -844,10 +848,7 @@
                     (org-todo-keyword-faces '(("In Progress" . (:foreground "DarkSalmon" :weight bold))))
                     (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
 
-        ; xcxc add inboxes
-        ;; ,(concat spolakh/org-phone-directory "phone.org")
-        ;; ,(concat spolakh/org-phone-directory "phone-work.org")
-        ;; ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
+        ,(spolakh/inboxes-for-filter filter)
 
         (todo "SPRINT"
               ((org-agenda-overriding-header "🗂 Sprint >")
