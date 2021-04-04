@@ -686,7 +686,7 @@
                  (nspaces (- len ls))
                  (addspaces (make-string (if (> nspaces 0) nspaces 0) ?\s))
                  )
-            (concat news addspaces))
+            (concat news addspaces " "))
 
           )
       "")
@@ -738,7 +738,11 @@
                     (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
 
         ,(spolakh/project-agenda-section-for-filter filter "🚀 " "Drop(a) \\ Defer(p)")
-        ,(spolakh/project-agenda-section-for-filter "-@work-@mine" "🔴 Mis-tagged " "Tag(C-c C-c) \\ Move elsewhere (Todoist?)")
+
+        (tags-todo "-@mine-@work"
+              ((org-agenda-overriding-header "🔴 Items without mine\\work: Tag(C-c C-c)")
+               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
+               ))
 
         (todo "SPRINT|WAITING"
               ((org-agenda-overriding-header "🗂 Sprint. Drop(a) \\ Defer(p) >")
@@ -869,10 +873,10 @@
         )))
 
   (setq org-agenda-prefix-format
-        '((agenda . "  %?-12t% s%(spolakh/format-outline (org-get-outline-path) 18) ")
-          (todo . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
-          (tags . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
-          (search . "[%-4e]%(spolakh/format-outline (org-get-outline-path) 18) ")
+        '((agenda . "  %?-12t% s%(spolakh/format-outline (org-get-outline-path) 18)")
+          (todo . "[%-4e] %(spolakh/format-outline (org-get-outline-path) 18)")
+          (tags . "[%-4e] %(spolakh/format-outline (org-get-outline-path) 18)")
+          (search . "[%-4e] %(spolakh/format-outline (org-get-outline-path) 18)")
           ))
   (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
   (add-to-list 'org-global-properties
