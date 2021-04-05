@@ -377,10 +377,10 @@
           ("T" "@work SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
            "* SPRINT %? :@work:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"\"))")
 
-          ("p" "Project @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
-           "* TODO [%^{Project title}] :@mine:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
-          ("P" "Project @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
-           "* TODO [%^{Project title}] :@work:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
+          ("p" "Project @mine" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+           "* PRJ [%^{Project title}] :@mine:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
+          ("P" "Project @work" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+           "* PRJ [%^{Project title}] :@work:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
 
           ("c" "add note to Clocked item" plain (clock)
            "%T: %?"
@@ -1290,6 +1290,9 @@
         ((equal :long-break org-pomodoro-state)  "Long")))
 
 
+; Time stuff
+(use-package! ts)
+
 ; ORG-ROAM:
 
 (defvar spolakh/org-roam-daily-prefix "ord--"
@@ -1298,6 +1301,7 @@
 (use-package! org-roam
   :after
   org
+  ts
   :hook
   (after-init . org-roam-mode)
   :init
@@ -1346,13 +1350,16 @@
            :unnarrowed t)
           )
         )
+
+  (defun spolakh/compile-daily-template (custom-text)
+    `(("d" "daily" entry (function org-roam-capture--get-point)
+     "** %?"
+     ;:immediate-finish t
+     :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
+     :head ,(concat "#+TITLE: %<%Y-%m-%d>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
+    ))
   (setq org-roam-dailies-capture-templates
-        `(("d" "daily" entry (function org-roam-capture--get-point)
-           "**** %?"
-           ;:immediate-finish t
-           :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-           :head "#+TITLE: %<%Y-%m-%d>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n\n[[roam:§ Shi-Ne Meditation Journal]]\n\n* What's on your mind?\n")
-        ))
+        (spolakh/compile-daily-template ""))
   (map! :map org-roam-mode-map
         :leader
         (:prefix ("n" . "notes")
@@ -1361,6 +1368,36 @@
           :desc "Insert a link to a Note" "l" 'org-roam-insert
           )))
   :config
+
+  (defun spolakh/org-roam-find-day-wrapper (finder-function custom-text)
+    (let ((org-roam-dailies-capture-templates (spolakh/compile-daily-template custom-text)))
+      (funcall finder-function)
+      ))
+
+  (defun spolakh/daily-template-text-for-day (offset-days)
+    (let* (
+           (newts (ts-adjust 'day offset-days (ts-now)))
+           (dow (ts-dow newts))
+           ; 0 is sunday
+           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] 1: 2: 3:" ""))
+           (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
+           (d (ts-day newts))
+           (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
+           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]] 1: 2: 3:") text-with-weekly))
+           )
+      text-with-monthly)
+    )
+
+  (defun spolakh/org-roam-dailies-find-today ()
+    (interactive)
+    (spolakh/org-roam-find-day-wrapper 'org-roam-dailies-find-today (spolakh/daily-template-text-for-day 0))
+    )
+
+  (defun spolakh/org-roam-dailies-find-tomorrow ()
+    (interactive)
+    (spolakh/org-roam-find-day-wrapper (lambda () (org-roam-dailies-find-tomorrow 1)) (spolakh/daily-template-text-for-day 1))
+    )
+
   (map!
    (:map global-map
     "M-z" "Ω"
@@ -1380,6 +1417,8 @@
            (:prefix ("r" . "roam")
              (:prefix ("d" . "date")
             :desc "hydra" "h" 'hydra-dailies/body
+            :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
+            :desc "s/Tomorrow" "m" 'spolakh/org-roam-dailies-find-tomorrow
             ))))
     (map! (:map org-roam-mode-map
              "s-i" 'org-roam-dailies-find-previous-note
