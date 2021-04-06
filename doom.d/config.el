@@ -1384,8 +1384,9 @@
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
            (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]] 1: 2: 3:") text-with-weekly))
+           (text-with-work-weekly (if (= dow 1) (concat text-with-monthly "\n\n[[roam:§ GRAIL/Work Week Review]] ") text-with-monthly))
            )
-      text-with-monthly)
+      text-with-work-weekly)
     )
 
   (defun spolakh/org-roam-dailies-find-today ()
