@@ -795,7 +795,7 @@
                                        ))))
     )
 
-  (defun spolakh/done-for-filter (filter ndays)
+  (defun spolakh/done-for-filter (filter ndays include-repeaters)
       (let ((all-files `(append
                              '(
                                ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
@@ -808,7 +808,10 @@
                                )
                              )))
         ; includes regular tasks finished during last sprint & repeaters done within the same time
-       `(tags ,(format "+TODO=\"DONE\"&+CLOSED>=\"<-%dd>\"|+TODO=\"TODO\"&+TIMESTAMP_IA>=\"<-%dd>\"" ndays ndays)
+        `(tags ,(concat
+                 (format "+TODO=\"DONE\"&+CLOSED>=\"<-%dd>\"" ndays)
+                 (if include-repeaters (format "|+TODO=\"TODO\"&+TIMESTAMP_IA>=\"<-%dd>\"" ndays) ""))
+;
                    ((org-agenda-overriding-header "💠 Done >")
                     ; this puts all repeaters in front but whatever, is good enough
                     (org-agenda-cmp-user-defined (cmp-date-property "CLOSED"))
@@ -876,7 +879,7 @@
                (org-agenda-hide-tags-regexp "")
                ))
 
-        ,(spolakh/done-for-filter filter (if (= (decoded-time-weekday (decode-time)) 6) 0 (+ (decoded-time-weekday (decode-time)) 1)))
+        ,(spolakh/done-for-filter filter (if (= (decoded-time-weekday (decode-time)) 6) 0 (+ (decoded-time-weekday (decode-time)) 1)) t)
         )))
 
   (setq org-agenda-prefix-format
@@ -891,10 +894,11 @@
   (setq org-agenda-custom-commands `(
                                      ("k" "Kanban" ,(spolakh/kanban-for-filter "+@mine"))
                                      ("K" "Work Kanban" ,(spolakh/kanban-for-filter "+@work"))
-                                     ("1" "Done Today" (,(spolakh/done-for-filter "+@mine" 1)))
-                                     ("!" "Work Done Today" (,(spolakh/done-for-filter "+@work" 1)))
-                                     ("7" "Done" (,(spolakh/done-for-filter "+@mine" 7)))
-                                     ("&" "Work Done" (,(spolakh/done-for-filter "+@work" 7)))
+                                     ("1" "Done Today" (,(spolakh/done-for-filter "+@mine" 1 t)))
+                                     ("!" "Work Done Today" (,(spolakh/done-for-filter "+@work" 1 t)))
+                                     ("7" "Week Done" (,(spolakh/done-for-filter "+@mine" 7 t)))
+                                     ("&" "Week Work Done" (,(spolakh/done-for-filter "+@work" 7 t)))
+                                     ("8" "Month Review" (,(spolakh/done-for-filter "+@mine" 30 nil)))
                                      ("i" "Fleetings (full list)" (
                                     (todo "Fleeting"
                                           ((org-agenda-overriding-header "🔖 to Finalize into Permanent Notes >")
@@ -944,6 +948,10 @@
     (interactive)
     (org-agenda nil "?")
     )
+  (defun spolakh/switch-to-month-review-agenda ()
+    (interactive)
+    (org-agenda nil "8")
+    )
   (map! :map org-mode-map :leader
         (:prefix ("n" . "Notes")
          "a" nil
@@ -965,6 +973,7 @@
          :desc "Work Done for last 7 days" "&" #'spolakh/switch-to-work-done-review-agenda
          :desc "What feels important now?" "/" #'spolakh/switch-to-weekly-agenda
          :desc "What can I drop from work tasks?" "?" #'spolakh/switch-to-weekly-work-agenda
+         :desc "How did the month go?" "8" #'spolakh/switch-to-month-review-agenda
          ))
   (defun spolakh/org-fast-effort-selection ()
     "Modification of `org-fast-todo-selection' for use with org-set-effert. Select an effort value with single keys.
