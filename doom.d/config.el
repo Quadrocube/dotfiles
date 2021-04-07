@@ -310,11 +310,17 @@
     "<s-return>" nil)
    (:map global-map
     "<S-s-return>" nil)
+   (:map visual-line-mode-map
+    "<deleteline>" nil
+    "C-k" nil)
    (:map evil-normal-state-map
     "<S-s-return>" nil)
    (:map org-mode-map
     "<s-return>" #'org-todo
     "<S-s-return>" #'org-toggle-checkbox
+    "C-j" #'org-next-visible-heading
+    "C-k" #'org-previous-visible-heading
+    "C-h" #'org-up-element
     )
    )
   (require 'find-lisp)
