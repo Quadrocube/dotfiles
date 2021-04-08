@@ -1333,7 +1333,7 @@
   ;; (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal :underline "#ffffff")
   (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal)
   (setq org-roam-directory spolakh/org-roam-directory)
-  (setq org-roam-link-file-path-type 'absolute)
+  (setq org-roam-link-file-path-type 'relative)
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-encrypt-files t)
   (setq org-roam-completion-everywhere t)
