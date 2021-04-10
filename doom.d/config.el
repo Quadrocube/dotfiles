@@ -42,6 +42,9 @@
 ; https://github.com/edwardtufte/et-book
 ;(setq doom-variable-pitch-font (font-spec :family "ETBook" :size 18 :weight 'extra-light))
 
+; so that yabai can properly tile emacs'es window
+(menu-bar-mode t)
+
 (setq doom-variable-pitch-font (font-spec :family "Cochin" :size 16 :weight 'extra-light))
 (setq buffer-file-coding-system 'utf-8-unix)
 (prefer-coding-system 'utf-8)
