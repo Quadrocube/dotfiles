@@ -2,6 +2,7 @@ export PATH=~/.emacs.d/bin:$PATH
 export PATH=/opt/bin:$PATH
 export PATH=~/Library/Python/3.7/bin/:$PATH
 export PATH=~/dots/scripts/:$PATH
+export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
 ulimit -S -n 196608
 
