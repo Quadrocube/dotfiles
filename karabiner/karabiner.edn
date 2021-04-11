@@ -167,6 +167,8 @@
 
                 [:##left_option :left_option nil {:alone [:close_bracket]}]
                 [:##right_control :right_control nil {:alone [:open_bracket]}]
+                [:open_bracket :vk_none]
+                [:close_bracket :vk_none]
 
                 [:!Sopen_bracket :vk_none]
                 [:!Sclose_bracket :vk_none]
