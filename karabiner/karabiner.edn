@@ -164,6 +164,10 @@
                 [:!S0 :vk_none]
                 [:##left_command :left_command nil {:alone [:!Scomma]}]
                 [:##right_command :right_command nil {:alone [:!Speriod]}]
+
+                [:##left_option :left_option nil {:alone [:close_bracket]}]
+                [:##right_control :right_control nil {:alone [:open_bracket]}]
+
                 [:!Sopen_bracket :vk_none]
                 [:!Sclose_bracket :vk_none]
                 [:!Scomma :vk_none]
