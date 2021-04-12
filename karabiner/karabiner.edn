@@ -78,6 +78,8 @@
     ]
   }
 
+ :input-sources {:us {:input_source_id "com.apple.keylayout.US"}}
+
  :applications {
     :Emacs   ["^org\\.gnu\\.Emacs$"]
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]
@@ -180,8 +182,8 @@
 
                 [:##left_option :left_option nil {:alone [:close_bracket]}]
                 [:##right_control :right_control nil {:alone [:open_bracket]}]
-                [:open_bracket :vk_none]
-                [:close_bracket :vk_none]
+                [:open_bracket :vk_none [:us]]
+                [:close_bracket :vk_none [:us]]
 
                 [:!Sopen_bracket :vk_none]
                 [:!Sclose_bracket :vk_none]
