@@ -83,6 +83,19 @@
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]
  }
 
+:tos {
+             :select_us {:select_input_source
+                               {
+                                :input_source_id "com.apple.keylayout.US"
+                                }}
+
+             :select_ru {:select_input_source
+                               {
+                                :input_source_id "com.apple.keylayout.Russian"
+                                }}
+
+}
+
 :layers {
             :caps-mode {:key :caps_lock :alone {:key :escape}}
          }
@@ -195,6 +208,8 @@
                  [:b :!Oleft_arrow]
                  [:0 :!Cleft_arrow]
                  [:4 :!Cright_arrow]
+                 [:f :select_us]
+                 [:g :select_ru]
                  [:u :page_up]
                  [:d :page_down]
                  [:delete_or_backspace :!Odelete_or_backspace]
