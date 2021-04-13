@@ -182,7 +182,8 @@
 
                 [:##left_option :left_option nil {:alone [:close_bracket]}]
                 [:##right_control :right_control nil {:alone [:open_bracket]}]
-                [:open_bracket :vk_none [:us]]
+
+                [:open_bracket :!Sclose_bracket [:us]]
                 [:close_bracket :vk_none [:us]]
 
                 [:!Sopen_bracket :vk_none]
@@ -190,7 +191,7 @@
                 [:!Scomma :vk_none]
                 [:!Speriod :vk_none]
                 [:left_arrow :!Sopen_bracket]
-                [:right_arrow :!Sclose_bracket]
+                [:up_arrow :!Squote]
 
                 ; disable left shifts for left half of keyboard
                 [:!Sq :vk_none] [:!Sw :vk_none] [:!Se :vk_none] [:!Sr :vk_none] [:!St :vk_none] [:!Sa :vk_none] [:!Ss :vk_none] [:!Sd :vk_none] [:!Sf :vk_none] [:!Sg :vk_none] [:!Sz :vk_none] [:!Sx :vk_none] [:!Sc :vk_none] [:!Sv :vk_none] [:!Sb :vk_none] [:!S1 :vk_none] [:!S2 :vk_none] [:!S3 :vk_none] [:!S4 :vk_none] [:!S5 :vk_none]
