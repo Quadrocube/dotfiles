@@ -1383,6 +1383,18 @@
           )
         )
 
+  ; not sure log should work this way tbh - ideally it would be just another sidebar which filters to just daily notes
+  (defun spolakh/org-roam-capture-log-wrapper ()
+    (interactive)
+    (let ((org-roam-capture-templates
+           '(("l" "log" plain (function org-roam--capture-get-point)
+              "- [[roam:%<%Y-%m-%d>]] %<%a>: %?"
+              :file-name "${slug}"
+              :head "#+TITLE: ${title}\n#+CREATED: [%<%Y-%m-%d %a %H:%M>]\n\n- Journal\n"
+              :unnarrowed t))))
+      (org-roam-capture)
+      ))
+
   (defun spolakh/compile-daily-template (custom-text)
     `(("d" "daily" entry (function org-roam-capture--get-point)
      "** %?"
@@ -1398,6 +1410,7 @@
          (:prefix ("r" . "roam")
           :desc "Entrypoint" "e" 'org-roam-jump-to-index
           :desc "Insert a link to a Note" "l" 'org-roam-insert
+          ;:desc "Add log" "k" 'spolakh/org-roam-capture-log-wrapper
           )))
   :config
 
