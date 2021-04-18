@@ -189,12 +189,15 @@
                 [:##right_option :right_option nil {:alone [:!Sclose_bracket]}]
                 [:!Sopen_bracket :vk_none [:us]]
                 [:!Sclose_bracket :vk_none [:us]]
+                ; same for kinesis but v1 only has left option and right control -_-
+                [:##right_control :right_control [:!apple] {:alone [:!Sopen_bracket]}]
+                [:##left_option :left_option [:!apple] {:alone [:!Sclose_bracket]}]
 
                 ; make ' and " be both single-key, and on the left and right side respectively
                 [:quote :!Squote [:us :apple]]
                 [:!Squote :vk_none [:us]]
                 [:##up_arrow :!Squote]
-                [:##left_option :left_option nil {:alone [:quote]}]
+                [:##left_option :left_option [:apple] {:alone [:quote]}]
 
                 ; disable left shifts for left half of keyboard
                 [:!Sq :vk_none] [:!Sw :vk_none] [:!Se :vk_none] [:!Sr :vk_none] [:!St :vk_none] [:!Sa :vk_none] [:!Ss :vk_none] [:!Sd :vk_none] [:!Sf :vk_none] [:!Sg :vk_none] [:!Sz :vk_none] [:!Sx :vk_none] [:!Sc :vk_none] [:!Sv :vk_none] [:!Sb :vk_none] [:!S1 :vk_none] [:!S2 :vk_none] [:!S3 :vk_none] [:!S4 :vk_none] [:!S5 :vk_none]
