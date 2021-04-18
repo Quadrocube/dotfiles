@@ -196,7 +196,7 @@
                 ; make ' and " be both single-key, and on the left and right side respectively
                 [:quote :!Squote [:us :apple]]
                 [:!Squote :vk_none [:us]]
-                [:##up_arrow :!Squote]
+                [:##down_arrow :!Squote [:!apple]]
                 [:##left_option :left_option [:apple] {:alone [:quote]}]
 
                 ; disable left shifts for left half of keyboard
