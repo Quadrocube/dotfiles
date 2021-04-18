@@ -204,6 +204,11 @@
                 ; disable right shifts for right half of keyboard
                 [:!Ry :vk_none] [:!Ru :vk_none] [:!Ri :vk_none] [:!Ro :vk_none] [:!Rp :vk_none] [:!Rh :vk_none] [:!Rj :vk_none] [:!Rk :vk_none] [:!Rl :vk_none] [:!Rn :vk_none] [:!Rm :vk_none] [:!R6 :vk_none] [:!R7 :vk_none] [:!R8 :vk_none] [:!R9 :vk_none] [:!R0 :vk_none] [:!Rperiod :vk_none] [:!Rcomma :vk_none]
         ]}
+       {:des "chrome-specific bindings"
+        :rules [:Chromes
+                [:!CSi :!CSopen_bracket]
+                [:!CSo :!CSclose_bracket]
+        ]}
        {:des "caps lock -> esc if alone, hyper if used as a modifier"
         :rules [:caps-mode
         ]}
