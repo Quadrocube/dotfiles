@@ -170,6 +170,11 @@
                 [:##grave_accent_and_tilde :hyphen :apple]
                 [:##hyphen :grave_accent_and_tilde :apple]
         ]}
+       {:des "move workspaces by i and o instead of arrows"
+        :rules [
+                [:!Wi :!Wleft_arrow]
+                [:!Wo :!Wright_arrow]
+        ]}
        {:des "space cadet shift"
         :rules [
                 ; Shifts -> ()
