@@ -216,15 +216,15 @@
 ; NAVIGATION:
 
 (map!
- (:map evil-motion-state-map
-  "<s-]>" #'better-jumper-jump-forward
-  "s-]" #'better-jumper-jump-forward
-  "<s-[>" #'better-jumper-jump-backward
-  "s-[" #'better-jumper-jump-backward
-  "s-{" #'winner-undo
-  "<s-{>" #'winner-undo
-  "s-}" #'winner-redo
-  "<s-}>" #'winner-redo
+ (:map general-override-mode-map
+  "<s-o>" #'better-jumper-jump-forward
+  "s-o" #'better-jumper-jump-forward
+  "<s-i>" #'better-jumper-jump-backward
+  "s-i" #'better-jumper-jump-backward
+  "s-I" #'winner-undo
+  "<s-I>" #'winner-undo
+  "s-O" #'winner-redo
+  "<s-O>" #'winner-redo
   "s-1" #'+workspace/switch-to-0
   "<s-1>" #'+workspace/switch-to-0
   "s-2" #'+workspace/switch-to-1
@@ -1424,7 +1424,7 @@
            (newts (ts-adjust 'day offset-days (ts-now)))
            (dow (ts-dow newts))
            ; 0 is sunday
-           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] 1: 2: 3:" ""))
+           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] 1: 2: 3:\n\n[[roam:§ PRIVATE/Plans for Next Week]]" ""))
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
@@ -1467,9 +1467,10 @@
             :desc "s/Tomorrow" "m" 'spolakh/org-roam-dailies-find-tomorrow
             ))))
     (map! (:map org-roam-mode-map
-             "s-i" 'org-roam-dailies-find-previous-note
-             "s-o" 'org-roam-dailies-find-next-note
-             ))
+             "s-M-i" 'org-roam-dailies-find-previous-note
+             "s-M-o" 'org-roam-dailies-find-next-note
+             )
+          )
     )
   )
 
