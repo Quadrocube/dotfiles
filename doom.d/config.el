@@ -119,6 +119,19 @@
 (global-subword-mode 1)
 
 
+; This makes org-agenda integration w/ mobile capture (Orgzly) work without conflicts
+; (in tandem with adding ((nil . ((eval . (auto-revert-mode 1))))) into .dir-locals.el in gtd directory)
+(defun xah-save-all-unsaved ()
+  (interactive)
+  (save-some-buffers t))
+;; when switching out of emacs, all unsaved files will be saved
+(add-hook 'focus-out-hook 'xah-save-all-unsaved)
+(setq auto-save-timeout 1
+      auto-save-default t
+      auto-revert-use-notify nil
+      auto-revert-interval 1)
+(auto-save-visited-mode)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -658,18 +671,6 @@
           subtree-end
         nil)))
 
-  ; This makes org-agenda integration w/ mobile capture (Orgzly) work without conflicts
-  ; (in tandem with adding ((nil . ((eval . (auto-revert-mode 1))))) into .dir-locals.el in gtd directory)
-  (defun xah-save-all-unsaved ()
-    (interactive)
-    (save-some-buffers t))
-  ;; when switching out of emacs, all unsaved files will be saved
-  (add-hook 'focus-out-hook 'xah-save-all-unsaved)
-  (setq auto-save-timeout 1
-      auto-save-default t
-      auto-save-visited-file-name t
-      auto-revert-use-notify nil
-      auto-revert-interval 1)
   (defun spolakh/org-agenda-redo ()
     (interactive)
     (with-current-buffer "*Org Agenda*"
