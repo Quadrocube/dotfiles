@@ -649,7 +649,7 @@
     (let ((subtree-end (save-excursion (org-end-of-subtree t)))
           (tags (org-get-tags)))
       (if
-          (or (string= (org-get-category) "later.org") (member "maybe" tags))
+          (or (string= (org-get-category) "later") (member "maybe" tags))
           subtree-end
         nil)))
 
