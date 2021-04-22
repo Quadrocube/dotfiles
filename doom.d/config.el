@@ -75,12 +75,12 @@
 (use-package! mixed-pitch
   :init
   (defvar spolakh/task-files
-    '("projects.org.gpg" "inbox.org.gpg" "later.org.gpg" "repeaters.org.gpg" "phone.org" "phone-work.org" "entrypoint.org.gpg")
+    '("projects.org" "inbox.org" "later.org" "repeaters.org" "phone.org" "phone-work.org" "entrypoint.org")
     "Filenames of org files that won't get variable-font and scaled org headers")
   (defun spolakh/is-this-a-task-file ()
     (if buffer-file-name (seq-some (lambda (x) (string-match-p x buffer-file-name)) spolakh/task-files)))
   (defun spolakh/is-this-an-org-roam-index-file ()
-    (if buffer-file-name (string-match-p "entrypoint.org.gpg$" buffer-file-name)))
+    (if buffer-file-name (string-match-p "entrypoint.org$" buffer-file-name)))
   (defun spolakh/maybe-turn-on-mixed-pitch-mode ()
     (if (not (spolakh/is-this-a-task-file)) (mixed-pitch-mode)))
 
@@ -349,11 +349,11 @@
     )
    )
   (require 'find-lisp)
-  (setq spolakh/org-agenda-directory "~/Syncthing/default/org/notes/private/gtd/"
-        spolakh/org-dailies-directory "~/Syncthing/default/org/notes/private/dailies/"
+  (setq spolakh/org-agenda-directory "/enc/org/notes/private/gtd/"
+        spolakh/org-dailies-directory "/enc/org/notes/private/dailies/"
         spolakh/org-phone-directory "~/Syncthing/phone-org/"
-        spolakh/org-gcal-directory "~/Syncthing/default/org/cal/"
-        spolakh/org-directory "~/Syncthing/default/org/"
+        spolakh/org-gcal-directory "/enc/org/cal/"
+        spolakh/org-directory "/enc/org/"
         spolakh/org-roam-directory (file-truename (concat spolakh/org-directory "/notes/"))
         )
 
@@ -374,10 +374,10 @@
      "-ARCHIVE+TODO=\"DONE\"" 'file))
   (defun spolakh/open-projects ()
     (interactive)
-    (find-file (concat spolakh/org-agenda-directory "projects.org.gpg")))
+    (find-file (concat spolakh/org-agenda-directory "projects.org")))
   (defun spolakh/fuck-it ()
     (interactive)
-    (find-file (concat spolakh/org-agenda-directory "non_gtd.org.gpg")))
+    (find-file (concat spolakh/org-agenda-directory "non_gtd.org")))
   (map! :map org-mode-map
       (:prefix ("g" . "go")
        :desc "evil-next-visual-line" :n "j" 'evil-next-visual-line
@@ -393,31 +393,31 @@
        :desc "Clock in" "i" 'org-clock-in
        :desc "Toggle last clock" "o" '+org/toggle-last-clock))
   (setq org-capture-templates
-        `(("i" "Inbox @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+        `(("i" "Inbox @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* TODO %? :@mine:")
-          ("I" "Inbox @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("I" "Inbox @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* TODO %? :@work:")
 
-          ("s" "Sprint @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("s" "Sprint @mine TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* SPRINT %? :@mine:")
-          ("S" "Sprint @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("S" "Sprint @work TODO" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* SPRINT %? :@work:")
 
-          ("t" "@mine SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("t" "@mine SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* SPRINT %? :@mine:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"\"))")
-          ("T" "@work SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("T" "@work SPRINT for Today" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* SPRINT %? :@work:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"\"))")
 
-          ("p" "Project @mine" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("p" "Project @mine" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* PRJ [%^{Project title}] :@mine:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
-          ("P" "Project @work" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("P" "Project @work" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
            "* PRJ [%^{Project title}] :@work:\nGoal: *%^{Goal}*\n%^{Description}\n** TODO %?")
 
           ("c" "add note to Clocked item" plain (clock)
            "%T: %?"
            :unnarrowed t)
 
-          ("a" "org-protocol-capture from Alfred" entry (file ,(concat spolakh/org-agenda-directory "inbox.org.gpg"))
+          ("a" "org-protocol-capture from Alfred" entry (file ,(concat spolakh/org-agenda-directory "inbox.org"))
             "* TODO %i"
             :immediate-finish t)))
   (setq
@@ -467,8 +467,8 @@
                             )))
   (setq org-fast-tag-selection-single-key nil)
   (setq org-refile-targets `(
-                              (,(concat spolakh/org-agenda-directory "repeaters.org.gpg") . (:level . 0))
-                              (,(concat spolakh/org-roam-directory "entrypoint.org.gpg") . (:maxlevel . 3))
+                              (,(concat spolakh/org-agenda-directory "repeaters.org") . (:level . 0))
+                              (,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))
                               (nil . (:maxlevel . 3))
                               ))
   (defun spolakh/shift-dwim-at-point ()
@@ -727,16 +727,16 @@
                   '((tags . " -")))
                  (org-agenda-files
                   '(
-                    ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
+                    ,(concat spolakh/org-roam-directory "entrypoint.org")
                     ))))
     )
 
   (defun spolakh/review-for-filter (filter)
     (let ((all-files `(append
-                              (find-lisp-find-files spolakh/org-gcal-directory "\.org.gpg$")
-                              (find-lisp-find-files spolakh/org-agenda-directory "\.org.gpg$")
+                              (find-lisp-find-files spolakh/org-gcal-directory "\.org$")
+                              (find-lisp-find-files spolakh/org-agenda-directory "\.org$")
                              '(
-                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
+                               ,(concat spolakh/org-roam-directory "entrypoint.org")
                                ,(concat spolakh/org-phone-directory "phone.org")
                                ,(concat spolakh/org-phone-directory "phone-work.org")
                                )
@@ -747,20 +747,20 @@
                     (org-agenda-prefix-format '((tags . " - ")))
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-todo-keyword-faces '(("Going Well" . (:foreground "LightCoral" :weight bold))))
-                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org")))))
 
         (tags-todo "LEVEL=2+TODO=\"In Progress\""
                    ((org-agenda-overriding-header "🎗 Everything In Progress. If we feel safe loosening attention around it - Going Well. If dropped - Open (or archive) >")
                     (org-agenda-prefix-format '((tags . " - ")))
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-todo-keyword-faces '(("In Progress" . (:foreground "DarkSalmon" :weight bold))))
-                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org")))))
 
         ,(spolakh/project-agenda-section-for-filter filter "🚀 " "Drop(a) \\ Defer(p)")
 
         (tags-todo "-@mine-@work"
               ((org-agenda-overriding-header "🔴 Items without mine\\work: Tag(C-c C-c)")
-               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
+               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org")))
                ))
 
         (todo "SPRINT|WAITING"
@@ -776,13 +776,13 @@
         (tags-todo "active+LEVEL>2+TODO=\"TODO\""
                    ((org-agenda-overriding-header "🗃 TODOs from active projects \ oneoffs. Maybe take into Sprint >")
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
-                    (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org")))))
 
         ,(spolakh/inboxes-for-filter filter)
 
         (tags-todo "maybe"
               ((org-agenda-overriding-header "📦 Ticklers from Later. Take into Sprint \\ Add to active Projects \\ Defer(p) >")
-               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org.gpg")))
+               (org-agenda-files '(,(concat spolakh/org-roam-directory "entrypoint.org")))
                (org-agenda-skip-function '(or
                                            (org-agenda-skip-if-scheduled-for-later-with-day-granularity)
                                            (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
@@ -798,7 +798,7 @@
           ((org-agenda-overriding-header "📤 Inboxes. Drop(a) \\ Process(p) \\ Mark as Fleeting(s-RET f) >")
            (org-agenda-files (append
                               '(
-                                ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
+                                ,(concat spolakh/org-agenda-directory "inbox.org")
                                 ,(concat spolakh/org-phone-directory "phone.org")
                                 ,(concat spolakh/org-phone-directory "phone-work.org")
                                 )
@@ -811,11 +811,11 @@
   (defun spolakh/done-for-filter (filter ndays include-repeaters)
       (let ((all-files `(append
                              '(
-                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "projects.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "repeaters.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "later.org.gpg")
+                               ,(concat spolakh/org-roam-directory "entrypoint.org")
+                               ,(concat spolakh/org-agenda-directory "projects.org")
+                               ,(concat spolakh/org-agenda-directory "repeaters.org")
+                               ,(concat spolakh/org-agenda-directory "inbox.org")
+                               ,(concat spolakh/org-agenda-directory "later.org")
                                ,(concat spolakh/org-phone-directory "phone.org")
                                ,(concat spolakh/org-phone-directory "phone-work.org")
                                )
@@ -839,13 +839,13 @@
 
   (defun spolakh/kanban-for-filter (filter)
     (let ((all-files `(append
-                              (find-lisp-find-files spolakh/org-gcal-directory "\.org.gpg$")
+                              (find-lisp-find-files spolakh/org-gcal-directory "\.org$")
                              '(
-                               ,(concat spolakh/org-agenda-directory "birthdays.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "repeaters.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "projects.org.gpg")
-                               ,(concat spolakh/org-agenda-directory "later.org.gpg")
-                               ,(concat spolakh/org-roam-directory "entrypoint.org.gpg")
+                               ,(concat spolakh/org-agenda-directory "birthdays.org")
+                               ,(concat spolakh/org-agenda-directory "repeaters.org")
+                               ,(concat spolakh/org-agenda-directory "projects.org")
+                               ,(concat spolakh/org-agenda-directory "later.org")
+                               ,(concat spolakh/org-roam-directory "entrypoint.org")
                                )
                              )))
       `((agenda ""
@@ -868,7 +868,7 @@
                     (org-agenda-todo-keyword-format "")
                     (org-agenda-skip-function '(or (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)))
                     (org-todo-keyword-faces '(("In Progress" . (:foreground "DarkSalmon" :weight bold))))
-                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org.gpg")))))
+                    (org-agenda-files '(,(concat spolakh/org-agenda-directory "board.org")))))
 
         ,(spolakh/inboxes-for-filter filter)
 
@@ -917,7 +917,7 @@
                                           ((org-agenda-overriding-header "🔖 to Finalize into Permanent Notes >")
                                           (org-agenda-files (append
                                                               '(
-                                                                ,(concat spolakh/org-agenda-directory "inbox.org.gpg")
+                                                                ,(concat spolakh/org-agenda-directory "inbox.org")
                                                                 ,(concat spolakh/org-phone-directory "phone.org")
                                                                 ,(concat spolakh/org-phone-directory "phone-work.org")
                                                                 )))))))
@@ -1082,14 +1082,14 @@
     (interactive)
     (let (
           (org-refile-target-verify-function (apply-partially #'spolakh/skip-if-doesnt-have-tag "maybe"))
-          (org-refile-targets `((,(concat spolakh/org-roam-directory "entrypoint.org.gpg") . (:maxlevel . 3))))
+          (org-refile-targets `((,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))))
           )
       (org-agenda-refile)))
   (defun spolakh/refile-to-project-or-oneoff ()
     (interactive)
     (let (
           (org-refile-target-verify-function (apply-partially #'spolakh/skip-if-doesnt-have-tag "active"))
-          (org-refile-targets `((,(concat spolakh/org-roam-directory "entrypoint.org.gpg") . (:maxlevel . 3))))
+          (org-refile-targets `((,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))))
           )
       (org-agenda-refile)))
   (defun spolakh/unschedule ()
@@ -1254,9 +1254,9 @@
   (setq org-gcal-client-id (get-gcal-config-value 'org-gcal-client-id)
         org-gcal-client-secret (get-gcal-config-value 'org-gcal-client-secret)
         org-gcal-file-alist `(
-                              (,(get-gcal-config-value 'calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal.org.gpg"))
-                              (,(get-gcal-config-value 'work-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-grail.org.gpg"))
-                              (,(get-gcal-config-value 'birthday-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-birthdays.org.gpg"))
+                              (,(get-gcal-config-value 'calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal.org"))
+                              (,(get-gcal-config-value 'work-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-grail.org"))
+                              (,(get-gcal-config-value 'birthday-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-birthdays.org"))
                               )
         org-gcal-remove-api-cancelled-events t
         org-gcal-update-cancelled-events-with-todo nil
@@ -1291,7 +1291,7 @@
     (defun spolakh/wipe-work-gcal-and-refetch ()
       (interactive)
       ;(with-current-buffer
-      ;    (find-file-noselect (concat spolakh/org-agenda-directory "gcal-grail.org.gpg"))
+      ;    (find-file-noselect (concat spolakh/org-agenda-directory "gcal-grail.org"))
       ;  (erase-buffer)
       ;  (save-buffer))
       (call-interactively #'spolakh/org-gcal-sync)
@@ -1353,8 +1353,8 @@
   (setq org-roam-completion-ignore-case t)
   (setq org-roam-dailies-directory "private/dailies/")
   (setq epa-file-encrypt-to "onlyusefororg@example.com")
-  (setq org-roam-index-file "~/Syncthing/default/org/notes/entrypoint.org.gpg")
-  (setq org-roam-db-location "~/org-roam-new.db")
+  (setq org-roam-index-file "/enc/org/notes/entrypoint.org")
+  (setq org-roam-db-location "/enc/org-roam.db")
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
