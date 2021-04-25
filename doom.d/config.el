@@ -343,8 +343,8 @@
    (:map org-mode-map
     "<s-return>" #'org-todo
     "<S-s-return>" #'org-toggle-checkbox
-    "C-j" #'org-next-visible-heading
-    "C-k" #'org-previous-visible-heading
+    "C-j" #'org-forward-heading-same-level
+    "C-k" #'org-backward-heading-same-level
     "C-h" #'org-up-element
     )
    )
