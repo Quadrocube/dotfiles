@@ -46,3 +46,6 @@ echo "And then add `auth sufficient pam_tid.so` to the top of /private/etc/pam.d
 mkdir ~/libs && cd ~/libs
 git clone https://github.com/dylanaraps/pywal && cd pywal
 pip3 install --user .
+cd ~
+
+brew install --cask meetingbar
