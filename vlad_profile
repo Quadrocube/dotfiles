@@ -34,6 +34,7 @@ alias gc='grail-aws tickets/grail-prod-galleri/admin/aws webconsole'
 alias mc='grail-aws tickets/grail-prod-mrd/admin/aws webconsole'
 alias cc='grail-aws tickets/clinical/dev/aws webconsole'
 alias rc='grail-aws tickets/msk/dev/aws webconsole'
+alias dc='grail-aws tickets/grail-sysinfra-eng/dev/aws webconsole'
 
 # Completions
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
