@@ -1073,10 +1073,12 @@
     (re-search-backward ">$" nil 1)
     (let ((current-prefix-arg '(4))) (call-interactively 'recenter-top-bottom))
     )
-  ; xcxc try printing all files this is called on?
   (defun spolakh/skip-if-doesnt-have-tag (tag)
-    (if (member tag (org-get-at-bol 'tags)) t
-      (if (> (org-current-level) 1) (progn (org-end-of-subtree t) nil)))
+    (if (member tag (org-get-tags)) t
+      (if (> (org-current-level) 1)
+          (progn (org-end-of-subtree t) nil)
+          nil
+        ))
     )
   (defun spolakh/refile-to-later ()
     (interactive)
