@@ -75,7 +75,7 @@
 (use-package! mixed-pitch
   :init
   (defvar spolakh/task-files
-    '("projects.org" "inbox.org" "later.org" "repeaters.org" "phone.org" "phone-work.org" "entrypoint.org")
+    '("inbox.org" "later.org" "repeaters.org" "phone.org" "phone-work.org" "entrypoint.org")
     "Filenames of org files that won't get variable-font and scaled org headers")
   (defun spolakh/is-this-a-task-file ()
     (if buffer-file-name (seq-some (lambda (x) (string-match-p x buffer-file-name)) spolakh/task-files)))
@@ -372,12 +372,6 @@
        ;(setq org-map-continue-from (org-element-property :begin (org-element-at-point)))
        )
      "-ARCHIVE+TODO=\"DONE\"" 'file))
-  (defun spolakh/open-projects ()
-    (interactive)
-    (find-file (concat spolakh/org-agenda-directory "projects.org")))
-  (defun spolakh/fuck-it ()
-    (interactive)
-    (find-file (concat spolakh/org-agenda-directory "non_gtd.org")))
   (map! :map org-mode-map
       (:prefix ("g" . "go")
        :desc "evil-next-visual-line" :n "j" 'evil-next-visual-line
@@ -386,8 +380,6 @@
       :leader
       (:prefix ("n" . "notes")
        :desc "Refile" "R" 'org-refile
-       :desc "Projects" "p" 'spolakh/open-projects
-       :desc "Fuck it" "F" 'spolakh/fuck-it
        :desc "Capture" "c" 'org-capture
        :desc "GoTo active clock" "C" 'org-clock-goto
        :desc "Clock in" "i" 'org-clock-in
@@ -819,7 +811,6 @@
       (let ((all-files `(append
                              '(
                                ,(concat spolakh/org-roam-directory "entrypoint.org")
-                               ,(concat spolakh/org-agenda-directory "projects.org")
                                ,(concat spolakh/org-agenda-directory "repeaters.org")
                                ,(concat spolakh/org-agenda-directory "inbox.org")
                                ,(concat spolakh/org-agenda-directory "later.org")
@@ -850,7 +841,6 @@
                              '(
                                ,(concat spolakh/org-agenda-directory "birthdays.org")
                                ,(concat spolakh/org-agenda-directory "repeaters.org")
-                               ,(concat spolakh/org-agenda-directory "projects.org")
                                ,(concat spolakh/org-agenda-directory "later.org")
                                ,(concat spolakh/org-roam-directory "entrypoint.org")
                                )
