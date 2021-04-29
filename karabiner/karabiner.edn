@@ -122,6 +122,7 @@
             ; basic movements
             :space-mode {:key :spacebar} 
             :emacs-space-mode {:key :spacebar :condi :Emacs}
+            :chrome-space-mode {:key :spacebar :condi :Chromes}
             }
 
 ; example of how to debug specific targets: :emacs "TITLE=\"%s\"; LOGS=`${HOME}/dots/karabiner/focus_emacs_and_spawn_if_needed.sh ${TITLE}`; osascript -e \"display dialog \\\"test: ${LOGS}\\\"\""
@@ -240,6 +241,11 @@
                  ; avy-goto-char-2 in Emacs
                  [:s [:!Ox :a :v :y :hyphen :g :o :t :o :hyphen :c :h :a :r :hyphen :2 :return_or_enter]]
                  ;[:s [:g :s :spacebar]]
+                ]}
+       {:des "essential movements - chrome flavor"
+         :rules [:chrome-space-mode
+                 ; tab search in Chrome
+                 [:s :!CSa]
                 ]}
        {:des "finder"
          :rules [:f-mode
