@@ -83,6 +83,7 @@
  :applications {
     :Emacs   ["^org\\.gnu\\.Emacs$"]
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]
+    :Slack   ["^com\\.tinyspeck\\.slackmacgap$"]
  }
 
 :tos {
@@ -216,6 +217,13 @@
         :rules [:Chromes
                 [:!CSi :!CSopen_bracket]
                 [:!CSo :!CSclose_bracket]
+        ]}
+       {:des "slack-specific bindings"
+        :rules [:Slack
+               [:!CSi :!CSopen_bracket]
+               [:!CSo :!CSclose_bracket]
+               [:!Ci :!Copen_bracket]
+               [:!Co :!Cclose_bracket]
         ]}
        {:des "caps lock -> esc if alone, hyper if used as a modifier"
         :rules [:caps-mode
