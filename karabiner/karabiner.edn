@@ -217,6 +217,8 @@
         :rules [:Chromes
                 [:!CSi :!CSopen_bracket]
                 [:!CSo :!CSclose_bracket]
+                [:!Ci :!Copen_bracket]
+                [:!Co :!Cclose_bracket]
         ]}
        {:des "slack-specific bindings"
         :rules [:Slack
