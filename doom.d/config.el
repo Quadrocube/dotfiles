@@ -889,7 +889,7 @@
                                            ))
                ))
 
-        ,(let ((scheduled-condition (format "SCHEDULED<=\"<+%dd>\"" (if (= (decoded-time-weekday (decode-time)) 6) 7 (- 7 (decoded-time-weekday (decode-time)))))))
+        ,(let ((scheduled-condition (format "SCHEDULED<=\"<+%dd>\"&SCHEDULED>=\"<+1d>\"" (if (= (decoded-time-weekday (decode-time)) 6) 7 (- 7 (decoded-time-weekday (decode-time)))))))
           `(tags-todo ,(format "-maybe&TODO=\"SPRINT\"&%s" scheduled-condition)
               ; xcxc1: sprint + todo
               ; xcxc2: get rid of later.org items
