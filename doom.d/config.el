@@ -664,6 +664,13 @@
           subtree-end
         nil)))
 
+  (defun spolakh/skip-if-recurrent ()
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if
+          (string-match-p (regexp-quote "+") (org-entry-get nil "SCHEDULED"))
+          subtree-end
+        nil)))
+
   (defun spolakh/skip-if-waiting ()
     (let ((subtree-end (save-excursion (org-end-of-subtree t))))
       (if
@@ -873,7 +880,7 @@
         ,(spolakh/inboxes-for-filter filter)
 
         (todo "SPRINT"
-              ((org-agenda-overriding-header "🗂 Sprint >")
+              ((org-agenda-overriding-header "🗂 Sprint (Unscheduled) >")
                (org-agenda-files ,all-files)
                (org-agenda-hide-tags-regexp "")
                (org-agenda-skip-function '(or
@@ -881,6 +888,22 @@
                                            (org-agenda-skip-entry-if 'scheduled)
                                            ))
                ))
+
+        ,(let ((scheduled-condition (format "SCHEDULED<=\"<+%dd>\"" (if (= (decoded-time-weekday (decode-time)) 6) 7 (- 7 (decoded-time-weekday (decode-time)))))))
+          `(tags-todo ,(format "-maybe&TODO=\"SPRINT\"&%s" scheduled-condition)
+              ; xcxc1: sprint + todo
+              ; xcxc2: get rid of later.org items
+              ((org-agenda-overriding-header "🗂 Scheduled for this Sprint >")
+               (org-agenda-files ,all-files)
+               (org-agenda-sorting-strategy '((tags scheduled-up)))
+               (org-agenda-prefix-format '((tags . "[%-4e] %(org-entry-get nil \"SCHEDULED\") %(spolakh/format-outline (org-get-outline-path) 18)")))
+               (org-agenda-hide-tags-regexp "")
+               (org-agenda-skip-function '(or
+                                           (spolakh/skip-subtree-if-irrelevant-to-current-context ,filter t)
+                                           (spolakh/skip-if-recurrent)
+                                           (org-agenda-skip-entry-if 'notscheduled)
+                                           ))
+               )))
 
         (todo "WAITING"
               ((org-agenda-overriding-header "🌒 Waiting >")
