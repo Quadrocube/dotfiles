@@ -236,8 +236,16 @@
                  [:h :left_arrow]
                  [:j :down_arrow]
                  [:k :up_arrow]
+                 [:!Sl :!Sright_arrow]
+                 [:!Sh :!Sleft_arrow]
+                 [:!Sj :!Sdown_arrow]
+                 [:!Sk :!Sup_arrow]
+
                  [:e :!Oright_arrow]
                  [:b :!Oleft_arrow]
+                 [:!Re :!SOright_arrow]
+                 [:!Rb :!SOleft_arrow]
+
                  [:0 :!Cleft_arrow]
                  [:4 :!Cright_arrow]
                  [:f :select_us]

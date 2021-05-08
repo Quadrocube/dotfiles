@@ -890,7 +890,8 @@
                ))
 
         ,(let ((scheduled-condition (format "SCHEDULED<=\"<+%dd>\"&SCHEDULED>=\"<+1d>\"" (if (= (decoded-time-weekday (decode-time)) 6) 7 (- 7 (decoded-time-weekday (decode-time)))))))
-          `(tags-todo ,(format "-maybe&TODO=\"SPRINT\"&%s" scheduled-condition)
+           ; brackets aren't implemented :(
+          `(tags-todo ,(format "-maybe&TODO=\"SPRINT\"&%s|-maybe&TODO=\"TODO\"&CATEGORY!=\"later\"&%s" scheduled-condition scheduled-condition)
               ; xcxc1: sprint + todo
               ; xcxc2: get rid of later.org items
               ((org-agenda-overriding-header "🗂 Scheduled for this Sprint >")
@@ -1113,7 +1114,6 @@
   (defun spolakh/refile-to-project-or-oneoff ()
     (interactive)
     (let (
-          (org-refile-target-verify-function (apply-partially #'spolakh/skip-if-doesnt-have-tag "active"))
           (org-refile-targets `((,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))))
           )
       (org-agenda-refile)))
