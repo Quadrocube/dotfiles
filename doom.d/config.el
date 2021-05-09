@@ -1430,11 +1430,15 @@
     ))
   (setq org-roam-dailies-capture-templates
         (spolakh/compile-daily-template ""))
+  (defun spolakh/org-roam-jump-to-strategy ()
+    (interactive)
+    (org-roam-find-file "∞ Shortest Path" nil nil t))
   (map! :map org-roam-mode-map
         :leader
         (:prefix ("n" . "notes")
          (:prefix ("r" . "roam")
           :desc "Entrypoint" "e" 'org-roam-jump-to-index
+          :desc "Strategy" "s" 'spolakh/org-roam-jump-to-strategy
           :desc "Insert a link to a Note" "l" 'org-roam-insert
           ;:desc "Add log" "k" 'spolakh/org-roam-capture-log-wrapper
           )))
