@@ -1416,7 +1416,7 @@
      "** %?"
      ;:immediate-finish t
      :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-     :head ,(concat "#+TITLE: %<%Y-%m-%d>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
+     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n(also maybe post nice pics from today on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
     ))
   (setq org-roam-dailies-capture-templates
         (spolakh/compile-daily-template ""))
