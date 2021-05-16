@@ -27,6 +27,7 @@ alias rk='cloudkey msk/dev kubectl '
 alias gk='cloudkey grail-prod-galleri/admin kubectl '
 alias mk='cloudkey grail-prod-mrd/admin kubectl '
 alias ak='cloudkey msk/dev kubectl --namespace=monitoring-spolakh'
+alias sk='cloudkey grail-sysinfra-eng/dev kubectl'
 alias kk='kubectl config use-context '
 
 # Aliases.console

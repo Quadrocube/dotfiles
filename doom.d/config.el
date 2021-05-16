@@ -1139,7 +1139,8 @@
            (let ((current-prefix-arg 0)) (call-interactively 'recenter-top-bottom)))
        ; filter tags to non-inherited ones - if there are none, prompt to add.
        ; example output of (org-get-at-bol 'tags): (#("maybe" 0 5 (inherited t)) "@mine")
-       (if (= 0 (length (seq-filter (lambda (x) (not (get-text-property 0 'inherited x))) (org-get-at-bol 'tags)))) (org-agenda-set-tags))
+       ;(if (= 0 (length (seq-filter (lambda (x) (not (get-text-property 0 'inherited x))) (org-get-at-bol 'tags)))) (org-agenda-set-tags))
+       (org-agenda-set-tags)
        (unless (org-entry-get (org-get-at-bol 'org-hd-marker) "Effort") (spolakh/invoke-fast-effort-selection))
        (hydra-schedule/body)
      )
@@ -1416,7 +1417,7 @@
      "** %?"
      ;:immediate-finish t
      :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today]] 1: 2: 3:\n(also maybe post nice pics from today on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
+     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today: things we did and things we are grateful for]] 1: 2: 3:\n(also maybe star nice pics from today and spost some of the starred ones on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
     ))
   (setq org-roam-dailies-capture-templates
         (spolakh/compile-daily-template ""))
