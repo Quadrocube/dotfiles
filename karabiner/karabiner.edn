@@ -80,6 +80,7 @@
 
  :input-sources {:us {:input_source_id "com.apple.keylayout.US"}}
 
+; osascript -e 'id of app "Slack"'
  :applications {
     :Emacs   ["^org\\.gnu\\.Emacs$"]
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]

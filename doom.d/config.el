@@ -346,6 +346,8 @@
     "C-j" #'org-forward-heading-same-level
     "C-k" #'org-backward-heading-same-level
     "C-h" #'org-up-element
+    "M-<return>" #'+org/insert-item-below
+    "M-RET" #'+org/insert-item-below
     )
    )
   (require 'find-lisp)
