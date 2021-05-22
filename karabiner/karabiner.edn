@@ -78,7 +78,8 @@
     ]
   }
 
- :input-sources {:us {:input_source_id "com.apple.keylayout.US"}}
+ :input-sources {:us {:input_source_id "com.apple.keylayout.US"}
+               :dvorak {:input_source_id "com.apple.keylayout.Dvorak"}}
 
 ; osascript -e 'id of app "Slack"'
  :applications {
@@ -173,11 +174,6 @@
                 [:!Ck ["/usr/local/bin/yabai -m window --focus north"]]
                 [:!Cj ["/usr/local/bin/yabai -m window --focus south"]]
         ]}
-       {:des "make apple keyboard more like kinesis"
-        :rules [
-                [:##grave_accent_and_tilde :hyphen :apple]
-                [:##hyphen :grave_accent_and_tilde :apple]
-        ]}
        {:des "move workspaces by i and o instead of arrows"
         :rules [
                 [:!Wi :!Wleft_arrow]
@@ -194,25 +190,52 @@
                 [:!S0 :vk_none]
 
                 ; Commands -> <> (but dont disable in russian layout)
-                [:##left_command :left_command nil {:alone [:!Scomma]}]
-                [:##right_command :right_command nil {:alone [:!Speriod]}]
+                [:##left_command :left_command [:!dvorak] {:alone [:!Scomma]}]
+                [:##right_command :right_command [:!dvorak] {:alone [:!Speriod]}]
                 [:!Scomma :vk_none [:us]]
                 [:!Speriod :vk_none [:us]]
+                ; same for dvorak
+                [:##left_command :left_command [:dvorak] {:alone [:!Sw]}]
+                [:##right_command :right_command [:dvorak] {:alone [:!Se]}]
 
                 ; Ctrl, Alt -> {} (but dont disable in russian layout)
-                [:##left_control :left_control nil {:alone [:!Sopen_bracket]}]
-                [:##right_option :right_option nil {:alone [:!Sclose_bracket]}]
-                [:!Sopen_bracket :vk_none [:us]]
-                [:!Sclose_bracket :vk_none [:us]]
+                [:##left_control :left_control [:apple :!dvorak] {:alone [:!Sopen_bracket]}]
+                [:##right_option :right_option [:apple :!dvorak] {:alone [:!Sclose_bracket]}]
+                [:!Sopen_bracket :vk_none [:us :!dvorak]]
+                [:!Sclose_bracket :vk_none [:us :!dvorak]]
                 ; same for kinesis but v1 only has left option and right control -_-
-                [:##right_control :right_control [:!apple] {:alone [:!Sopen_bracket]}]
-                [:##left_option :left_option [:!apple] {:alone [:!Sclose_bracket]}]
+                [:##right_control :right_control [:!apple :!dvorak] {:alone [:!Sopen_bracket]}]
+                [:##left_option :left_option [:!apple :!dvorak] {:alone [:!Sclose_bracket]}]
+                ; same for dvorak
+                [:##left_control :left_control [:apple :dvorak] {:alone [:!Shyphen]}]
+                [:##right_option :right_option [:apple :dvorak] {:alone [:!Sequal_sign]}]
+                [:##right_control :right_control [:!apple :dvorak] {:alone [:!Shyphen]}]
+                [:##left_option :left_option [:!apple :dvorak] {:alone [:!Sequal_sign]}]
 
                 ; make ' and " be both single-key, and on the left and right side respectively
-                [:quote :!Squote [:us :apple]]
                 [:!Squote :vk_none [:us]]
-                [:##down_arrow :!Squote [:!apple]]
-                [:##left_option :left_option [:apple] {:alone [:quote]}]
+                ; apple
+                [:quote :!Squote [:us :apple]]
+                [:quote :!Sq [:dvorak :apple]]
+                [:##left_option :left_option [:apple :!dvorak] {:alone [:quote]}]
+                [:##left_option :left_option [:apple :dvorak] {:alone [:q]}]
+                ; kinesis
+                [:##down_arrow :!Squote [:!apple :!dvorak]]
+                ; same on dvorak
+                [:##down_arrow :!Sq [:!apple :dvorak]]
+                [:quote :q [:!apple :dvorak]]
+
+                ; switch /= and [] on dvorak
+                [:##close_bracket :equal_sign [:dvorak]]
+                [:##open_bracket :hyphen [:dvorak]]
+                [:##equal_sign :close_bracket [:dvorak]]
+                [:##hyphen :quote [:dvorak :!apple]]
+                [:##q :open_bracket [:dvorak]]
+
+                ; make apple keyboard more like kinesis
+                [:##grave_accent_and_tilde :hyphen [:apple :!dvorak]]
+                [:##grave_accent_and_tilde :quote [:apple :dvorak]]
+                [:##hyphen :grave_accent_and_tilde :apple]
 
                 ; disable left shifts for left half of keyboard
                 [:!Sq :vk_none] [:!Sw :vk_none] [:!Se :vk_none] [:!Sr :vk_none] [:!St :vk_none] [:!Sa :vk_none] [:!Ss :vk_none] [:!Sd :vk_none] [:!Sf :vk_none] [:!Sg :vk_none] [:!Sz :vk_none] [:!Sx :vk_none] [:!Sc :vk_none] [:!Sv :vk_none] [:!Sb :vk_none] [:!S1 :vk_none] [:!S2 :vk_none] [:!S3 :vk_none] [:!S4 :vk_none] [:!S5 :vk_none]
