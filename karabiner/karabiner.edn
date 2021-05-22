@@ -174,13 +174,6 @@
                 [:!Ck ["/usr/local/bin/yabai -m window --focus north"]]
                 [:!Cj ["/usr/local/bin/yabai -m window --focus south"]]
         ]}
-       {:des "move workspaces by i and o instead of arrows"
-        :rules [
-                [:!Wi :!Wleft_arrow]
-                [:!Wo :!Wright_arrow]
-                [:!Ti :!Tleft_arrow]
-                [:!To :!Tright_arrow]
-        ]}
        {:des "space cadet shift"
         :rules [
                 ; Shifts -> ()
@@ -244,17 +237,9 @@
         ]}
        {:des "chrome-specific bindings"
         :rules [:Chromes
-                [:!CSi :!CSopen_bracket]
-                [:!CSo :!CSclose_bracket]
-                [:!Ci :!Copen_bracket]
-                [:!Co :!Cclose_bracket]
         ]}
        {:des "slack-specific bindings"
         :rules [:Slack
-               [:!CSi :!CSopen_bracket]
-               [:!CSo :!CSclose_bracket]
-               [:!Ci :!Copen_bracket]
-               [:!Co :!Cclose_bracket]
         ]}
        {:des "caps lock -> esc if alone, hyper if used as a modifier"
         :rules [:caps-mode
@@ -283,6 +268,22 @@
                  [:u :page_up]
                  [:d :page_down]
                  [:delete_or_backspace :!Odelete_or_backspace]
+
+                 ; move stuff back and forth
+                 ; [] for workspaces
+                 [:open_bracket :!Wleft_arrow]
+                 [:close_bracket :!Wright_arrow]
+
+                 ; io + qp for slack, chrome, etc
+                 [:i :!CSopen_bracket [:Chromes]]
+                 [:o :!CSclose_bracket [:Chromes]]
+                 [:q :!Copen_bracket [:Chromes]]
+                 [:p :!Cclose_bracket [:Chromes]]
+
+                 [:i :!Copen_bracket [:Slack]]
+                 [:o :!Cclose_bracket [:Slack]]
+                 [:q :!CSopen_bracket [:Slack]]
+                 [:p :!CSclose_bracket [:Slack]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
