@@ -156,8 +156,8 @@
 ;; (setq auto-dark-emacs/dark-theme 'doom-nova)
 ;; (setq auto-dark-emacs/light-theme 'base16-atelier-sulphurpool-light-spolakh)
 ;; (setq doom-theme 'base16-atelier-sulphurpool-light-spolakh)
-;(setq auto-dark-emacs/dark-theme 'doom-one)
-(setq auto-dark-emacs/dark-theme 'doom-oceanic-next)
+;(setq auto-dark-emacs/dark-theme 'doom-oceanic-next)
+(setq auto-dark-emacs/dark-theme 'doom-one)
 (setq auto-dark-emacs/light-theme 'base16-cupcake-spolakh)
 (setq doom-theme 'base16-cupcake-spolakh)
 
