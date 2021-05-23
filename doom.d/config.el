@@ -156,10 +156,10 @@
 ;; (setq auto-dark-emacs/dark-theme 'doom-nova)
 ;; (setq auto-dark-emacs/light-theme 'base16-atelier-sulphurpool-light-spolakh)
 ;; (setq doom-theme 'base16-atelier-sulphurpool-light-spolakh)
-(setq auto-dark-emacs/dark-theme 'doom-one)
+;(setq auto-dark-emacs/dark-theme 'doom-one)
+(setq auto-dark-emacs/dark-theme 'doom-oceanic-next)
 (setq auto-dark-emacs/light-theme 'base16-cupcake-spolakh)
 (setq doom-theme 'base16-cupcake-spolakh)
-
 
 ; Other Favs:
 ;   - Light:
@@ -328,6 +328,8 @@
     (if (spolakh/is-this-an-org-roam-index-file) (org-num-mode)))
 
   (add-hook 'org-mode-hook 'spolakh/maybe-enum-org-headers)
+  ; org-roam's completion backend is too slow to call it immediately
+  (add-hook 'org-mode-hook (lambda () (setq company-idle-delay 0.25)))
 
   :config
   (map!
@@ -1542,12 +1544,20 @@
         lsp-ui-flycheck-enable t)
 )
 
+(use-package! company-tabnine
+  :after company
+  :init
+  (setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
+  )
+
 (use-package! company
   :init
   (add-to-list 'company-backends 'company-capf)
   :config
-  (setq company-idle-delay 0.25)
+  (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-limit 20)
+  (setq company-show-numbers t)
   )
 
 (use-package! company-lsp
