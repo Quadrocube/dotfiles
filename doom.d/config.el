@@ -1449,7 +1449,7 @@
            (newts (ts-adjust 'day offset-days (ts-now)))
            (dow (ts-dow newts))
            ; 0 is sunday
-           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] 1: 2: 3:\n\n[[roam:§ PRIVATE/Plans for Next Week]]" ""))
+           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] \n\n[[roam:§ PRIVATE/Plans for Next Week]]" ""))
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))

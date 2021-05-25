@@ -268,6 +268,7 @@
                  [:u :page_up]
                  [:d :page_down]
                  [:delete_or_backspace :!Odelete_or_backspace]
+                 [:return_or_enter :delete_forward]
 
                  ; move stuff back and forth
                  ; [] for workspaces
