@@ -289,7 +289,8 @@
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
                  ; avy-goto-char-2 in Emacs
-                 [:s [:!Ox :a :v :y :hyphen :g :o :t :o :hyphen :c :h :a :r :hyphen :2 :return_or_enter]]
+                 [:s [:!Ox :a :v :y :hyphen :g :o :t :o :hyphen :c :h :a :r :hyphen :2 :return_or_enter] [:!dvorak]]
+                 [:s [:!Ob :a :period :t :quote :u :s :k :s :quote :i :j :a :o :quote :2 :return_or_enter] [:dvorak]]
                  ;[:s [:g :s :spacebar]]
                 ]}
        {:des "essential movements - chrome flavor"
