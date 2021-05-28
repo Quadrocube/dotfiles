@@ -122,7 +122,7 @@
             ; ide
             :v-mode {:key :v}
             ; rest
-            :q-mode {:key :q}
+            :w-mode {:key :w}
             ; db
             :d-mode {:key :d}
             ; finder
@@ -334,7 +334,7 @@
                   ;[:!Sequal_sign [:send_to_desktop 13]]
                 ]}
        {:des "chats"
-          :rules [:q-mode
+          :rules [:w-mode
                   [:y [:app "zoom.us"]]
                   [:i [:app "Telegram"]]
                   [:u [:app "Slack"]]
