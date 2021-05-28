@@ -276,15 +276,23 @@
                  [:close_bracket :!Wright_arrow]
 
                  ; io + qp for slack, chrome, etc
-                 [:i :!CSopen_bracket [:Chromes]]
-                 [:o :!CSclose_bracket [:Chromes]]
-                 [:q :!Copen_bracket [:Chromes]]
-                 [:p :!Cclose_bracket [:Chromes]]
+                 [:i :!CSopen_bracket [:Chromes :!dvorak]]
+                 [:o :!CSclose_bracket [:Chromes :!dvorak]]
+                 [:q :!Copen_bracket [:Chromes :!dvorak]]
+                 [:p :!Cclose_bracket [:Chromes :!dvorak]]
+                 [:i :!CShyphen [:Chromes :dvorak]]
+                 [:o :!CSequal_sign [:Chromes :dvorak]]
+                 [:q :!Chyphen [:Chromes :dvorak]]
+                 [:p :!Cequal_sign [:Chromes :dvorak]]
 
-                 [:i :!Copen_bracket [:Slack]]
-                 [:o :!Cclose_bracket [:Slack]]
-                 [:q :!CSopen_bracket [:Slack]]
-                 [:p :!CSclose_bracket [:Slack]]
+                 [:q :!Copen_bracket [:Slack :!dvorak]]
+                 [:p :!Cclose_bracket [:Slack :!dvorak]]
+                 [:i :!CSopen_bracket [:Slack :!dvorak]]
+                 [:o :!CSclose_bracket [:Slack :!dvorak]]
+                 [:q :!Chyphen [:Slack :dvorak]]
+                 [:p :!Cequal_sign [:Slack :dvorak]]
+                 [:i :!CShyphen [:Slack :dvorak]]
+                 [:o :!CSequal_sign [:Slack :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode

@@ -1618,6 +1618,8 @@
 
   (setq git-link-open-in-browser 't))
 
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
 ; currently having issues with not being able to save winner-ring's which causes this to hang for like 10s every time
 ;(run-with-idle-timer 30 t #'doom-save-session)
 (persp-mode)
