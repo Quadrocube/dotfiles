@@ -308,12 +308,15 @@
                 ]}
        {:des "finder"
          :rules [:f-mode
-                [:i [:app "Finder" ""]]
+                ;[:i [:app "Finder" ""]]
+                [:i [:focus_desktop 2]]
          ]}
        {:des "exo"
           :rules [:z-mode
-                  [:i [:app "Emacs" ""]]
-                  [:o [:app "Todoist" ""]]
+                  ;[:i [:app "Emacs" ""]]
+                  [:i [:focus_desktop 17]]
+                  ;[:o [:app "Todoist" ""]]
+                  [:o [:focus_desktop 7]]
                   ;[:u [:emacs "@work"]]
                   ;[:!Sequal_sign [:send_to_desktop 14]]
                   ; Ω
@@ -325,33 +328,43 @@
                 ]}
        {:des "code editor"
           :rules [:v-mode
-                  [:u [:app "GoLand"]]
+                  ;[:u [:app "GoLand"]]
                   ;[:!Sequal_sign [:send_to_desktop 13]]
                 ]}
        {:des "database"
           :rules [:d-mode
-                  [:u [:app "MySQLWorkbench"]]
+                  ;[:u [:app "MySQLWorkbench"]]
+                  [:u [:focus_desktop 8]]
                   ;[:!Sequal_sign [:send_to_desktop 13]]
                 ]}
        {:des "chats"
           :rules [:w-mode
-                  [:y [:app "zoom.us"]]
-                  [:i [:app "Telegram"]]
-                  [:u [:app "Slack"]]
-                  [:o [:app "Discord"]]
-                  [:p [:app "Skype"]]
-                  [:backslash [:app "Messenger"]]
+                  ;[:y [:app "zoom.us"]]
+                  [:y [:focus_desktop 15]]
+                  ;[:i [:app "Telegram"]]
+                  [:i [:focus_desktop 12]]
+                  ;[:u [:app "Slack"]]
+                  [:u [:focus_desktop 11]]
+                  ;[:o [:app "Discord"]]
+                  [:o [:focus_desktop 13]]
+                  ;[:p [:app "Skype"]]
+                  [:p [:focus_desktop 3]]
+                  ;[:backslash [:app "Messenger"]]
+                  [:backslash [:focus_desktop 14]]
                   ;[:!Sequal_sign [:send_to_desktop 12]]
                 ]}
        {:des "terminal"
           :rules [:x-mode
-                  [:i [:app "kitty"]]
-                  [:u [:app "kitty"]]
+                  ;[:i [:app "kitty"]]
+                  [:i [:focus_desktop 6]]
+                  ;[:u [:app "kitty"]]
+                  [:u [:focus_desktop 6]]
                   ;[:!Sequal_sign [:send_to_desktop 15]]
                 ]}
        {:des "spotify"
           :rules [:s-mode
-                  [:i [:app "Spotify"]]
+                  ;[:i [:app "Spotify"]]
+                  [:i [:focus_desktop 16]]
 
                   [:semicolon [:alfred "add_current_track_to_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
                   [:quote [:alfred "remove_current_track_from_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
@@ -375,9 +388,11 @@
                 ]}
        {:des "domains (chrome)"
           :rules [:c-mode
-                  [:i [:app "Google Chrome" "Vladislav"]]
+                  ;[:i [:app "Google Chrome" "Vladislav"]]
+                  [:i [:focus_desktop 5]]
                   [:j [:km "grail: open console"]]
-                  [:u [:app "Google Chrome" "Vlad"]]
+                  ;[:u [:app "Google Chrome" "Vlad"]]
+                  [:u [:focus_desktop 4]]
                   ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=) 
                   ; [:!Sequal_sign [:send_to_desktop 16]]
 
