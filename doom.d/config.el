@@ -715,7 +715,11 @@
     )
   (defun spolakh/format-outline (outline len)
     (if outline
-      (spolakh/widen-to-len (car (last outline)) len)
+      (let* (
+             (token (car (last outline)))
+             (towiden (if (string= "Projects\\Milestones" token) (car (last (butlast outline))) token))
+            )
+        (spolakh/widen-to-len towiden len))
       "")
     )
 
