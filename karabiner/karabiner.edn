@@ -1,4 +1,4 @@
-    ;; list of key codes in Karabiner: 
+    ;; list of key codes in Karabiner:
     ;;   https://github.com/pqrs-org/Karabiner-Elements/issues/925
     ;; !  | mandatory  (not recursive) modifiers which must be pressed
     ;; #  | optional   (recursive) modifiers which can be pressed
@@ -52,8 +52,8 @@
 
 {:profiles
  {:Default {:default true
-                  
-                                
+
+
          :sim     50   ;; simultaneous_threshold_milliseconds (def: 50)
                        ;; keys need to be pressed within this threshold to be considered simultaneous
          :delay   80   ;; to_delayed_action_delay_milliseconds (def: 500)
@@ -65,9 +65,9 @@
                        ;; key is fired twice when 500 ms is elapsed (otherwise seen as a hold command)
          }
                 ;:delay   500
-                                
+
                 ;:alone   500
-                                
+
                 ;:held    1000
   }
 
@@ -112,7 +112,7 @@
 
 :simlayers {
             ;terminal
-            :x-mode {:key :x} ; TODO: maybe if I copy it and add S, xS= will work? 
+            :x-mode {:key :x} ; TODO: maybe if I copy it and add S, xS= will work?
             ; chrome
             :c-mode {:key :c}
             ; spotify
@@ -128,7 +128,7 @@
             ; finder
             :f-mode {:key :f}
             ; basic movements
-            :space-mode {:key :spacebar} 
+            :space-mode {:key :spacebar}
             :emacs-space-mode {:key :spacebar :condi :Emacs}
             :chrome-space-mode {:key :spacebar :condi :Chromes}
             }
@@ -137,8 +137,8 @@
 
  :templates {
              ; first focus space then focus window so that it doesn't show workspace switching animatio
-             ; this periodically hangs for seconds seemingly because of https://github.com/koekeishiya/yabai/issues/599 
-             :app "APP=\"%s\"; TITLE=\"%s\"; /usr/local/bin/yabai -m space --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .space][0]\"); /usr/bin/open -a \"${APP}\"; /usr/local/bin/yabai -m window --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .id][0]\")" 
+             ; this periodically hangs for seconds seemingly because of https://github.com/koekeishiya/yabai/issues/599
+             :app "APP=\"%s\"; TITLE=\"%s\"; /usr/local/bin/yabai -m space --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .space][0]\"); /usr/bin/open -a \"${APP}\"; /usr/local/bin/yabai -m window --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .id][0]\")"
              ; this triggers MacOS'es default space switching animation if an app is in another desktop but at least never blocks
              ;:app "/usr/bin/open -a \"%s\""
              :emacs "TITLE=\"%s\"; ${HOME}/dots/karabiner/focus_emacs_and_spawn_if_needed.sh ${TITLE}"
@@ -158,7 +158,7 @@
 
                 ; toggle monocle mode for current space
                 [:!Cw [:monocle_toggle]]
-                ; toggle floating and bring to center 
+                ; toggle floating and bring to center
                 [:!Ce ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"]]
                 ; rotate windows
                 [:!Cr ["/usr/local/bin/yabai -m space --rotate 90"]]
@@ -320,7 +320,8 @@
                   ;[:u [:emacs "@work"]]
                   ;[:!Sequal_sign [:send_to_desktop 14]]
                   ; Ω
-                  [:x :!Oz]
+                  [:x :!Oz [:!dvorak]]
+                  [:x :!Oslash [:dvorak]]
                   ; §
                   [:c :!O6]
                   ; ∞
@@ -368,10 +369,10 @@
 
                   [:semicolon [:alfred "add_current_track_to_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
                   [:quote [:alfred "remove_current_track_from_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
-                  [:k [:alfred "volume_up" "com.vdesabou.spotify.mini.player"]] 
-                  [:j [:alfred "volume_down" "com.vdesabou.spotify.mini.player"]] 
-                  [:l [:alfred "next" "com.vdesabou.spotify.mini.player"]] 
-                  [:h [:alfred "prev" "com.vdesabou.spotify.mini.player"]] 
+                  [:k [:alfred "volume_up" "com.vdesabou.spotify.mini.player"]]
+                  [:j [:alfred "volume_down" "com.vdesabou.spotify.mini.player"]]
+                  [:l [:alfred "next" "com.vdesabou.spotify.mini.player"]]
+                  [:h [:alfred "prev" "com.vdesabou.spotify.mini.player"]]
 
                   [:y [:alfred "add_current_track_to" "com.vdesabou.spotify.mini.player"]]
                   [:u [:alfred "remove_current_track_from" "com.vdesabou.spotify.mini.player"]]
@@ -393,7 +394,7 @@
                   [:j [:km "grail: open console"]]
                   ;[:u [:app "Google Chrome" "Vlad"]]
                   [:u [:focus_desktop 4]]
-                  ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=) 
+                  ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=)
                   ; [:!Sequal_sign [:send_to_desktop 16]]
 
                   ; rest (quit)
@@ -420,7 +421,7 @@
                   ;; heal (oohm)
                   ;[:9 [:focus_desktop 14]]
                   ;[:!S9 [:send_to_desktop 14]]
-                  ;; flair 
+                  ;; flair
                   ;[:0 [:focus_desktop 2]]
                   ;[:!S0 [:send_to_desktop 2]]
                   ]}
