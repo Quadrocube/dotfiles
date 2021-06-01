@@ -316,6 +316,7 @@
           "SPC" #'avy-goto-char-2))
     )
    )
+  (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
   )
 
 ; ORG-MODE:
@@ -1425,7 +1426,7 @@
      "** %?"
      ;:immediate-finish t
      :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today: things we did and things we are grateful for]] 1: 2: 3:\n(also maybe star nice pics from today and spost some of the starred ones on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
+     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today: things we did and things we are grateful for]]. Also, things we did that colleagues might be grateful for. 1: 2: 3:\n(also maybe star nice pics from today and spost some of the starred ones on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
     ))
   (setq org-roam-dailies-capture-templates
         (spolakh/compile-daily-template ""))
@@ -1457,7 +1458,7 @@
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
-           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]] 1: 2: 3:") text-with-weekly))
+           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]]: tell a story") text-with-weekly))
            (text-with-work-weekly (if (= dow 1) (concat text-with-monthly "\n\n[[roam:§ GRAIL/Work Week Review]] ") text-with-monthly))
            )
       text-with-work-weekly)
@@ -1622,7 +1623,10 @@
 
   (setq git-link-open-in-browser 't))
 
-(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+(after! tramp
+  :config
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  )
 
 ; currently having issues with not being able to save winner-ring's which causes this to hang for like 10s every time
 ;(run-with-idle-timer 30 t #'doom-save-session)
