@@ -1552,7 +1552,9 @@
 (use-package! company-tabnine
   :after company
   :init
-  (setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
+  ;(setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
+  ;(setq +lsp-company-backends '(company-lsp company-yasnippet))
+  (setq +lsp-company-backends '(company-tabnine company-yasnippet))
   )
 
 (use-package! company
