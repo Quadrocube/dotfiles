@@ -246,53 +246,54 @@
         ]}
        {:des "essential movements"
          :rules [:space-mode
-                 [:l :right_arrow]
-                 [:h :left_arrow]
-                 [:j :down_arrow]
-                 [:k :up_arrow]
-                 [:!Sl :!Sright_arrow]
-                 [:!Sh :!Sleft_arrow]
-                 [:!Sj :!Sdown_arrow]
-                 [:!Sk :!Sup_arrow]
+                 [:p :right_arrow]
+                 [:j :left_arrow]
+                 [:c :down_arrow]
+                 [:v :up_arrow]
+                 [:!Sp :!Sright_arrow]
+                 [:!Sj :!Sleft_arrow]
+                 [:!Sc :!Sdown_arrow]
+                 [:!Sv :!Sup_arrow]
 
-                 [:e :!Oright_arrow]
-                 [:b :!Oleft_arrow]
-                 [:!Re :!SOright_arrow]
-                 [:!Rb :!SOleft_arrow]
+                 [:d :!Oright_arrow]
+                 [:n :!Oleft_arrow]
+                 [:!Rd :!SOright_arrow]
+                 [:!Rn :!SOleft_arrow]
 
                  [:0 :!Cleft_arrow]
                  [:4 :!Cright_arrow]
-                 [:a :select_us]
-                 [:g :select_ru]
-                 [:f :select_dvorak]
-                 [:u :page_up]
-                 [:d :page_down]
+                 [:f :page_up]
+                 [:h :page_down]
                  [:delete_or_backspace :!Odelete_or_backspace]
                  [:return_or_enter :delete_forward]
+
+                 [:g :select_ru]
+                 [:s :select_dvorak]
+                 [:a :select_us]
 
                  ; move stuff back and forth
                  ; [] for workspaces
                  [:open_bracket :!Wleft_arrow]
                  [:close_bracket :!Wright_arrow]
 
-                 ; io + qp for slack, chrome, etc
+                 ; io + we for slack, chrome, etc
                  [:i :!CSopen_bracket [:Chromes :!dvorak]]
                  [:o :!CSclose_bracket [:Chromes :!dvorak]]
-                 [:q :!Copen_bracket [:Chromes :!dvorak]]
-                 [:p :!Cclose_bracket [:Chromes :!dvorak]]
+                 [:w :!Copen_bracket [:Chromes :!dvorak]]
+                 [:e :!Cclose_bracket [:Chromes :!dvorak]]
                  [:i :!CShyphen [:Chromes :dvorak]]
                  [:o :!CSequal_sign [:Chromes :dvorak]]
-                 [:q :!Chyphen [:Chromes :dvorak]]
-                 [:p :!Cequal_sign [:Chromes :dvorak]]
+                 [:w :!Chyphen [:Chromes :dvorak]]
+                 [:e :!Cequal_sign [:Chromes :dvorak]]
 
                  [:q :!Copen_bracket [:Slack :!dvorak]]
                  [:p :!Cclose_bracket [:Slack :!dvorak]]
-                 [:i :!CSopen_bracket [:Slack :!dvorak]]
-                 [:o :!CSclose_bracket [:Slack :!dvorak]]
+                 [:w :!CSopen_bracket [:Slack :!dvorak]]
+                 [:e :!CSclose_bracket [:Slack :!dvorak]]
                  [:q :!Chyphen [:Slack :dvorak]]
                  [:p :!Cequal_sign [:Slack :dvorak]]
-                 [:i :!CShyphen [:Slack :dvorak]]
-                 [:o :!CSequal_sign [:Slack :dvorak]]
+                 [:w :!CShyphen [:Slack :dvorak]]
+                 [:e :!CSequal_sign [:Slack :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode

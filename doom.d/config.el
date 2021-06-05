@@ -891,8 +891,6 @@
         ,(let ((scheduled-condition (format "SCHEDULED<=\"<+%dd>\"&SCHEDULED>=\"<+1d>\"" (if (= (decoded-time-weekday (decode-time)) 6) 7 (- 7 (decoded-time-weekday (decode-time)))))))
            ; brackets aren't implemented :(
           `(tags-todo ,(format "-maybe&TODO=\"SPRINT\"&%s|-maybe&TODO=\"TODO\"&CATEGORY!=\"later\"&%s" scheduled-condition scheduled-condition)
-              ; xcxc1: sprint + todo
-              ; xcxc2: get rid of later.org items
               ((org-agenda-overriding-header "🗂 Scheduled for this Sprint >")
                (org-agenda-files ,all-files)
                (org-agenda-sorting-strategy '((tags scheduled-up)))
