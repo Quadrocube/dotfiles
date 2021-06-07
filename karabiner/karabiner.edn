@@ -268,8 +268,8 @@
                  [:return_or_enter :delete_forward]
 
                  [:g :select_ru]
-                 [:s :select_dvorak]
-                 [:a :select_us]
+                 [:a :select_dvorak]
+                 [:q :select_us]
 
                  ; move stuff back and forth
                  ; [] for workspaces

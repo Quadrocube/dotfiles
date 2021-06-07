@@ -317,6 +317,7 @@
     )
    )
   (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+  (setq avy-all-windows t)
   )
 
 ; ORG-MODE:
@@ -1372,7 +1373,7 @@
   (setq org-roam-link-file-path-type 'relative)
   (setq +org-roam-open-buffer-on-find-file nil)
   (setq org-roam-encrypt-files nil)
-  (setq org-roam-completion-everywhere t)
+  (setq org-roam-completion-everywhere nil)
   (setq org-roam-completion-ignore-case t)
   (setq org-roam-dailies-directory "private/dailies/")
   (setq epa-file-encrypt-to "onlyusefororg@example.com")
@@ -1456,7 +1457,7 @@
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
-           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]]: tell a story") text-with-weekly))
+           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]]: tell a story, groupped by AoRs") text-with-weekly))
            (text-with-work-weekly (if (= dow 1) (concat text-with-monthly "\n\n[[roam:§ GRAIL/Work Week Review]] ") text-with-monthly))
            )
       text-with-work-weekly)
