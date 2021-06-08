@@ -272,6 +272,9 @@
   "s-J" #'+evil/window-move-down
   "s-K" #'+evil/window-move-up))
 
+(map! (:map doom-leader-file-map
+       "c" #'doom/goto-private-config-file))
+
 (after! hydra
   (defhydra hydra-window (:color red)
     ("h" evil-window-left)
