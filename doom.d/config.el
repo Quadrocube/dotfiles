@@ -540,6 +540,9 @@
 (use-package! org-download
     :after org
     :init
+    (defun spolakh/org-download-annotate-no-comment (link)
+      "")
+    (setq org-download-annotate-function 'spolakh/org-download-annotate-no-comment)
     (setq org-download-method 'directory)
     (setq org-download-timestamp "%Y%m%d-%H%M%S_")
     (setq org-download-screenshot-method "/usr/local/bin/pngpaste %s")
@@ -1432,12 +1435,18 @@
   (defun spolakh/org-roam-jump-to-strategy ()
     (interactive)
     (org-roam-find-file "∞ Shortest Path" nil nil t))
+  (defun spolakh/org-roam-jump-to-weekplan ()
+    (interactive)
+    (progn
+      (org-roam-find-file "§ PRIVATE/Plans for Next Week" nil nil t)
+      (org-roam-buffer-activate)))
   (map! :map org-roam-mode-map
         :leader
         (:prefix ("n" . "notes")
          (:prefix ("r" . "roam")
           :desc "Entrypoint" "e" 'org-roam-jump-to-index
           :desc "Strategy" "s" 'spolakh/org-roam-jump-to-strategy
+          :desc "Plans for the Week" "w" 'spolakh/org-roam-jump-to-weekplan
           :desc "Insert a link to a Note" "l" 'org-roam-insert
           ;:desc "Add log" "k" 'spolakh/org-roam-capture-log-wrapper
           )))
@@ -1453,11 +1462,11 @@
            (newts (ts-adjust 'day offset-days (ts-now)))
            (dow (ts-dow newts))
            ; 0 is sunday
-           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]] \n\n[[roam:§ PRIVATE/Plans for Next Week]]" ""))
+           (text-with-weekly (if (= dow 0) "\n\n[[roam:§ PRIVATE/Nice Things This Week]]: Friends, Grail, Emacs, and Enlightenment\n\n[[roam:§ PRIVATE/Plans for Next Week]]: Friends, Grail, Emacs, and Enlightenment" ""))
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-sunday (and (= dow 0) (< (- last-day-this-month d) 7)))
-           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]]: tell a story, groupped by AoRs") text-with-weekly))
+           (text-with-monthly (if is-last-sunday (concat text-with-weekly "\n\n[[roam:§ PRIVATE/Nice Things This Month]]: tell a story, groupped by Ω and ∞") text-with-weekly))
            (text-with-work-weekly (if (= dow 1) (concat text-with-monthly "\n\n[[roam:§ GRAIL/Work Week Review]] ") text-with-monthly))
            )
       text-with-work-weekly)

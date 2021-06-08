@@ -286,14 +286,14 @@
                  [:w :!Chyphen [:Chromes :dvorak]]
                  [:e :!Cequal_sign [:Chromes :dvorak]]
 
-                 [:q :!Copen_bracket [:Slack :!dvorak]]
-                 [:p :!Cclose_bracket [:Slack :!dvorak]]
-                 [:w :!CSopen_bracket [:Slack :!dvorak]]
-                 [:e :!CSclose_bracket [:Slack :!dvorak]]
-                 [:q :!Chyphen [:Slack :dvorak]]
-                 [:p :!Cequal_sign [:Slack :dvorak]]
-                 [:w :!CShyphen [:Slack :dvorak]]
-                 [:e :!CSequal_sign [:Slack :dvorak]]
+                 [:w :!Copen_bracket [:Slack :!dvorak]]
+                 [:e :!Cclose_bracket [:Slack :!dvorak]]
+                 [:i :!CSopen_bracket [:Slack :!dvorak]]
+                 [:o :!CSclose_bracket [:Slack :!dvorak]]
+                 [:w :!Chyphen [:Slack :dvorak]]
+                 [:e :!Cequal_sign [:Slack :dvorak]]
+                 [:i :!CShyphen [:Slack :dvorak]]
+                 [:o :!CSequal_sign [:Slack :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
