@@ -139,6 +139,7 @@
              ; first focus space then focus window so that it doesn't show workspace switching animatio
              ; this periodically hangs for seconds seemingly because of https://github.com/koekeishiya/yabai/issues/599
              :app "APP=\"%s\"; TITLE=\"%s\"; /usr/local/bin/yabai -m space --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .space][0]\"); /usr/bin/open -a \"${APP}\"; /usr/local/bin/yabai -m window --focus $(/usr/local/bin/yabai -m query --windows | /usr/local/bin/jq \"[.[] | select(.app | contains(\\\"${APP}\\\")) | select(.title | contains(\\\"${TITLE}\\\")) | .id][0]\")"
+             :open_app "/usr/bin/open -a \"%s\""
              ; this triggers MacOS'es default space switching animation if an app is in another desktop but at least never blocks
              ;:app "/usr/bin/open -a \"%s\""
              :emacs "TITLE=\"%s\"; ${HOME}/dots/karabiner/focus_emacs_and_spawn_if_needed.sh ${TITLE}"
@@ -309,14 +310,14 @@
                 ]}
        {:des "finder"
          :rules [:f-mode
-                ;[:i [:app "Finder" ""]]
+                [:8 [:open_app "Finder"]]
                 [:i [:focus_desktop 2]]
          ]}
        {:des "exo"
           :rules [:z-mode
-                  ;[:i [:app "Emacs" ""]]
+                  [:8 [:open_app "Emacs"]]
                   [:i [:focus_desktop 17]]
-                  ;[:o [:app "Todoist" ""]]
+                  [:9 [:open_app "Todoist"]]
                   [:o [:focus_desktop 7]]
                   ;[:u [:emacs "@work"]]
                   ;[:!Sequal_sign [:send_to_desktop 14]]
@@ -328,44 +329,39 @@
                   ; ∞
                   [:v :!O5]
                 ]}
-       {:des "code editor"
-          :rules [:v-mode
-                  ;[:u [:app "GoLand"]]
-                  ;[:!Sequal_sign [:send_to_desktop 13]]
-                ]}
        {:des "database"
           :rules [:d-mode
-                  ;[:u [:app "MySQLWorkbench"]]
+                  [:7 [:open_app "MySQLWorkbench"]]
                   [:u [:focus_desktop 8]]
                   ;[:!Sequal_sign [:send_to_desktop 13]]
                 ]}
        {:des "chats"
           :rules [:w-mode
-                  ;[:y [:app "zoom.us"]]
+                  [:6 [:open_app "zoom.us"]]
                   [:y [:focus_desktop 15]]
-                  ;[:i [:app "Telegram"]]
+                  [:8 [:open_app "Telegram"]]
                   [:i [:focus_desktop 12]]
-                  ;[:u [:app "Slack"]]
+                  [:7 [:open_app "Slack"]]
                   [:u [:focus_desktop 11]]
-                  ;[:o [:app "Discord"]]
+                  [:9 [:open_app "Discord"]]
                   [:o [:focus_desktop 13]]
-                  ;[:p [:app "Skype"]]
+                  [:0 [:open_app "Skype"]]
                   [:p [:focus_desktop 3]]
-                  ;[:backslash [:app "Messenger"]]
+                  [:delete_or_backspace  [:open_app "Messenger"] :apple]
+                  [:equal_sign [:open_app "Messenger"] :!apple]
                   [:backslash [:focus_desktop 14]]
-                  ;[:!Sequal_sign [:send_to_desktop 12]]
                 ]}
        {:des "terminal"
           :rules [:x-mode
-                  ;[:i [:app "kitty"]]
+                  [:8 [:open_app "kitty"]]
                   [:i [:focus_desktop 6]]
-                  ;[:u [:app "kitty"]]
+                  [:7 [:open_app "kitty"]]
                   [:u [:focus_desktop 6]]
                   ;[:!Sequal_sign [:send_to_desktop 15]]
                 ]}
        {:des "spotify"
           :rules [:s-mode
-                  ;[:i [:app "Spotify"]]
+                  [:8 [:open_app "Spotify"]]
                   [:i [:focus_desktop 16]]
 
                   [:semicolon [:alfred "add_current_track_to_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
@@ -388,43 +384,16 @@
 
                   ;[:!Sequal_sign [:send_to_desktop 11]]
                 ]}
-       {:des "domains (chrome)"
+       {:des "chrome"
           :rules [:c-mode
-                  ;[:i [:app "Google Chrome" "Vladislav"]]
+                  [:8 [:open_app "Google Chrome"]]
                   [:i [:focus_desktop 5]]
-                  [:j [:km "grail: open console"]]
-                  ;[:u [:app "Google Chrome" "Vlad"]]
+                  [:7 [:open_app "Google Chrome"]]
                   [:u [:focus_desktop 4]]
+
+                  ; [:j [:km "grail: open console"]]
                   ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=)
                   ; [:!Sequal_sign [:send_to_desktop 16]]
-
-                  ; rest (quit)
-                  ;[:1 [:focus_desktop 12]]
-                  ;[:!S1 [:send_to_desktop 12]]
-                  ;; strategy (what)
-                  ;[:2 [:focus_desktop 13]]
-                  ;[:!S2 [:send_to_desktop 13]]
-                  ;; exo/pkm
-                  ;[:3 [:focus_desktop 11]]
-                  ;[:!S3 [:send_to_desktop 11]]
-                  ;; lair
-                  ;[:4 [:focus_desktop 10]]
-                  ;[:!S4 [:send_to_desktop 10]]
-                  ;; body (CT [scan])
-                  ;[:5 [:focus_desktop 16]]
-                  ;[:!S5 [:send_to_desktop 16]]
-                  ;; Nk (N)
-                  ;[:6 [:focus_desktop 3]]
-                  ;[:!S6 [:send_to_desktop 3]]
-                  ;; people (C U)
-                  ;[:7 [:focus_desktop 15]]
-                  ;[:!S7 [:send_to_desktop 15]]
-                  ;; heal (oohm)
-                  ;[:9 [:focus_desktop 14]]
-                  ;[:!S9 [:send_to_desktop 14]]
-                  ;; flair
-                  ;[:0 [:focus_desktop 2]]
-                  ;[:!S0 [:send_to_desktop 2]]
                   ]}
 ;       {:des "right cmd -> meh"
 ;         :rules [[:##right_command :!CTright_option nil {:alone :right_command}]]}
