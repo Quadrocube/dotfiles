@@ -1439,17 +1439,11 @@
     (interactive)
     (progn
       (org-roam-find-file "§ PRIVATE/Plans for Next Week" nil nil t)
-      (org-roam-buffer-activate)))
-  (map! :map org-roam-mode-map
-        :leader
-        (:prefix ("n" . "notes")
-         (:prefix ("r" . "roam")
-          :desc "Entrypoint" "e" 'org-roam-jump-to-index
-          :desc "Strategy" "s" 'spolakh/org-roam-jump-to-strategy
-          :desc "Plans for the Week" "w" 'spolakh/org-roam-jump-to-weekplan
-          :desc "Insert a link to a Note" "l" 'org-roam-insert
-          ;:desc "Add log" "k" 'spolakh/org-roam-capture-log-wrapper
-          )))
+      (org-roam-buffer-activate)
+      (ignore-errors (evil-window-right 10))
+      (evil-goto-line)
+      ))
+
   :config
 
   (defun spolakh/org-roam-find-day-wrapper (finder-function custom-text)
@@ -1488,28 +1482,33 @@
     "M-6" "§"
     "M-5" "∞"
     ))
-  (after! hydra
-    (defhydra hydra-dailies (:color red)
-      ("h" org-roam-dailies-find-previous-note)
-      ("l" org-roam-dailies-find-next-note)
-      ("." org-roam-dailies-find-today)
-      ("q" nil)
-      )
-    (map! :map org-roam-dailies-map
-          :leader
-          (:prefix ("n" . "notes")
-           (:prefix ("r" . "roam")
-             (:prefix ("d" . "date")
-            :desc "hydra" "h" 'hydra-dailies/body
-            :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
-            :desc "s/Tomorrow" "m" 'spolakh/org-roam-dailies-find-tomorrow
-            ))))
-    (map! (:map org-roam-mode-map
-             "s-M-i" 'org-roam-dailies-find-previous-note
-             "s-M-o" 'org-roam-dailies-find-next-note
-             )
+  (map! :map org-roam-mode-map
+        :leader
+        (:prefix ("e" . "roam")
+         :desc "Entrypoint" "e" 'org-roam-jump-to-index
+         :desc "Strategy" "s" 'spolakh/org-roam-jump-to-strategy
+         :desc "Plans for the Week" "w" 'spolakh/org-roam-jump-to-weekplan
+         :desc "Insert a link to a Note" "l" 'org-roam-insert
+         :desc "Find File" "f" 'org-roam-find-file
+         :desc "Switch to Buffer" "b" 'org-roam-switch-to-buffer
+         :desc "Org-Roam Capture" "C" 'org-roam-capture
+         :desc "Org Capture" "c" 'org-capture
+         :desc "Sidebar" "r" 'org-roam-buffer-toggle-display
+         ))
+  (map! :map general-override-mode-map
+        :leader
+        (:prefix ("e" . "roam")
+         (:prefix ("d" . "date")
+          :desc "Arbirary Date" "d" 'org-roam-dailies-find-date
+          :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
+          :desc "s/Tomorrow" "m" 'spolakh/org-roam-dailies-find-tomorrow
           )
-    )
+         ))
+  (map! (:map org-roam-mode-map
+         "s-M-i" 'org-roam-dailies-find-previous-note
+         "s-M-o" 'org-roam-dailies-find-next-note
+         )
+        )
   )
 
 (use-package! hydra)
@@ -1637,6 +1636,8 @@
   :config
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   )
+
+(add-to-list 'safe-local-variable-values '(projectile-main-project . "~/grail/"))
 
 ; currently having issues with not being able to save winner-ring's which causes this to hang for like 10s every time
 ;(run-with-idle-timer 30 t #'doom-save-session)
