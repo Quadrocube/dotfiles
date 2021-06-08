@@ -272,8 +272,15 @@
   "s-J" #'+evil/window-move-down
   "s-K" #'+evil/window-move-up))
 
+(defun spolakh/goto-karabiner-edn ()
+  (interactive)
+  (find-file "~/dots/karabiner/karabiner.edn")
+  )
+
 (map! (:map doom-leader-file-map
-       "c" #'doom/goto-private-config-file))
+       "c" #'doom/goto-private-config-file
+       "k" #'spolakh/goto-karabiner-edn
+       ))
 
 (after! hydra
   (defhydra hydra-window (:color red)
