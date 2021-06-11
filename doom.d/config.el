@@ -573,6 +573,7 @@
         org-agenda-start-with-log-mode t
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-archived-trees nil
+	org-agenda-files`(,(concat spolakh/org-roam-directory "entrypoint.org"))
         org-agenda-log-mode-items '(closed clock))
         ; org-agenda-log-mode-items '(closed clock state))
   (add-hook 'evil-org-agenda-mode-hook #'display-line-numbers-mode)
@@ -1336,6 +1337,12 @@
       )
     (run-with-idle-timer 60 t 'spolakh/wipe-work-gcal-and-refetch)
 )
+
+(use-package! helm-org-rifle
+  :after org
+  :config
+  (map! (:map doom-leader-notes-map "s" #'helm-org-rifle-agenda-files))
+  )
 
 ; ORG-POMODORO
 (use-package! org-pomodoro
