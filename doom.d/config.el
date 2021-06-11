@@ -1376,7 +1376,7 @@
   (after-init . org-roam-mode)
   :init
   ; currently (✓ (124/187) org-roam updated (0cce9d1 -> a7cf48e)) is broken
-  (setq org-roam-rename-file-on-title-change t)
+  (setq org-roam-rename-file-on-title-change nil)
   ; org-roam-title-change-hook
 
   (add-hook 'after-init-hook 'org-roam-mode)

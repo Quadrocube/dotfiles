@@ -158,7 +158,7 @@
                 [:!SC0 [:send_to_desktop 1]]
 
                 ; toggle monocle mode for current space
-                [:!Cw [:monocle_toggle]]
+                ;[:!Cw [:monocle_toggle]]
                 ; toggle floating and bring to center
                 [:!Ce ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"]]
                 ; rotate windows
@@ -169,6 +169,7 @@
                 ; non-native fullscreen
                 [:!Cf ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"]]
                 [:!Cq ["/usr/local/bin/yabai -m window --close"]]
+
                 :!Emacs
                 [:!Cl ["/usr/local/bin/yabai -m window --focus east"]]
                 [:!Ch ["/usr/local/bin/yabai -m window --focus west"]]

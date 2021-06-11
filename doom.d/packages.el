@@ -62,10 +62,11 @@
 ; time stuff
 (package! ts)
 (package! company-tabnine)
+(package! helm-org-rifle)
 
 ;(package! org-fc
 ;  :recipe (:type git :repo "https://git.sr.ht/~l3kn/org-fc" :files (:defaults "awk" "demo.org")))
-(unpin! org-roam)
+;(unpin! org-roam)
 (package! org-download)
 
 (after! base16-theme

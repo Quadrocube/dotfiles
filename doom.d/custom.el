@@ -7,7 +7,13 @@
    ["#282c34" "#ff6c6b" "#98be65" "#ECBE7B" "#51afef" "#c678dd" "#46D9FF" "#bbc2cf"])
  '(custom-safe-themes
    '("67a2b2556713750700066cdc4cb5798dad5ff94ae98418525fdf2ac074744c4d" default))
+ '(exwm-floating-border-color "#191b20")
  '(fci-rule-color "#5B6268")
+ '(highlight-tail-colors
+   ((("#333a38" "#99bb66" "green")
+     . 0)
+    (("#2b3d48" "#46D9FF" "brightcyan")
+     . 20)))
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
@@ -36,11 +42,11 @@
     (cons 320 "#6f4e52")
     (cons 340 "#5B6268")
     (cons 360 "#5B6268")))
- '(vc-annotate-very-old-color nil)
- '(warning-suppress-types '((emacs))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-lock-comment-face ((t (:slant italic))))
+ '(font-lock-keyword-face ((t (:slant italic)))))
