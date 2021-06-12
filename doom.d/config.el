@@ -475,9 +475,9 @@
                             )))
   (setq org-fast-tag-selection-single-key nil)
   (setq org-refile-targets `(
+                              (nil . (:maxlevel . 3))
                               (,(concat spolakh/org-agenda-directory "repeaters.org") . (:level . 0))
                               (,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))
-                              (nil . (:maxlevel . 3))
                               ))
   (defun spolakh/shift-dwim-at-point ()
     (interactive)
@@ -1521,6 +1521,7 @@
           :desc "s/Tomorrow" "m" 'spolakh/org-roam-dailies-find-tomorrow
           )
          ))
+  (map! :map doom-leader-notes-map ("r" nil))
   (map! (:map org-roam-mode-map
          "s-M-i" 'org-roam-dailies-find-previous-note
          "s-M-o" 'org-roam-dailies-find-next-note
