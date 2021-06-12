@@ -146,7 +146,6 @@
              :focus_desktop "/usr/local/bin/yabai -m space --focus %d"
              :send_to_desktop "/usr/local/bin/yabai -m window --space %d"
              ;; https://github.com/koekeishiya/yabai/issues/83
-             :monocle_toggle "${HOME}/dots/karabiner/toggle_monocle_mode.sh"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
              :alfred "osascript -e 'tell application \"Alfred 4\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
              :test_mode "osascript -e 'display notification \"its me! %d\"'"}
@@ -169,23 +168,37 @@
                 [:!Cf ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :!dvorak]
                 [:!Cy ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :dvorak]
 
+                ; move floating windows around
+                [:!CQj ["yabai -m window --move rel:-100:0"] :dvorak]
+                [:!CQp ["yabai -m window --move rel:100:0"] :dvorak]
+                [:!CQc ["yabai -m window --move rel:0:100"] :dvorak]
+                [:!CQv ["yabai -m window --move rel:0:-100"] :dvorak]
+
+                ; resize floating windows
+                [:!CSj ["yabai -m window --resize bottom_left:-100:0"] :dvorak]
+                [:!CSp ["yabai -m window --resize bottom_right:100:0"] :dvorak]
+                [:!CSc ["yabai -m window --resize bottom_left:0:100"] :dvorak]
+                [:!CSv ["yabai -m window --resize top_left:0:-100"] :dvorak]
+                [:!QSj ["yabai -m window --resize bottom_right:-100:0"] :dvorak]
+                [:!QSp ["yabai -m window --resize bottom_left:100:0"] :dvorak]
+                [:!QSc ["yabai -m window --resize top_left:0:100"] :dvorak]
+                [:!QSv ["yabai -m window --resize bottom_left:0:-100"] :dvorak]
+
+                ; navigate to floating windows - https://github.com/koekeishiya/yabai/issues/203#issuecomment-700527407
+                [:!Cl ["yabai -m query --spaces --space | jq -re \".index\" | xargs -I{} yabai -m query --windows --space {} | jq -sre \"add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.x, .id) | reverse | nth(index(map(select(.focused == 1))) - 1).id\" | xargs -I{} yabai -m window --focus {}"] :dvorak]
+                [:!Cr ["yabai -m query --spaces --space | jq -re \".index\" | xargs -I{} yabai -m query --windows --space {} | jq -sre \"add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id\" | xargs -I{} yabai -m window --focus {}"] :dvorak]
+
+                ; window navigation - disable in emacs since it takes up the full screen and we manage it's windows instead
                 :!Emacs
                 [:!Cl ["/usr/local/bin/yabai -m window --focus east"] :!dvorak]
                 [:!Ch ["/usr/local/bin/yabai -m window --focus west"] :!dvorak]
                 [:!Ck ["/usr/local/bin/yabai -m window --focus north"] :!dvorak]
                 [:!Cj ["/usr/local/bin/yabai -m window --focus south"] :!dvorak]
-                [:!Cp ["/usr/local/bin/yabai -m window --focus east"] :dvorak]
-                [:!Cj ["/usr/local/bin/yabai -m window --focus west"] :dvorak]
+                [:!Cp ["/usr/local/bin/yabai -m window --focus east || /usr/local/bin/yabai -m window --focus next || /usr/local/bin/yabai -m window --focus first"] :dvorak]
+                [:!Cj ["/usr/local/bin/yabai -m window --focus west || /usr/local/bin/yabai -m window --focus prev || /usr/local/bin/yabai -m window --focus last"] :dvorak]
                 ; can reconsider enabling them, but it breaks being able to cmd-k with one hand
                 ;[:!Cc ["/usr/local/bin/yabai -m window --focus north"] :dvorak]
                 ;[:!Cv ["/usr/local/bin/yabai -m window --focus south"] :dvorak]
-
-                ; don't use these as much after single-key-combo-for-any-app?
-                ; toggle monocle mode for current space
-                ;[:!Cw [:monocle_toggle]]
-                ; move focus around windows in monocle mode
-                ;[:!Copen_bracket ["/usr/local/bin/yabai -m window --focus prev"]]
-                ;[:!Cclose_bracket ["/usr/local/bin/yabai -m window --focus next"]]
 
         ]}
        {:des "space cadet shift"
