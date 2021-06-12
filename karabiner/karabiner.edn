@@ -157,24 +157,36 @@
                 [:!C0 [:focus_desktop 1]]
                 [:!SC0 [:send_to_desktop 1]]
 
-                ; toggle monocle mode for current space
-                ;[:!Cw [:monocle_toggle]]
                 ; toggle floating and bring to center
-                [:!Ce ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"]]
+                [:!Ce ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"] :!dvorak]
+                [:!Cd ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"] :dvorak]
+
                 ; rotate windows
-                [:!Cr ["/usr/local/bin/yabai -m space --rotate 90"]]
-                ; move focus around windows
-                ;[:!Copen_bracket ["/usr/local/bin/yabai -m window --focus prev"]]
-                ;[:!Cclose_bracket ["/usr/local/bin/yabai -m window --focus next"]]
-                ; non-native fullscreen
-                [:!Cf ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"]]
-                [:!Cq ["/usr/local/bin/yabai -m window --close"]]
+                [:!Cr ["/usr/local/bin/yabai -m space --rotate 90"] :!dvorak]
+                [:!Co ["/usr/local/bin/yabai -m space --rotate 90"] :dvorak]
+
+                ; non-native fullscreen (ie only has effect if multiple windows are present)
+                [:!Cf ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :!dvorak]
+                [:!Cy ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :dvorak]
 
                 :!Emacs
-                [:!Cl ["/usr/local/bin/yabai -m window --focus east"]]
-                [:!Ch ["/usr/local/bin/yabai -m window --focus west"]]
-                [:!Ck ["/usr/local/bin/yabai -m window --focus north"]]
-                [:!Cj ["/usr/local/bin/yabai -m window --focus south"]]
+                [:!Cl ["/usr/local/bin/yabai -m window --focus east"] :!dvorak]
+                [:!Ch ["/usr/local/bin/yabai -m window --focus west"] :!dvorak]
+                [:!Ck ["/usr/local/bin/yabai -m window --focus north"] :!dvorak]
+                [:!Cj ["/usr/local/bin/yabai -m window --focus south"] :!dvorak]
+                [:!Cp ["/usr/local/bin/yabai -m window --focus east"] :dvorak]
+                [:!Cj ["/usr/local/bin/yabai -m window --focus west"] :dvorak]
+                ; can reconsider enabling them, but it breaks being able to cmd-k with one hand
+                ;[:!Cc ["/usr/local/bin/yabai -m window --focus north"] :dvorak]
+                ;[:!Cv ["/usr/local/bin/yabai -m window --focus south"] :dvorak]
+
+                ; don't use these as much after single-key-combo-for-any-app?
+                ; toggle monocle mode for current space
+                ;[:!Cw [:monocle_toggle]]
+                ; move focus around windows in monocle mode
+                ;[:!Copen_bracket ["/usr/local/bin/yabai -m window --focus prev"]]
+                ;[:!Cclose_bracket ["/usr/local/bin/yabai -m window --focus next"]]
+
         ]}
        {:des "space cadet shift"
         :rules [

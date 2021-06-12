@@ -4,6 +4,11 @@ export PATH=~/Library/Python/3.7/bin/:$PATH
 export PATH=~/dots/scripts/:$PATH
 export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
+if [ -d "/Applications/Emacs.app/Contents/MacOS/bin" ]; then
+	export PATH="/Applications/Emacs.app/Contents/MacOS/bin:$PATH"
+	alias emacs="emacs -nw" # Always launch "emacs" in terminal mode.
+fi
+
 ulimit -S -n 196608
 
 # Aliases
