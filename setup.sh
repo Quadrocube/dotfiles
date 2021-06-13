@@ -49,3 +49,5 @@ pip3 install --user .
 cd ~
 
 brew install --cask meetingbar
+brew install fzf
+$(brew --prefix)/opt/fzf/install

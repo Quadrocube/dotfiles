@@ -9,6 +9,8 @@ if [ -d "/Applications/Emacs.app/Contents/MacOS/bin" ]; then
 	alias emacs="emacs -nw" # Always launch "emacs" in terminal mode.
 fi
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 ulimit -S -n 196608
 
 # Aliases
@@ -52,10 +54,11 @@ alias newmacaddr="sudo ifconfig en0 ether $(openssl rand -hex 6 | sed 's/\(..\)/
 # __git_complete gco _git_checkout
 
 # History
-HISTCONTROL=ignoreboth
-shopt -s histappend
-HISTSIZE=10000000
-HISTFILESIZE=10000000
+export HISTFILESIZE=
+export HISTSIZE=
+# export HISTCONTROL=erasedups
+export HISTFILE=~/.bash_eternal_history
+# shopt -s histappend
 
 export EDITOR=vim
 
