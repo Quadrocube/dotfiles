@@ -63,6 +63,7 @@
 (package! ts)
 (package! company-tabnine)
 (package! helm-org-rifle)
+(package! notdeft :recipe (:host github :repo "hasu/notdeft"))
 
 ;(package! org-fc
 ;  :recipe (:type git :repo "https://git.sr.ht/~l3kn/org-fc" :files (:defaults "awk" "demo.org")))

@@ -370,7 +370,7 @@
         spolakh/org-phone-directory "~/Syncthing/phone-org/"
         spolakh/org-gcal-directory "/enc/org/cal/"
         spolakh/org-directory "/enc/org/"
-        spolakh/org-roam-directory (file-truename (concat spolakh/org-directory "/notes/"))
+        spolakh/org-roam-directory (expand-file-name (concat spolakh/org-directory "/notes/"))
         )
 
   (set-face-attribute 'org-document-title nil :inherit 'org-level-8 :height 2.074 :weight 'normal)
@@ -573,7 +573,12 @@
         org-agenda-start-with-log-mode t
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-archived-trees nil
-	org-agenda-files`(,(concat spolakh/org-roam-directory "entrypoint.org"))
+	org-agenda-files`(
+                          ,(concat spolakh/org-roam-directory "entrypoint.org")
+                          ,(concat spolakh/org-agenda-directory "inbox.org")
+                          ,(concat spolakh/org-phone-directory "phone.org")
+                          ,(concat spolakh/org-phone-directory "phone-work.org")
+                          )
         org-agenda-log-mode-items '(closed clock))
         ; org-agenda-log-mode-items '(closed clock state))
   (add-hook 'evil-org-agenda-mode-hook #'display-line-numbers-mode)
@@ -1338,10 +1343,32 @@
     (run-with-idle-timer 60 t 'spolakh/wipe-work-gcal-and-refetch)
 )
 
+; searching tasks
 (use-package! helm-org-rifle
   :after org
   :config
   (map! (:map doom-leader-notes-map "s" #'helm-org-rifle-agenda-files))
+  )
+
+; searching notes
+(use-package! notdeft
+  :init
+  (add-hook 'org-mode-hook 'notdeft-note-mode)
+
+  ; this is a hack to change --chdir /Users/vsterzhanov to --chdir=/Users/vsterzhanov in xapian call to workaround
+  (defun we-are-genious (l i)
+    (if (= (length l) 0) nil
+    (if (= i 7) (we-are-genious (cdr l) (+ i 1))
+      (if (= i 8) (cons (format "--chdir=%s" (car l)) (we-are-genious (cdr l) (+ i 1)))
+        (cons (car l) (we-are-genious (cdr l) (+ i 1)))))))
+  (advice-add #'call-process-region :filter-args
+              (lambda (x) (if (and (>= (length x) 9) (string-match-p "notdeft-xapian" (nth 2 x)) (string= (nth 7 x) "--chdir"))
+                              (we-are-genious x 0))))
+
+  :config
+  (setq notdeft-extension "org")
+  (setq notdeft-xapian-program (expand-file-name "~/.emacs.d/.local/straight/repos/notdeft/xapian/notdeft-xapian"))
+  (setq notdeft-directories `(,spolakh/org-roam-directory))
   )
 
 ; ORG-POMODORO
@@ -1511,6 +1538,7 @@
          :desc "Org-Roam Capture" "C" 'org-roam-capture
          :desc "Org Capture" "c" 'org-capture
          :desc "Sidebar" "r" 'org-roam-buffer-toggle-display
+          :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
          ))
   (map! :map general-override-mode-map
         :leader
