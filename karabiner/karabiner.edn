@@ -2,7 +2,6 @@
     ;;   https://github.com/pqrs-org/Karabiner-Elements/issues/925
     ;; !  | mandatory  (not recursive) modifiers which must be pressed
     ;; #  | optional   (recursive) modifiers which can be pressed
-    ;; !! | command + control + optional + shift (hyper)
     ;; ## | optional any
 
     ;; to understand better how modifiers work in karabiner
@@ -18,6 +17,7 @@
     ;; W  | right_control
     ;; E  | right_option
     ;; R  | right_shift
+    ;; !! | command + control + optional + shift (hyper)
     ;;
     ;; need to prefix C T O S F with ! or #
 
@@ -86,6 +86,7 @@
     :Emacs   ["^org\\.gnu\\.Emacs$"]
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]
     :Slack   ["^com\\.tinyspeck\\.slackmacgap$"]
+    :Kitty   ["^net\\.kovidgoyal\\.kitty$"]
  }
 
 :tos {
@@ -191,13 +192,21 @@
                 [:!Cr ["yabai -m query --spaces --space | jq -re \".index\" | xargs -I{} yabai -m query --windows --space {} | jq -sre \"add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id\" | xargs -I{} yabai -m window --focus {}"] :dvorak]
 
                 ; window navigation - disable in emacs since it takes up the full screen and we manage it's windows instead
-                :!Emacs
-                [:!Cl ["/usr/local/bin/yabai -m window --focus east"] :!dvorak]
-                [:!Ch ["/usr/local/bin/yabai -m window --focus west"] :!dvorak]
-                [:!Ck ["/usr/local/bin/yabai -m window --focus north"] :!dvorak]
-                [:!Cj ["/usr/local/bin/yabai -m window --focus south"] :!dvorak]
-                [:!Cp ["/usr/local/bin/yabai -m window --focus east || /usr/local/bin/yabai -m window --focus next || /usr/local/bin/yabai -m window --focus first"] :dvorak]
-                [:!Cj ["/usr/local/bin/yabai -m window --focus west || /usr/local/bin/yabai -m window --focus prev || /usr/local/bin/yabai -m window --focus last"] :dvorak]
+                [:!Cl ["/usr/local/bin/yabai -m window --focus east"] [:!dvorak :!Emacs :!Kitty]]
+                [:!Ch ["/usr/local/bin/yabai -m window --focus west"] [:!dvorak :!Emacs :!Kitty]]
+                [:!Ck ["/usr/local/bin/yabai -m window --focus north"] [:!dvorak :!Emacs :!Kitty]]
+                [:!Cj ["/usr/local/bin/yabai -m window --focus south"] [:!dvorak :!Emacs :!Kitty]]
+                [:!Cp ["/usr/local/bin/yabai -m window --focus east || /usr/local/bin/yabai -m window --focus next || /usr/local/bin/yabai -m window --focus first"] [:dvorak :!Emacs :!Kitty]]
+                [:!Cj ["/usr/local/bin/yabai -m window --focus west || /usr/local/bin/yabai -m window --focus prev || /usr/local/bin/yabai -m window --focus last"] [:dvorak :!Emacs :!Kitty]]
+
+                [:!Cj :!!j :Kitty]
+                [:!Qj :vk_none :Kitty]
+                [:!Qp :vk_none :Kitty]
+                [:!Qk :vk_none :Kitty]
+                [:!Ql :vk_none :Kitty]
+
+                ; prevent MacOs "Hide App"
+                [:!Qj :vk_none]
                 ; can reconsider enabling them, but it breaks being able to cmd-k with one hand
                 ;[:!Cc ["/usr/local/bin/yabai -m window --focus north"] :dvorak]
                 ;[:!Cv ["/usr/local/bin/yabai -m window --focus south"] :dvorak]
@@ -386,6 +395,11 @@
                   [:7 [:open_app "kitty"]]
                   [:u [:focus_desktop 6]]
                   ;[:!Sequal_sign [:send_to_desktop 15]]
+
+                  ; fzf cd
+                  [:j [:escape :i] [:dvorak :Kitty]]
+                  ; fzf find-file
+                  [:k :!Tk [:dvorak :Kitty]]
                 ]}
        {:des "spotify"
           :rules [:s-mode
