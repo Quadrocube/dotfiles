@@ -316,6 +316,7 @@
  "S-SPC" nil
  "s-SPC" #'ivy-restrict-to-matches)
  )
+(setq ivy-use-selectable-prompt t)
 )
 
 (after! avy

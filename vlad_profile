@@ -9,7 +9,7 @@ if [ -d "/Applications/Emacs.app/Contents/MacOS/bin" ]; then
 	alias emacs="emacs -nw" # Always launch "emacs" in terminal mode.
 fi
 
-export FZF_CTRL_T_COMMAND="fd --type f"
+export FZF_CTRL_T_COMMAND="fd -t f ."
 export FZF_ALT_C_COMMAND="fd -t d ."
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
