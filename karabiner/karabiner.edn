@@ -397,9 +397,9 @@
                   ;[:!Sequal_sign [:send_to_desktop 15]]
 
                   ; fzf cd
-                  [:j [:escape :i] [:dvorak :Kitty]]
+                  [:h [:escape :i] [:dvorak :Kitty]]
                   ; fzf find-file
-                  [:k :!Tk [:dvorak :Kitty]]
+                  [:y :!Tk [:dvorak :Kitty]]
                 ]}
        {:des "spotify"
           :rules [:s-mode

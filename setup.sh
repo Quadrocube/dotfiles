@@ -51,3 +51,4 @@ cd ~
 brew install --cask meetingbar
 brew install fzf
 $(brew --prefix)/opt/fzf/install
+ln -s ~/dots/fdignore ~/.fdignore
