@@ -1539,7 +1539,8 @@
          :desc "Org-Roam Capture" "C" 'org-roam-capture
          :desc "Org Capture" "c" 'org-capture
          :desc "Sidebar" "r" 'org-roam-buffer-toggle-display
-          :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
+         :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
+         :desc "Alias Add" "a" 'org-roam-alias-add
          ))
   (map! :map general-override-mode-map
         :leader
