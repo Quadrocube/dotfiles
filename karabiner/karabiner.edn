@@ -87,6 +87,7 @@
     :Chromes ["^com\\.google\\.Chrome$", "^org\\.chromium\\.Chromium$", "^com\\.google\\.Chrome\\.canary$"]
     :Slack   ["^com\\.tinyspeck\\.slackmacgap$"]
     :Kitty   ["^net\\.kovidgoyal\\.kitty$"]
+    :Discord ["^com\\.hnc\\.Discord$"]
  }
 
 :tos {
@@ -156,6 +157,8 @@
         :rules [
                 [:!C0 [:focus_desktop 1]]
                 [:!SC0 [:send_to_desktop 1]]
+                [:!Creturn_or_enter ["two screens" 1] ["two screens" 0]]
+                [:!Creturn_or_enter ["two screens" 0] ["two screens" 1]]
 
                 [:!Cx ["/usr/local/bin/yabai -m window --close"]]
 
@@ -313,6 +316,8 @@
                  ; [] for workspaces
                  [:open_bracket :!Wleft_arrow]
                  [:close_bracket :!Wright_arrow]
+                 [:down_arrow :!Wdown_arrow]
+                 [:quote :!Wup_arrow]
 
                  ; io + we for slack, chrome, etc
                  [:i :!CSopen_bracket [:Chromes :!dvorak]]
@@ -332,6 +337,11 @@
                  [:e :!Cequal_sign [:Slack :dvorak]]
                  [:i :!CShyphen [:Slack :dvorak]]
                  [:o :!CSequal_sign [:Slack :dvorak]]
+
+                 [:i :!CShyphen [:Discord :dvorak]]
+                 [:o :!CSequal_sign [:Discord :dvorak]]
+                 [:w :!COup_arrow [:Discord :dvorak]]
+                 [:e :!COdown_arrow [:Discord :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
@@ -353,7 +363,7 @@
        {:des "exo"
           :rules [:z-mode
                   [:8 [:open_app "Emacs"]]
-                  [:i [:focus_desktop 17]]
+                  [:i [:focus_desktop 10]]
                   [:9 [:open_app "Todoist"]]
                   [:o [:focus_desktop 7]]
                   ;[:u [:emacs "@work"]]
@@ -375,25 +385,30 @@
        {:des "chats"
           :rules [:w-mode
                   [:6 [:open_app "zoom.us"]]
-                  [:y [:focus_desktop 15]]
-                  [:8 [:open_app "Telegram"]]
-                  [:i [:focus_desktop 12]]
+                  [:y [:focus_desktop 13] ["two screens" 1]]
+                  [:y [:focus_desktop 12] ["two screens" 0]]
                   [:7 [:open_app "Slack"]]
-                  [:u [:focus_desktop 11]]
+                  [:u [:focus_desktop 14] ["two screens" 1]]
+                  [:u [:focus_desktop 13] ["two screens" 0]]
+                  [:8 [:open_app "Telegram"]]
+                  [:i [:focus_desktop 15] ["two screens" 1]]
+                  [:i [:focus_desktop 14] ["two screens" 0]]
                   [:9 [:open_app "Discord"]]
-                  [:o [:focus_desktop 13]]
+                  [:o [:focus_desktop 16] ["two screens" 1]]
+                  [:o [:focus_desktop 15] ["two screens" 0]]
                   [:0 [:open_app "Skype"]]
-                  [:p [:focus_desktop 3]]
+                  [:p [:focus_desktop 17] ["two screens" 1]]
+                  [:p [:focus_desktop 16] ["two screens" 0]]
                   [:delete_or_backspace  [:open_app "Messenger"] :apple]
                   [:equal_sign [:open_app "Messenger"] :!apple]
-                  [:backslash [:focus_desktop 14]]
+                  [:backslash [:focus_desktop 18] ["two screens" 1]]
+                  [:backslash [:focus_desktop 17] ["two screens" 0]]
                 ]}
        {:des "terminal"
           :rules [:x-mode
                   [:8 [:open_app "kitty"]]
-                  [:i [:focus_desktop 6]]
-                  [:7 [:open_app "kitty"]]
-                  [:u [:focus_desktop 6]]
+                  [:i [:focus_desktop 12] ["two screens" 1]]
+                  [:i [:focus_desktop 11] ["two screens" 0]]
                   ;[:!Sequal_sign [:send_to_desktop 15]]
 
                   ; fzf cd
@@ -404,7 +419,8 @@
        {:des "spotify"
           :rules [:s-mode
                   [:8 [:open_app "Spotify"]]
-                  [:i [:focus_desktop 16]]
+                  [:i [:focus_desktop 19] ["two screens" 1]]
+                  [:i [:focus_desktop 18] ["two screens" 0]]
 
                   [:semicolon [:alfred "add_current_track_to_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist
                   [:quote [:alfred "remove_current_track_from_alfred_playlist_or_your_music" "com.vdesabou.spotify.mini.player"]] ; Add song to Likes playlist

@@ -176,6 +176,7 @@
 
        :os
        macos             ; MacOS-specific commands
+       tty
 
        :config
        ;;literate

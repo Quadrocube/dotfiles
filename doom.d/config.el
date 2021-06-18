@@ -1353,6 +1353,7 @@
 
 ; searching notes
 (use-package! notdeft
+  :after org-roam
   :init
   (add-hook 'org-mode-hook 'notdeft-note-mode)
 
@@ -1370,6 +1371,12 @@
   (setq notdeft-extension "org")
   (setq notdeft-xapian-program (expand-file-name "~/.emacs.d/.local/straight/repos/notdeft/xapian/notdeft-xapian"))
   (setq notdeft-directories `(,spolakh/org-roam-directory))
+  (setq notdeft-xapian-boolean-any-case t)
+  (setq notdeft-xapian-pure-not t)
+  (map! (:map notdeft-mode-map (:leader
+         :desc "Notdeft - grep" "eS" 'notdeft-grep-for-filter)))
+  (map! (:map global-map (:leader
+         :desc "Search (notdeft)" "es" 'notdeft-open-query)))
   )
 
 ; ORG-POMODORO
@@ -1527,11 +1534,11 @@
     "M-6" "§"
     "M-5" "∞"
     ))
-  (map! :map org-roam-mode-map
+  (map! :map global-map
         :leader
         (:prefix ("e" . "roam")
          :desc "Entrypoint" "e" 'org-roam-jump-to-index
-         :desc "Strategy" "s" 'spolakh/org-roam-jump-to-strategy
+         :desc "Strategy" "W" 'spolakh/org-roam-jump-to-strategy
          :desc "Plans for the Week" "w" 'spolakh/org-roam-jump-to-weekplan
          :desc "Insert a link to a Note" "l" 'org-roam-insert
          :desc "Find File" "f" 'org-roam-find-file
@@ -1542,7 +1549,7 @@
          :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
          :desc "Alias Add" "a" 'org-roam-alias-add
          ))
-  (map! :map general-override-mode-map
+  (map! :map global-map
         :leader
         (:prefix ("e" . "roam")
          (:prefix ("d" . "date")

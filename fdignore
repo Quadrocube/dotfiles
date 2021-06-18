@@ -1,5 +1,5 @@
-grail/**
-grail2/**
-**/go/
+grail/
+grail2/
 Library/**
+go/**
 **node**
