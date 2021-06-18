@@ -171,8 +171,8 @@
                 [:!Co ["/usr/local/bin/yabai -m space --rotate 90"] :dvorak]
 
                 ; non-native fullscreen (ie only has effect if multiple windows are present)
-                [:!Cf ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :!dvorak]
-                [:!Cy ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :dvorak]
+                [:!Cspacebar ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :!dvorak]
+                [:!Cspacebar ["/usr/local/bin/yabai -m window --toggle zoom-fullscreen"] :dvorak]
 
                 ; move floating windows around
                 [:!CQj ["yabai -m window --move rel:-100:0"] :dvorak]
