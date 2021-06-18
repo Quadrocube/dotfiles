@@ -439,6 +439,7 @@
     (sequence "TODO(t)" "|" "DONE(d)")
     (sequence "SPRINT(s)" "WAITING(w@/!)" "|" "DONE")
     (sequence "PRJ(p)" "|" "DONE")
+    (sequence "CANCELLED")
     (sequence "Fleeting(f)" "Evergreen")
     (sequence "Open(O!)" "In Progress(I!)" "Going Well(G!)" "Resolved(R!)") ; Board items
     (sequence "TODIGEST" "|" "DIGESTED") ; Nibbles(Articles / Books / Videos / ...) for quotations
@@ -1299,17 +1300,17 @@
         org-gcal-client-secret (get-gcal-config-value 'org-gcal-client-secret)
         org-gcal-file-alist `(
                               (,(get-gcal-config-value 'calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal.org"))
-                              (,(get-gcal-config-value 'work-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-grail.org"))
+                              ;(,(get-gcal-config-value 'work-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-grail.org"))
                               (,(get-gcal-config-value 'birthday-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-birthdays.org"))
                               )
         org-gcal-remove-api-cancelled-events t
-        org-gcal-update-cancelled-events-with-todo nil
+        org-gcal-update-cancelled-events-with-todo t
         org-gcal-remove-events-with-cancelled-todo t
-        org-gcal-up-days 7
+        org-gcal-up-days 1
         org-gcal-down-days 7
         org-gcal-notify-p nil
         org-gcal-auto-archive nil
-
+        org-gcal-recurring-events-mode 'nested
         )
   :config
     ;; org-gcal exclude declined events
@@ -1331,17 +1332,23 @@
     (add-to-list 'org-gcal-fetch-event-filters 'cce/filter-gcal-event-declined)
     (defun spolakh/org-gcal-sync ()
       (interactive)
-      (org-gcal-sync t t))
-    (defun spolakh/wipe-work-gcal-and-refetch ()
-      (interactive)
-      ;(with-current-buffer
-      ;    (find-file-noselect (concat spolakh/org-agenda-directory "gcal-grail.org"))
-      ;  (erase-buffer)
-      ;  (save-buffer))
-      (call-interactively #'spolakh/org-gcal-sync)
-      ;(message "org-gcal-fetch finished")
+      (org-gcal-fetch))
+    ; xcxc ughhh also need to adjust how these new files are discovered - I think rn only at startup
+    ; every time the sync was successful, overwrite the file from scratch to prevent duplicate i
+    (defun spolakh/wipe-gcal (&rest r)
+      (progn
+        (advice-remove #'org-gcal--sync-unlock #'spolakh/wipe-gcal)
+        (dolist (og org-gcal-file-alist)
+          (let* ((filename (cdr og))
+                (fsize (file-attribute-size (file-attributes filename))))
+            (progn (if (and fsize (> fsize 0))
+                (rename-file filename (s-replace "gcal" "gcal-stable" filename)))))))
       )
-    (run-with-idle-timer 60 t 'spolakh/wipe-work-gcal-and-refetch)
+    (defun spolakh/wipe-gcal-and-refetch ()
+      (interactive)
+      (progn (advice-add #'org-gcal--sync-unlock :before #'spolakh/wipe-gcal) (call-interactively #'spolakh/org-gcal-sync))
+      )
+    (run-with-idle-timer 60 t 'spolakh/wipe-gcal-and-refetch)
 )
 
 ; searching tasks
