@@ -16,6 +16,9 @@ export FZF_ALT_C_COMMAND="fd -t d ."
 ulimit -S -n 196608
 
 # Aliases
+alias ls='exa -F --icons'
+alias lsd='exa -F --icons --tree'
+
 alias gs='git status'
 alias gd='git diff'
 alias gdh='git diff HEAD~'

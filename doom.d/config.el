@@ -1333,7 +1333,6 @@
     (defun spolakh/org-gcal-sync ()
       (interactive)
       (org-gcal-fetch))
-    ; xcxc ughhh also need to adjust how these new files are discovered - I think rn only at startup
     ; every time the sync was successful, overwrite the file from scratch to prevent duplicate i
     (defun spolakh/wipe-gcal (&rest r)
       (progn

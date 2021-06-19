@@ -88,6 +88,7 @@
     :Slack   ["^com\\.tinyspeck\\.slackmacgap$"]
     :Kitty   ["^net\\.kovidgoyal\\.kitty$"]
     :Discord ["^com\\.hnc\\.Discord$"]
+    :Finder ["^com\\.apple\\.finder$"]
  }
 
 :tos {
@@ -305,8 +306,9 @@
                  [:4 :!Cright_arrow]
                  [:f :page_up]
                  [:h :page_down]
+                 [:u :home]
                  [:delete_or_backspace :!Odelete_or_backspace]
-                 [:return_or_enter :delete_forward]
+                 ;[:return_or_enter :delete_forward]
 
                  [:g :select_ru]
                  [:a :select_dvorak]
@@ -342,6 +344,10 @@
                  [:o :!CSequal_sign [:Discord :dvorak]]
                  [:w :!COup_arrow [:Discord :dvorak]]
                  [:e :!COdown_arrow [:Discord :dvorak]]
+
+                 [:i :!Chyphen [:Finder :dvorak]]
+                 [:o :!Cequal_sign [:Finder :dvorak]]
+                 [:e :!Cup_arrow [:Finder :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
@@ -349,6 +355,7 @@
                  [:s [:!Ox :a :v :y :hyphen :g :o :t :o :hyphen :c :h :a :r :hyphen :2 :return_or_enter] [:!dvorak]]
                  [:s [:!Ob :a :period :t :quote :u :s :k :s :quote :i :j :a :o :quote :2 :return_or_enter] [:dvorak]]
                  ;[:s [:g :s :spacebar]]
+                 [:return_or_enter :!Creturn_or_enter]
                 ]}
        {:des "essential movements - chrome flavor"
          :rules [:chrome-space-mode
