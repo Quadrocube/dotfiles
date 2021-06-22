@@ -18,6 +18,8 @@ ulimit -S -n 196608
 # Aliases
 alias ls='exa -F --icons'
 alias lsd='exa -F --icons --tree'
+alias du='dust '
+alias man='tldr '
 
 alias gs='git status'
 alias gd='git diff'

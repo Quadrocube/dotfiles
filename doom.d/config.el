@@ -342,7 +342,7 @@
 
   (add-hook 'org-mode-hook 'spolakh/maybe-enum-org-headers)
   ; org-roam's completion backend is too slow to call it immediately
-  (add-hook 'org-mode-hook (lambda () (setq company-idle-delay 0.25)))
+  (add-hook 'org-mode-hook (lambda () (setq company-idle-delay 0.35)))
 
   :config
   (map!
@@ -1341,7 +1341,7 @@
           (let* ((filename (cdr og))
                 (fsize (file-attribute-size (file-attributes filename))))
             (progn (if (and fsize (> fsize 0))
-                (rename-file filename (s-replace "gcal" "gcal-stable" filename)))))))
+                (rename-file filename (s-replace "gcal" "gcal-stable" filename) t))))))
       )
     (defun spolakh/wipe-gcal-and-refetch ()
       (interactive)
@@ -1350,11 +1350,27 @@
     (run-with-idle-timer 60 t 'spolakh/wipe-gcal-and-refetch)
 )
 
+(defvar spolakh/helm-input "")
 ; searching tasks
 (use-package! helm-org-rifle
   :after org
+  :init
+  (defun spolakh/add-helm-input ()
+    (progn
+      (setq unread-command-events (listify-key-sequence "g"))
+      ))
   :config
-  (map! (:map doom-leader-notes-map "s" #'helm-org-rifle-agenda-files))
+  (add-hook 'helm-after-initialize-hook #'spolakh/add-helm-input)
+  (setq helm-org-rifle-show-path t)
+  (setq helm-org-rifle-reverse-paths t)
+  (setq helm-org-rifle-fontify-headings t)
+  (setq helm-org-rifle-show-full-contents t)
+  (map! (:map doom-leader-notes-map "s" nil))
+  (map! (:map doom-leader-notes-map (:prefix ("s" . "search rifle")
+                                     (
+                                     :desc "search - no archive" "s"  (lambda! (progn (setq spolakh/add-helm-input "!Archive") (helm-org-rifle-agenda-files) ))
+                                     :desc "search" "r"  #'helm-org-rifle-agenda-files
+                                     ))))
   )
 
 ; searching notes
@@ -1486,7 +1502,7 @@
      "** %?"
      ;:immediate-finish t
      :file-name ,(concat "private/dailies/" spolakh/org-roam-daily-prefix "%<%Y-%m-%d>")
-     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today: things we did and things we are grateful for]]. Also, things we did that colleagues might be grateful for. 1: 2: 3:\n(also maybe star nice pics from today and spost some of the starred ones on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
+     :head ,(concat "#+TITLE: %<%Y-%m-%d %a>\n\n[[roam:§ PRIVATE/Nice Things Today: things we did and things we are grateful for]]. Also, things we did that colleagues and Friends might be grateful for. 1: 2: 3:\n(also maybe star nice pics from today and spost some of the starred ones on insta?)\n\n[[roam:§ Shi-Ne Meditation Journal]]" custom-text "\n\n* What's on your mind?\n"))
     ))
   (setq org-roam-dailies-capture-templates
         (spolakh/compile-daily-template ""))
@@ -1514,7 +1530,7 @@
            (newts (ts-adjust 'day offset-days (ts-now)))
            (dow (ts-dow newts))
            ; 0 is sunday
-           (text-with-weekly (if (= dow 6) "\n\n[[roam:§ PRIVATE/Nice Things This Week]]: Friends, Grail, Emacs, and Enlightenment\n\n[[roam:§ PRIVATE/Plans for Next Week]]: Friends, Grail, Emacs, and Enlightenment" ""))
+           (text-with-weekly (if (= dow 6) "\n\n[[roam:§ PRIVATE/Nice Things This Week]]:\n- Friends\n- Emacs\n- Enlightenment\n- Tactile Things\n- and Grail\n\n[[roam:§ PRIVATE/Plans for Next Week]]: FEETO+Grail: " ""))
            (last-day-this-month (calendar-last-day-of-month (ts-month newts) (ts-year newts)))
            (d (ts-day newts))
            (is-last-saturday (and (= dow 6) (< (- last-day-this-month d) 7)))

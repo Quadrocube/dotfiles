@@ -151,7 +151,7 @@
              ;; https://github.com/koekeishiya/yabai/issues/83
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
              :alfred "osascript -e 'tell application \"Alfred 4\" to run trigger \"%s\" in workflow \"%s\" with argument \"%s\"'"
-             :test_mode "osascript -e 'display notification \"its me! %d\"'"}
+             :test_mode "osascript -e 'display notification \"its me!\"'"}
 
 :main [
        {:des "yabai"
@@ -309,6 +309,8 @@
                  [:u :home]
                  [:delete_or_backspace :!Odelete_or_backspace]
                  ;[:return_or_enter :delete_forward]
+                 [:return_or_enter :!Creturn_or_enter]
+                 [:tab [:alfred "clear" "com.alfredapp.jmarcon.clearallnotifications"]]
 
                  [:g :select_ru]
                  [:a :select_dvorak]
@@ -355,7 +357,6 @@
                  [:s [:!Ox :a :v :y :hyphen :g :o :t :o :hyphen :c :h :a :r :hyphen :2 :return_or_enter] [:!dvorak]]
                  [:s [:!Ob :a :period :t :quote :u :s :k :s :quote :i :j :a :o :quote :2 :return_or_enter] [:dvorak]]
                  ;[:s [:g :s :spacebar]]
-                 [:return_or_enter :!Creturn_or_enter]
                 ]}
        {:des "essential movements - chrome flavor"
          :rules [:chrome-space-mode
@@ -460,53 +461,4 @@
                   ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=)
                   ; [:!Sequal_sign [:send_to_desktop 16]]
                   ]}
-;       {:des "right cmd -> meh"
-;         :rules [[:##right_command :!CTright_option nil {:alone :right_command}]]}
-;        {:des "right command mode"
-;         :rules [:righ_command-mode
-                 ;[:open_bracket :!SOTopen_bracket]
-                 ;[:close_bracket :!SOTclose_bracket]
-                 ;[:semicolon :!SOTsemicolon]
-                 ;[:quote :!SOTquote]
-                 ;[:comma :!SOTcomma]
-                 ;[:period :!SOTperiod]
-                 ;[:slash :!SOTslash]
-                 ;[:a :!SOTa]
-                 ;[:b :!SOTb]
-                 ;[:c :!SOTc]
-                 ;[:!Cc :!CSOTc]
-                 ;[:d :!SOTd]
-                 ;[:e :!SOTe]
-                 ;[:f :!SOTf]
-                 ;[:g :!SOTg]
-                 ;[:h :!SOTh]
-                 ;[:i :!SOTi]
-                 ;[:j :!SOTj]
-                 ;[:k :!SOTk]
-                 ;[:l :!SOTl]
-                 ;[:m :!SOTm]
-                 ;[:n :!SOTn]
-                 ;[:o :!SOTo]
-                 ;[:p :!SOTp]
-                 ;[:q :!SOTq]
-                 ;[:r :!SOTr]
-                 ;[:s :!SOTs]
-                 ;[:t :!SOTt]
-                 ;[:u :!SOTu]
-                 ;[:v :!SOTv]
-                 ;[:w :!SOTw]
-                 ;[:x :!SOTx]
-                 ;[:y :!SOTy]
-                 ;[:z :!SOTz]
-                 ;[:1 :!SOT1]
-                 ;[:!C1 :!CSOT1]
-                 ;[:2 :!SOT2]
-                 ;[:3 :!SOT3]
-                 ;[:4 :!SOT4]
-                 ;[:5 :!SOT5]
-                 ;[:6 :!SOT6]
-                 ;[:7 :!SOT7]
-                 ;[:8 :!SOT8]
-                 ;[:9 :!SOT9]
-;                 [:0 :!SOT0]]}
 ]}
