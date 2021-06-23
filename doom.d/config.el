@@ -1310,7 +1310,7 @@
         org-gcal-down-days 7
         org-gcal-notify-p nil
         org-gcal-auto-archive nil
-        org-gcal-recurring-events-mode 'nested
+        org-gcal-recurring-events-mode 'top-level
         )
   :config
     ;; org-gcal exclude declined events
@@ -1336,7 +1336,7 @@
     ; every time the sync was successful, overwrite the file from scratch to prevent duplicate i
     (defun spolakh/wipe-gcal (&rest r)
       (progn
-        (advice-remove #'org-gcal--sync-unlock #'spolakh/wipe-gcal)
+        (advice-remove #'org-gcal-sync-buffer #'spolakh/wipe-gcal)
         (dolist (og org-gcal-file-alist)
           (let* ((filename (cdr og))
                 (fsize (file-attribute-size (file-attributes filename))))
@@ -1345,7 +1345,7 @@
       )
     (defun spolakh/wipe-gcal-and-refetch ()
       (interactive)
-      (progn (advice-add #'org-gcal--sync-unlock :before #'spolakh/wipe-gcal) (call-interactively #'spolakh/org-gcal-sync))
+      (progn (advice-add #'org-gcal-sync-buffer :after #'spolakh/wipe-gcal) (call-interactively #'spolakh/org-gcal-sync))
       )
     (run-with-idle-timer 60 t 'spolakh/wipe-gcal-and-refetch)
 )

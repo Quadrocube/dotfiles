@@ -158,8 +158,8 @@
         :rules [
                 [:!C0 [:focus_desktop 1]]
                 [:!SC0 [:send_to_desktop 1]]
-                [:!Creturn_or_enter ["two screens" 1] ["two screens" 0]]
-                [:!Creturn_or_enter ["two screens" 0] ["two screens" 1]]
+                [:!Copen_bracket ["two screens" 1] ["two screens" 0] :dvorak]
+                [:!Copen_bracket ["two screens" 0] ["two screens" 1] :dvorak]
 
                 [:!Cx ["/usr/local/bin/yabai -m window --close"]]
 
