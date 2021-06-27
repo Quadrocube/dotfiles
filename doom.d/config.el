@@ -256,8 +256,8 @@
   "<s-8>" #'+workspace/switch-to-7
   "s-9" #'+workspace/switch-to-8
   "<s-9>" #'+workspace/switch-to-8
-  "C-M-s-o" #'avy-goto-word-1
-  "<C-M-s-o>" #'avy-goto-word-1
+  "C-M-s-o" #'avy-goto-word-0
+  "<C-M-s-o>" #'avy-goto-word-0
   ;"C-M-s-o" #'avy-goto-char-2
   ;"<C-M-s-o>" #'avy-goto-char-2
   ))
@@ -331,7 +331,7 @@
           "SPC" #'avy-goto-char-2))
     )
    )
-  (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+  (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s ?/ ?, ?. ?p ?y ?f ?g ?c ?r ?l  ?q ?j ?k ?x ?b ?m ?w ?v ?z))
   (setq avy-all-windows t)
   )
 
@@ -1638,6 +1638,8 @@
         lsp-ui-imenu-enable t
         lsp-ui-flycheck-enable t)
 )
+
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
 (use-package! company-tabnine
   :after company
