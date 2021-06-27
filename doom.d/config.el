@@ -256,8 +256,10 @@
   "<s-8>" #'+workspace/switch-to-7
   "s-9" #'+workspace/switch-to-8
   "<s-9>" #'+workspace/switch-to-8
-  "C-M-s-o" #'avy-goto-char-2
-  "<C-M-s-o>" #'avy-goto-char-2
+  "C-M-s-o" #'avy-goto-word-1
+  "<C-M-s-o>" #'avy-goto-word-1
+  ;"C-M-s-o" #'avy-goto-char-2
+  ;"<C-M-s-o>" #'avy-goto-char-2
   ))
 
 (setq better-jumper-new-window-behavior 'empty)
