@@ -32,6 +32,7 @@ alias watch='watch '
 alias tg='curl -s -X POST https://api.telegram.org/bot1129105247:AAFMF7Cu0D6ioLUA0_UdAqpdvvxBDYY-mUk/sendMessage -d chat_id=84046805 -d text="Im done!"'
 alias cdd="cd ~/dots"
 alias cdo="cd /enc/org/notes"
+alias cdc="cd ~/Dropbox/code"
 alias moenc="gocryptfs ~/Syncthing/encrypted/gocryptfs /enc"
 
 # Aliases.k8s

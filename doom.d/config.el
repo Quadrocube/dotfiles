@@ -256,6 +256,8 @@
   "<s-8>" #'+workspace/switch-to-7
   "s-9" #'+workspace/switch-to-8
   "<s-9>" #'+workspace/switch-to-8
+  "C-M-s-o" #'avy-goto-char-2
+  "<C-M-s-o>" #'avy-goto-char-2
   ))
 
 (setq better-jumper-new-window-behavior 'empty)
@@ -481,6 +483,7 @@
                               (,(concat spolakh/org-agenda-directory "repeaters.org") . (:level . 0))
                               (,(concat spolakh/org-roam-directory "entrypoint.org") . (:maxlevel . 3))
                               ))
+
   (defun spolakh/shift-dwim-at-point ()
     (interactive)
     (let ((org-link-frame-setup (quote
@@ -1260,7 +1263,7 @@
                                         ;"a" #'org-agenda-add-note ; we always link notes in the default item processing flow
           "d" #'org-agenda-deadline
           "s" #'org-agenda-schedule
-          "S" #'spolakh/unschedule
+          "S" (cmd! () (progn (spolakh/unschedule) (org-agenda-next-line)))
           "a" #'org-agenda-archive-default-with-confirmation
           "A" #'org-agenda-add-note
           "p" #'spolakh/org-agenda-process-single-inbox-item
@@ -1357,7 +1360,8 @@
   :init
   (defun spolakh/add-helm-input ()
     (progn
-      (setq unread-command-events (listify-key-sequence "g"))
+      (setq unread-command-events (listify-key-sequence spolakh/helm-input))
+      (setq spolakh/helm-input "")
       ))
   :config
   (add-hook 'helm-after-initialize-hook #'spolakh/add-helm-input)
@@ -1368,7 +1372,7 @@
   (map! (:map doom-leader-notes-map "s" nil))
   (map! (:map doom-leader-notes-map (:prefix ("s" . "search rifle")
                                      (
-                                     :desc "search - no archive" "s"  (lambda! (progn (setq spolakh/add-helm-input "!Archive") (helm-org-rifle-agenda-files) ))
+                                     :desc "search - no archive" "s"  (cmd! (progn (setq spolakh/helm-input "!:archive ") (helm-org-rifle-agenda-files)))
                                      :desc "search" "r"  #'helm-org-rifle-agenda-files
                                      ))))
   )
