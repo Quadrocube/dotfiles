@@ -89,6 +89,7 @@
     :Kitty   ["^net\\.kovidgoyal\\.kitty$"]
     :Discord ["^com\\.hnc\\.Discord$"]
     :Finder ["^com\\.apple\\.finder$"]
+    :Telegram ["^ru\\.keepcoder\\.Telegram$"]
  }
 
 :tos {
@@ -323,7 +324,7 @@
                  [:down_arrow :!Wdown_arrow]
                  [:quote :!Wup_arrow]
 
-                 ; io + we for slack, chrome, etc
+                 ; io + we for going forward and back for slack, chrome, etc
                  [:i :!CSopen_bracket [:Chromes :!dvorak]]
                  [:o :!CSclose_bracket [:Chromes :!dvorak]]
                  [:w :!Copen_bracket [:Chromes :!dvorak]]
@@ -349,9 +350,15 @@
 
                  [:i :!Chyphen [:Finder :dvorak]]
                  [:o :!Cequal_sign [:Finder :dvorak]]
+                 ; go up to parent dir
                  [:e :!Cup_arrow [:Finder :dvorak]]
 
+                 ; vimac activate snippets mode
                  [:s :!!s [:!Emacs :!Chromes]]
+
+                 ; find chat
+                 [:y :!Cv [:Telegram :dvorak]]
+                 [:y :!Cv [:Slack :dvorak]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode

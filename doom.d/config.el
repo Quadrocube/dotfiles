@@ -1607,16 +1607,20 @@
 (setq read-process-output-max (* 10 1024 1024)) ;; 10mb
 (use-package! lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred)
+  :hook
+  (go-mode . lsp-deferred)
+  (typescript-mode . lsp-deferred)
 
   :init
     (setq lsp-enable-file-watchers nil) ; need to reenable when figure out how to ignore all the bazel and other non-relevant things
     (setq gc-cons-threshold 20000000)
 
-  (defun lsp-go-install-save-hooks ()
+  (defun lsp-install-save-hooks ()
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+  (add-hook 'go-mode-hook #'lsp-install-save-hooks)
+  (add-hook 'typescript-mode-hook #'lsp-install-save-hooks)
 
   :config
 
