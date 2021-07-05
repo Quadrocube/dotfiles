@@ -1036,6 +1036,7 @@
          :desc "What can I drop from work tasks?" "?" #'spolakh/switch-to-weekly-work-agenda
          :desc "How did the month go?" "8" #'spolakh/switch-to-month-review-agenda
          ))
+
   (defun spolakh/org-fast-effort-selection ()
     "Modification of `org-fast-todo-selection' for use with org-set-effert. Select an effort value with single keys.
       Returns the new effort value, or nil if no state change should occur.
@@ -1648,10 +1649,13 @@
 (use-package! company-tabnine
   :after company
   :init
-  ;(setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
-  ;(setq +lsp-company-backends '(company-lsp company-yasnippet))
+  ;; (setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
+  ;; (setq +lsp-company-backends '(company-lsp company-yasnippet))
   (setq +lsp-company-backends '(company-tabnine company-yasnippet))
-  )
+)
+
+(after! spell-fu
+  (setq spell-fu-idle-delay 0.5))
 
 (use-package! company
   :init
@@ -1659,7 +1663,7 @@
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-limit 20)
+  (setq company-tooltip-limit 10)
   (setq company-show-numbers t)
   )
 

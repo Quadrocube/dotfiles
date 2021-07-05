@@ -52,3 +52,7 @@ brew install --cask meetingbar
 brew install fzf
 $(brew --prefix)/opt/fzf/install
 ln -s ~/dots/fdignore ~/.fdignore
+brew install aspell
+brew install telegram
+brew install exa
+brew install xapian
