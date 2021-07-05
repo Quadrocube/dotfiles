@@ -79,7 +79,9 @@
   }
 
  :input-sources {:us {:input_source_id "com.apple.keylayout.US"}
-               :dvorak {:input_source_id "com.apple.keylayout.Dvorak"}}
+               :dvorak {:input_source_id "com.apple.keylayout.Dvorak"}
+               :russian {:input_source_id "com.apple.keylayout.Russian"}
+               }
 
 ; osascript -e 'id of app "Slack"'
  :applications {
@@ -197,10 +199,6 @@
                 [:!Cr ["yabai -m query --spaces --space | jq -re \".index\" | xargs -I{} yabai -m query --windows --space {} | jq -sre \"add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id\" | xargs -I{} yabai -m window --focus {}"] :dvorak]
 
                 ; window navigation - disable in emacs since it takes up the full screen and we manage it's windows instead
-                [:!Cl ["/usr/local/bin/yabai -m window --focus east"] [:!dvorak :!Emacs :!Kitty]]
-                [:!Ch ["/usr/local/bin/yabai -m window --focus west"] [:!dvorak :!Emacs :!Kitty]]
-                [:!Ck ["/usr/local/bin/yabai -m window --focus north"] [:!dvorak :!Emacs :!Kitty]]
-                [:!Cj ["/usr/local/bin/yabai -m window --focus south"] [:!dvorak :!Emacs :!Kitty]]
                 [:!Cp ["/usr/local/bin/yabai -m window --focus east || /usr/local/bin/yabai -m window --focus next || /usr/local/bin/yabai -m window --focus first"] [:dvorak :!Emacs :!Kitty]]
                 [:!Cj ["/usr/local/bin/yabai -m window --focus west || /usr/local/bin/yabai -m window --focus prev || /usr/local/bin/yabai -m window --focus last"] [:dvorak :!Emacs :!Kitty]]
 
@@ -216,6 +214,21 @@
                 ;[:!Cc ["/usr/local/bin/yabai -m window --focus north"] :dvorak]
                 ;[:!Cv ["/usr/local/bin/yabai -m window --focus south"] :dvorak]
 
+        ]}
+       {:des "make russian cmd shortcuts follow dvorak"
+        :rules [:russian
+                [:!Cslash :!Cz]
+                [:!Qslash :!Qz]
+                [:!Cb :!Cx]
+                [:!Qb :!Qx]
+                [:!Ci :!Cc]
+                [:!Qi :!Qc]
+                [:!Cperiod :!Cv]
+                [:!Qperiod :!Qv]
+                [:!Ccomma :!Cw]
+                [:!Qcomma :!Qw]
+                [:!Ck :!Ct]
+                [:!Qk :!Qt]
         ]}
        {:des "space cadet shift"
         :rules [
@@ -325,40 +338,58 @@
                  [:quote :!Wup_arrow]
 
                  ; io + we for going forward and back for slack, chrome, etc
-                 [:i :!CSopen_bracket [:Chromes :!dvorak]]
-                 [:o :!CSclose_bracket [:Chromes :!dvorak]]
-                 [:w :!Copen_bracket [:Chromes :!dvorak]]
-                 [:e :!Cclose_bracket [:Chromes :!dvorak]]
+                 ; --- Chrome
                  [:i :!CShyphen [:Chromes :dvorak]]
                  [:o :!CSequal_sign [:Chromes :dvorak]]
                  [:w :!Chyphen [:Chromes :dvorak]]
                  [:e :!Cequal_sign [:Chromes :dvorak]]
 
-                 [:w :!Copen_bracket [:Slack :!dvorak]]
-                 [:e :!Cclose_bracket [:Slack :!dvorak]]
-                 [:i :!CSopen_bracket [:Slack :!dvorak]]
-                 [:o :!CSclose_bracket [:Slack :!dvorak]]
+                 [:i :!CSopen_bracket [:Chromes :russian]]
+                 [:o :!CSclose_bracket [:Chromes :russian]]
+                 [:w :!Copen_bracket [:Chromes :russian]]
+                 [:e :!Cclose_bracket [:Chromes :russian]]
+
+                 ; --- Slack
                  [:w :!Chyphen [:Slack :dvorak]]
                  [:e :!Cequal_sign [:Slack :dvorak]]
                  [:i :!CShyphen [:Slack :dvorak]]
                  [:o :!CSequal_sign [:Slack :dvorak]]
 
+                 [:w :!Copen_bracket [:Slack :russian]]
+                 [:e :!Cclose_bracket [:Slack :russian]]
+                 [:i :!CSopen_bracket [:Slack :russian]]
+                 [:o :!CSclose_bracket [:Slack :russian]]
+
+                 ; --- Discord
                  [:i :!CShyphen [:Discord :dvorak]]
                  [:o :!CSequal_sign [:Discord :dvorak]]
                  [:w :!COup_arrow [:Discord :dvorak]]
                  [:e :!COdown_arrow [:Discord :dvorak]]
 
+                 [:i :!CSopen_bracket [:Discord :russian]]
+                 [:o :!CSclose_bracket [:Discord :russian]]
+                 [:w :!COup_arrow [:Discord :russian]]
+                 [:e :!COdown_arrow [:Discord :russian]]
+
+                 ; --- Finder
                  [:i :!Chyphen [:Finder :dvorak]]
                  [:o :!Cequal_sign [:Finder :dvorak]]
                  ; go up to parent dir
                  [:e :!Cup_arrow [:Finder :dvorak]]
+
+                 [:i :!Copen_bracket [:Finder :russian]]
+                 [:o :!Cclose_bracket [:Finder :russian]]
+                 ; go up to parent dir
+                 [:e :!Cup_arrow [:Finder :russian]]
 
                  ; vimac activate snippets mode
                  [:s :!!s [:!Emacs :!Chromes]]
 
                  ; find chat
                  [:y :!Cv [:Telegram :dvorak]]
+                 [:y :!Ck [:Telegram :russian]]
                  [:y :!Cv [:Slack :dvorak]]
+                 [:y :!Ck [:Slack :russian]]
                 ]}
       {:des "essential movements - emacs flavor"
          :rules [:emacs-space-mode
@@ -430,9 +461,9 @@
                   ;[:!Sequal_sign [:send_to_desktop 15]]
 
                   ; fzf cd
-                  [:h [:escape :i] [:dvorak :Kitty]]
+                  [:h [:escape :i] [:!us :Kitty]]
                   ; fzf find-file
-                  [:y :!Tk [:dvorak :Kitty]]
+                  [:y :!Tk [:!us :Kitty]]
                 ]}
        {:des "spotify"
           :rules [:s-mode
