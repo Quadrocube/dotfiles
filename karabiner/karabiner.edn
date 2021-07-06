@@ -400,7 +400,9 @@
        {:des "essential movements - chrome flavor"
          :rules [:chrome-space-mode
                  ; tab search in Chrome
-                 [:tab :!CSa]
+                 [:y :!CSa]
+                 ; to previous tab - relies on Previous Tab extension
+                 [:tab :!Tx]
                  ; Vimium in Chrome
                  [:s :y]
                 ]}
