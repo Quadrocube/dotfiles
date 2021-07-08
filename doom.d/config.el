@@ -274,7 +274,11 @@
   "s-L" #'+evil/window-move-right
   "s-H" #'+evil/window-move-left
   "s-J" #'+evil/window-move-down
-  "s-K" #'+evil/window-move-up))
+  "s-K" #'+evil/window-move-up
+  "s-q" #'evil-quit
+  "s-t" #'evil-window-vsplit
+  "s-T" #'evil-window-split
+  ))
 
 (defun spolakh/goto-karabiner-edn ()
   (interactive)
@@ -311,7 +315,12 @@
 (use-package! flx
   :config
   (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
+        '(
+          ;; ('counsel-ag . ivy--regex-plus)
+          ;; ('counsel-rg . ivy--regex-plus)
+          (counsel-ag . ivy--regex-plus)
+          (counsel-rg . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
   )
 
 (after! ivy
@@ -1631,6 +1640,20 @@
   (setq lsp-gopls-codelens nil)
   ;;(setq lsp-gopls-complete-unimported t)
   )
+
+(use-package! dap-mode
+  :config
+  (require 'dap-go)
+  ;(dap-go-setup)
+  (setq dap-auto-configure-features '(sessions expressions locals controls tooltip))
+  (add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
+  (defun spolakh/dap-yank-value-at-point (node)
+    (interactive (list (treemacs-node-at-point)))
+    (kill-new (message (plist-get (button-get node :item) :value))))
+  (setq dap-ui-variable-length 250)
+  )
+
 
 (use-package! lsp-ui
   :commands lsp-ui-mode

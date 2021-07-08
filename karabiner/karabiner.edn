@@ -164,7 +164,7 @@
                 [:!Copen_bracket ["two screens" 1] ["two screens" 0] :dvorak]
                 [:!Copen_bracket ["two screens" 0] ["two screens" 1] :dvorak]
 
-                [:!Cx ["/usr/local/bin/yabai -m window --close"]]
+                [:!Cx ["/usr/local/bin/yabai -m window --close"] [:!Emacs]]
 
                 ; toggle floating and bring to center
                 [:!Ce ["/usr/local/bin/yabai -m window --toggle float; /usr/local/bin/yabai -m window --grid 4:4:1:1:2:2"] :!dvorak]
@@ -417,6 +417,8 @@
                   [:i [:focus_desktop 10]]
                   [:9 [:open_app "Todoist"]]
                   [:o [:focus_desktop 7]]
+                  [:7 [:open_app "GoLand"]]
+                  [:u [:focus_desktop 6]]
                   ;[:u [:emacs "@work"]]
                   ;[:!Sequal_sign [:send_to_desktop 14]]
                   ; Ω
