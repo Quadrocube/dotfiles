@@ -414,7 +414,8 @@
        {:des "exo"
           :rules [:z-mode
                   [:8 [:open_app "Emacs"]]
-                  [:i [:focus_desktop 10]]
+                  ;[:i [:focus_desktop 10]]
+                  [:i [:focus_desktop 21]]
                   [:9 [:open_app "Todoist"]]
                   [:o [:focus_desktop 7]]
                   [:7 [:open_app "GoLand"]]

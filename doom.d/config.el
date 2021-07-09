@@ -711,12 +711,6 @@
           subtree-end
         nil)))
 
-  (defun spolakh/org-agenda-redo ()
-    (interactive)
-    (with-current-buffer "*Org Agenda*"
-      (org-agenda-maybe-redo)))
-  (add-hook 'after-revert-hook #'spolakh/org-agenda-redo)
-
   ; attempts at coloring the agenda
   ;; 1. (propertize "Project" 'font-lock-face '(:foreground "red")) - apparently agenda doesn't use font-lock at all
   ;; 2. highlight-regexp
@@ -1645,7 +1639,7 @@
   :config
   (require 'dap-go)
   ;(dap-go-setup)
-  (setq dap-auto-configure-features '(sessions expressions locals controls tooltip))
+  (setq dap-auto-configure-features '(sessions expressions locals tooltip))
   (add-hook 'dap-stopped-hook
           (lambda (arg) (call-interactively #'dap-hydra)))
   (defun spolakh/dap-yank-value-at-point (node)
