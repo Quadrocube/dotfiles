@@ -1460,6 +1460,25 @@
       (ignore-errors (evil-window-right 10))
       (evil-goto-line)
       ))
+  (defun spolakh/open-hints-file (name)
+    (interactive)
+    (progn
+      (find-file (concat spolakh/org-roam-directory name))
+      (beginning-of-buffer)
+      (re-search-forward "How to do daily" nil 1)
+      (recenter-top-bottom 0)
+      (point)
+      ))
+  (defun spolakh/org-roam-jump-to-resthints ()
+    (interactive)
+    (progn
+      (+workspace-switch "rest hints" t)
+      (spolakh/open-hints-file "/inspiration.org")
+      (evil-window-vsplit)
+      (spolakh/open-hints-file "/relaxation.org")
+      (evil-window-vsplit)
+      (spolakh/open-hints-file "/recharging.org")
+      ))
 
   :config
 
@@ -1505,6 +1524,7 @@
          :desc "Entrypoint" "e" 'org-roam-jump-to-index
          :desc "Strategy" "W" 'spolakh/org-roam-jump-to-strategy
          :desc "Plans for the Week" "w" 'spolakh/org-roam-jump-to-weekplan
+         :desc "Hints on possible ways to rest" "h" 'spolakh/org-roam-jump-to-resthints
          :desc "Insert a link to a Note" "l" 'org-roam-insert
          :desc "Find File" "f" 'org-roam-find-file
          :desc "Switch to Buffer" "b" 'org-roam-switch-to-buffer
