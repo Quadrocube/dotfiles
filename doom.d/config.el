@@ -350,7 +350,7 @@
   :init
 
   (setq org-num-max-level 1)
-  (setq org-roam-db-update-idle-seconds 20)
+  (setq org-roam-db-update-idle-seconds 40)
   (defun spolakh/maybe-enum-org-headers ()
     (if (spolakh/is-this-an-org-roam-index-file) (org-num-mode)))
 

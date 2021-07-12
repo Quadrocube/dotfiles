@@ -64,7 +64,8 @@ alias newmacaddr="sudo ifconfig en0 ether $(openssl rand -hex 6 | sed 's/\(..\)/
 # History
 export HISTFILESIZE=
 export HISTSIZE=
-# export HISTCONTROL=erasedups
+export HISTCONTROL=
+export HISTIGNORE=
 export HISTFILE=~/.bash_eternal_history
 # shopt -s histappend
 
