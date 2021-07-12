@@ -1466,8 +1466,6 @@
       (find-file (concat spolakh/org-roam-directory name))
       (beginning-of-buffer)
       (re-search-forward "How to do daily" nil 1)
-      (recenter-top-bottom 0)
-      (point)
       ))
   (defun spolakh/org-roam-jump-to-resthints ()
     (interactive)
@@ -1478,6 +1476,11 @@
       (spolakh/open-hints-file "/relaxation.org")
       (evil-window-vsplit)
       (spolakh/open-hints-file "/recharging.org")
+      (recenter-top-bottom 0)
+      (ignore-errors (evil-window-right 1))
+      (recenter-top-bottom 0)
+      (ignore-errors (evil-window-right 1))
+      (recenter-top-bottom 0)
       ))
 
   :config
