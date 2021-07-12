@@ -416,7 +416,7 @@
           :rules [:z-mode
                   [:8 [:open_app "Emacs"]]
                   ;[:i [:focus_desktop 10]]
-                  [:i [:focus_desktop 21]]
+                  [:i [:focus_desktop 11]]
                   [:9 [:open_app "Todoist"]]
                   [:o [:focus_desktop 7]]
                   [:7 [:open_app "GoLand"]]
@@ -503,6 +503,9 @@
                   [:i [:focus_desktop 5]]
                   [:7 [:open_app "Google Chrome"]]
                   [:u [:focus_desktop 4]]
+
+                  ; f (~ find file) to focus the url field
+                  [:y :!Cp]
 
                   ; [:j [:km "grail: open console"]]
                   ; TODO: figure out how to find Chrome's desktop & how to bind it to Shift-c-=)

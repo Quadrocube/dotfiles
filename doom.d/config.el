@@ -350,6 +350,7 @@
   :init
 
   (setq org-num-max-level 1)
+  (setq org-roam-db-update-idle-seconds 20)
   (defun spolakh/maybe-enum-org-headers ()
     (if (spolakh/is-this-an-org-roam-index-file) (org-num-mode)))
 
@@ -1296,69 +1297,6 @@
           )
 )
 
-(use-package! org-gcal
-  :init
-  ;; Storing my creds in a secret file so I don't commit them here.
-  (require 'json)
-  (defun get-gcal-config-value (key)
-    "Return the value of the json file gcal_secret for key"
-    (cdr (assoc key (json-read-file "~/Dropbox/code/credentials/gcal.json")))
-    )
-
-  (setq org-gcal-client-id (get-gcal-config-value 'org-gcal-client-id)
-        org-gcal-client-secret (get-gcal-config-value 'org-gcal-client-secret)
-        org-gcal-file-alist `(
-                              (,(get-gcal-config-value 'calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal.org"))
-                              ;(,(get-gcal-config-value 'work-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-grail.org"))
-                              (,(get-gcal-config-value 'birthday-calendar-id) .  ,(concat spolakh/org-gcal-directory "gcal-birthdays.org"))
-                              )
-        org-gcal-remove-api-cancelled-events t
-        org-gcal-update-cancelled-events-with-todo t
-        org-gcal-remove-events-with-cancelled-todo t
-        org-gcal-up-days 1
-        org-gcal-down-days 7
-        org-gcal-notify-p nil
-        org-gcal-auto-archive nil
-        org-gcal-recurring-events-mode 'top-level
-        )
-  :config
-    ;; org-gcal exclude declined events
-    (defun cce/filter-gcal-event-declined (event)
-      "Function for [org-gcal-fetch-event-filters]."
-      (let* ((case-fold-search t)
-            (attendees (plist-get event :attendees))
-            (my-response (when attendees
-                            (cl-reduce (lambda (last next)
-                                      (if (plist-get next :self) next last))
-                                    attendees
-                                    :initial-value nil))))
-        (cond ((string-match "office hour" (plist-get event :summary))
-              nil)
-              ((string-equal (plist-get my-response :responseStatus) "declined")
-              nil)
-              (t t))))
-
-    (add-to-list 'org-gcal-fetch-event-filters 'cce/filter-gcal-event-declined)
-    (defun spolakh/org-gcal-sync ()
-      (interactive)
-      (org-gcal-fetch))
-    ; every time the sync was successful, overwrite the file from scratch to prevent duplicate i
-    (defun spolakh/wipe-gcal (&rest r)
-      (progn
-        (advice-remove #'org-gcal-sync-buffer #'spolakh/wipe-gcal)
-        (dolist (og org-gcal-file-alist)
-          (let* ((filename (cdr og))
-                (fsize (file-attribute-size (file-attributes filename))))
-            (progn (if (and fsize (> fsize 0))
-                (rename-file filename (s-replace "gcal" "gcal-stable" filename) t))))))
-      )
-    (defun spolakh/wipe-gcal-and-refetch ()
-      (interactive)
-      (progn (advice-add #'org-gcal-sync-buffer :after #'spolakh/wipe-gcal) (call-interactively #'spolakh/org-gcal-sync))
-      )
-    (run-with-idle-timer 60 t 'spolakh/wipe-gcal-and-refetch)
-)
-
 (defvar spolakh/helm-input "")
 ; searching tasks
 (use-package! helm-org-rifle
@@ -1443,17 +1381,11 @@
   "prefix to use for the filenames of daily notes")
 
 (use-package! org-roam
-  :after
-  org
-  ts
-  :hook
-  (after-init . org-roam-mode)
   :init
   ; currently (✓ (124/187) org-roam updated (0cce9d1 -> a7cf48e)) is broken
   (setq org-roam-rename-file-on-title-change nil)
   ; org-roam-title-change-hook
 
-  (add-hook 'after-init-hook 'org-roam-mode)
   ;; (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal :underline "#ffffff")
   (set-face-attribute 'org-roam-link nil :underline nil :weight 'normal)
   (setq org-roam-directory spolakh/org-roam-directory)
@@ -1578,6 +1510,7 @@
          :desc "Org-Roam Capture" "C" 'org-roam-capture
          :desc "Org Capture" "c" 'org-capture
          :desc "Sidebar" "r" 'org-roam-buffer-toggle-display
+         :desc "Update cache" "R" 'org-roam-db-build-cache
          :desc "s/Today" "t" 'spolakh/org-roam-dailies-find-today
          :desc "Alias Add" "a" 'org-roam-alias-add
          ))
@@ -1663,16 +1596,18 @@
 
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
 
-(use-package! company-tabnine
-  :after company
-  :init
-  ;; (setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
-  ;; (setq +lsp-company-backends '(company-lsp company-yasnippet))
-  (setq +lsp-company-backends '(company-tabnine company-yasnippet))
-)
+;; Something is slowing down my completions to a crawl. Blaming tabnine for now
+;; maybe try turning off local deep learning model? although it should only be intensive upfront, not during completions, right?
+;; (use-package! company-tabnine
+;;   :after company
+;;   :init
+;;   ;; (setq +lsp-company-backends '(company-lsp company-tabnine company-yasnippet))
+;;   ;; (setq +lsp-company-backends '(company-lsp company-yasnippet))
+;;   (setq +lsp-company-backends '(company-tabnine company-yasnippet))
+;; )
 
-(after! spell-fu
-  (setq spell-fu-idle-delay 0.5))
+;; (after! spell-fu
+;;   (setq spell-fu-idle-delay 0.5))
 
 (use-package! company
   :init
