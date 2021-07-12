@@ -357,6 +357,7 @@
   (add-hook 'org-mode-hook 'spolakh/maybe-enum-org-headers)
   ; org-roam's completion backend is too slow to call it immediately
   (add-hook 'org-mode-hook (lambda () (setq company-idle-delay 0.35)))
+  (add-hook 'org-mode-hook (lambda () (doom-disable-delete-trailing-whitespace-h)))
 
   :config
   (map!
