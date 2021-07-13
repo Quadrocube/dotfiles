@@ -1564,7 +1564,7 @@
 
 ; LSP
 ; https://arenzana.org/2019/12/emacs-go-mode-revisited/
-
+(put 'projectile-main-project 'safe-local-variable #'stringp)
 (setq read-process-output-max (* 10 1024 1024)) ;; 10mb
 (use-package! lsp-mode
   :commands (lsp lsp-deferred)
