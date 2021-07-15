@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-# delete monocle mode lock files from previous sessions
-find "${TMPDIR}" -type f -perm +111 -name "yabai_${USER}_monocle_mode_*" -delete
-
 # global settings
 yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          autoraise
@@ -29,10 +26,17 @@ yabai -m config right_padding                12
 yabai -m config window_gap                   06
 
 # specific apps
-yabai -m rule --add app!="^(Google Chrome|Spotify|Emacs|Slack|Skype|Telegram|Discord|kitty|GoLand|MySQLWorkbench|League of Legends|SnippetsLab|Finder|Messenger|Todoist|Dash|zoom.us|Firefox|Preview)$" space=1
+#yabai -m rule --add app!="^(Google Chrome|Spotify|Emacs|Slack|Skype|Telegram|Discord|kitty|GoLand|MySQLWorkbench|League of Legends|SnippetsLab|Finder|Messenger|Todoist|Dash|zoom.us|Firefox)$" space=1
+# TODO ohh I can make the order.py run on display changed as a script maybe?
+yabai -m rule --add app!="^Preview$" space=1
 
 yabai -m rule --add app=Emacs manage=on
 yabai -m rule --add app="^Alfred$" sticky=on
+
+my_dir="$(dirname "$0")"
+
+chmod +x "$my_dir/yabairc-trait"
+"$my_dir/yabairc-trait"
 
 echo "yabai configuration loaded.."
 

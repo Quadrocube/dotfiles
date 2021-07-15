@@ -31,20 +31,21 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string.
 ;;
+;(setq doom-unicode-extra-fonts '("Apple Color Emoji" "Weather Icons" "github-octicons" "FontAwesome" "all-the-icons" "file-icons" "Material Icons"))
+; https://github.com/edwardtufte/et-book
+
+; so that yabai can properly tile emacs'es window
+(menu-bar-mode t)
+
 ;(setq doom-font (font-spec :family "monospace" :size 14))
 ; spolakh/FAVS:
 ;(setq doom-font (font-spec :family "Anonymous Pro" :size 13 :weight 'bold))
 ;  (setq doom-font "Fira Code-12")
 ;  (setq doom-font "Ubuntu Mono-14")
 ;; (setq doom-font "-*-Menlo-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1")
-(setq doom-font (font-spec :family "Menlo" :size 12 :weight 'extra-light))
-;(setq doom-unicode-extra-fonts '("Apple Color Emoji" "Weather Icons" "github-octicons" "FontAwesome" "all-the-icons" "file-icons" "Material Icons"))
-; https://github.com/edwardtufte/et-book
+;; (setq doom-font (font-spec :family "Menlo" :size 12 :weight 'extra-light))
+(setq doom-font (font-spec :family "Menlo" :size 12 :weight 'light))
 ;(setq doom-variable-pitch-font (font-spec :family "ETBook" :size 18 :weight 'extra-light))
-
-; so that yabai can properly tile emacs'es window
-(menu-bar-mode t)
-
 (setq doom-variable-pitch-font (font-spec :family "Cochin" :size 16 :weight 'extra-light))
 (setq buffer-file-coding-system 'utf-8-unix)
 (prefer-coding-system 'utf-8)
