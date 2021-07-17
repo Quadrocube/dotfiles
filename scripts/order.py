@@ -138,7 +138,7 @@ class Layout:
 app_sets = {}
 app_sets["messengers"] = ["Slack", "Skype", "Telegram", "Discord", "Messenger", "zoom.us"]
 app_sets["editors"] = ["Emacs", "GoLand"]
-app_sets["browsers"] = ["Google Chrome", "Finder", "MySQLWorkbench", "Todoist", "Firefox"]
+app_sets["browsers"] = ["Google Chrome", "Finder", "MySQLWorkbench", "Todoist", "Firefox", "DataGrip"]
 app_sets["media"] = ["Spotify"]
 app_sets["reference_docs"] = ["SnippetsLab", "Dash"]
 app_sets["terminals"] = ["kitty"]

@@ -73,6 +73,8 @@ export EDITOR=vim
 
 export HUSKY_SKIP_HOOKS=true
 
+export GPG_TTY=$(tty)
+
 # PS1
 RESET="\[\033[0m\]"
 RED="\[\033[0;31m\]"
